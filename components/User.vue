@@ -18,9 +18,7 @@
 
 <template>
   <section :id='$style.container'>
-    <div :id='$style.leftbar'>
-      <LeftBar />
-    </div>
+    User
   </section>
 </template>
 
@@ -32,10 +30,7 @@ export default {}
 
 #container
   display: flex
-  height: 100vh
-
-#leftbar
-  display: flex
-  height: 100vh
+  color: white
+  padding: 10pt
 
 </style>

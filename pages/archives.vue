@@ -36,6 +36,7 @@ export default {}
 
 #leftbar
   display: flex
+  width: 50pt
   height: 100vh
 
 </style>

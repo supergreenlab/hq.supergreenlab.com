@@ -17,25 +17,43 @@
  -->
 
 <template>
-  <section :id='$style.container'>
-    <div :id='$style.leftbar'>
-      <LeftBar />
-    </div>
+  <section :id='$style.container' :class='selected ? $style.selected : ""'>
+    <nuxt-link :to='to'>
+      <img :src='icon' />
+    </nuxt-link>
+    <nuxt-link :to='to'>
+      {{ title }}
+    </nuxt-link>
   </section>
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['icon', 'title', 'to'],
+  computed: {
+    selected() {
+      return this.$route.path == this.$props.to
+    },
+  },
+}
 </script>
 
 <style module lang=stylus>
 
 #container
   display: flex
-  height: 100vh
+  flex-direction: column
+  justify-content: center
+  padding: 10pt 5pt
+  margin: 0 5pt
 
-#leftbar
-  display: flex
-  height: 100vh
+#container > a
+  color: white
+  text-decoration: none
+  text-align: center
+
+.selected
+  background-color: rgba(255, 255, 255, 0.2)
+  border-radius: 5pt
 
 </style>

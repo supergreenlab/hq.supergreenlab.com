@@ -28,6 +28,7 @@ const RPI_URL=process.env.RPI_URL
 
 export const state = () => {
   let defaults = {
+    me: null,
     token: null,
     error: false,
     loading: false,
@@ -41,10 +42,11 @@ const storeState = (state) => {
 }
 
 export const actions = {
-  async nuxtClientInit({ commit }) {
+  async nuxtClientInit({ commit, dispatch }) {
     const saved = loadFromStorage(STORAGE_ITEM)
     if (saved) {
       commit('setState', JSON.parse(saved))
+      await dispatch('loadMe')
     }
   },
   async login({ commit, dispatch }, { login, password }) {
@@ -56,6 +58,8 @@ export const actions = {
       })
       const token = resp.headers['x-sgl-token']
 
+      await dispatch('loadMe')
+
       commit('setToken', token)
       commit('setLoggedIn', true)
     } catch(e) {
@@ -63,11 +67,22 @@ export const actions = {
     }
     commit('setLoading', false)
   },
+  async loadMe({ commit, state }) {
+    const { token } = state
+    const { data } = await axios.get(`${API_URL}/users/me`, {
+      headers: {'Authorization': `Bearer ${token}`}
+    });
+    commit('setUser', data)
+  },
 }
 
 export const mutations = {
   setState(state, newState) {
     Object.assign(state, newState)
+  },
+  setUser(state, user) {
+    state.user = user
+    storeState(state)
   },
   setToken(state, token) {
     state.token = token

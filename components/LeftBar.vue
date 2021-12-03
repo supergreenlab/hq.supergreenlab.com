@@ -18,24 +18,37 @@
 
 <template>
   <section :id='$style.container'>
-    <div :id='$style.leftbar'>
-      <LeftBar />
-    </div>
+    <img :id='$style.logo' src='~/assets/img/logo.svg' />
+    <div :id='$style.separator'></div>
+    <LeftBarItem :icon='require("~/assets/img/icon_dashboard.svg")' title='Dashboard' to='/' />
+    <LeftBarItem :icon='require("~/assets/img/icon_archives.svg")' title='Archives' to='/archives' />
+    <div :id='$style.spacer'></div>
+    <User />
   </section>
 </template>
 
 <script>
-export default {}
+export default {
+}
 </script>
 
 <style module lang=stylus>
 
 #container
   display: flex
-  height: 100vh
+  flex-direction: column
+  background-color: #454545
 
-#leftbar
-  display: flex
-  height: 100vh
+#logo
+  padding: 10pt
+
+#separator
+  background-color: white
+  height: 2px
+  width: 100%
+  margin: 10pt 0
+
+#spacer
+  flex: 1
 
 </style>
