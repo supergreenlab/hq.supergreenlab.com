@@ -59,7 +59,7 @@ export const actions = {
       let { data: { boxes } } = await axios.get(`${API_URL}/boxes?offset=0&limit=100`, {
         headers: {'Authorization': `Bearer ${token}`}
       })
-      let { data: { timelapses } } = await axios.get(`${API_URL}/timelapses?offset=0&limit=100`, {
+      let { data: { timelapses } } = await axios.get(`${API_URL}/timelapses?addNFrames=true&offset=0&limit=100`, {
         headers: {'Authorization': `Bearer ${token}`}
       })
       let { data: { plants } } = await axios.get(`${API_URL}/plants?offset=0&limit=100`, {
@@ -78,9 +78,10 @@ export const actions = {
         return b
       })
 
-      timelapses = timelapses.filter(t => !t.deleted).map((t, i) => {
+      timelapses = timelapses.filter(t => t.type == 'sglstorage' && !t.deleted).map((t, i) => {
         t = Object.assign({}, t, {
           plant: plants.find(p => p.id == t.plantID),
+          settings: JSON.parse(t.settings),
         })
         return t
       }).filter(t => !t.plant.deleted)
@@ -89,8 +90,8 @@ export const actions = {
         p = Object.assign({}, p, {
           box: boxes.find(b => b.id == p.boxID),
           timelapses: timelapses.filter(t => t.plantID == p.id).map(t => Object.assign({}, t, {plant: null})),
+          settings: JSON.parse(p.settings),
         })
-        p.settings = JSON.parse(p.settings)
         return p
       })
       commit('setDevices', devices)

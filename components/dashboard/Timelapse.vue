@@ -18,13 +18,33 @@
 
 <template>
   <section :id='$style.container'>
+    <img height='100px' :src='filePath' />
     {{ timelapse.name }}
   </section>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: ['timelapse'],
+  data() {
+    return {
+      filePath: null,
+      loading: true,
+    }
+  },
+  async created() {
+    const { timelapse } = this.$props
+    const { token } = this.$store.state.auth
+    const API_URL = process.env.API_URL
+    try {
+      const { data } = await axios.get(`${API_URL}/timelapse/${timelapse.id}/latest`, {
+        headers: {'Authorization': `Bearer ${token}`}
+      })
+      this.$data.filePath = `https://storage.supergreenlab.com${data.filePath}`
+    } catch(e) {}
+  },
 }
 </script>
 

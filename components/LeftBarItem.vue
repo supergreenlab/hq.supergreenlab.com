@@ -46,6 +46,7 @@ export default {
   justify-content: center
   padding: 10pt 5pt
   margin: 0 5pt
+  transition: background-color 0.3s
 
 #container > a
   color: white
