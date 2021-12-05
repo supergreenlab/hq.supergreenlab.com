@@ -50,5 +50,6 @@ export default {
 
 .timelapse
   display: flex
+  margin: 10px
 
 </style>

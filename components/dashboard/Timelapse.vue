@@ -18,8 +18,7 @@
 
 <template>
   <section :id='$style.container'>
-    <img height='100px' :src='filePath' />
-    {{ timelapse.name }}
+    <div :id='$style.pic' :style='{"background-image": `url(${filePath})`}' />
   </section>
 </template>
 
@@ -30,20 +29,37 @@ export default {
   props: ['timelapse'],
   data() {
     return {
+      video: null,
       filePath: null,
       loading: true,
     }
   },
   async created() {
     const { timelapse } = this.$props
+    const plant = this.$store.state.lab.plants.find(p => p.id == timelapse.plantID)
     const { token } = this.$store.state.auth
     const API_URL = process.env.API_URL
     try {
       const { data } = await axios.get(`${API_URL}/timelapse/${timelapse.id}/latest`, {
         headers: {'Authorization': `Bearer ${token}`}
       })
-      this.$data.filePath = `https://storage.supergreenlab.com${data.filePath}`
-    } catch(e) {}
+      const { data: dataOverlay } = await axios.post(`${API_URL}/sgloverlay`, {
+        box: Object.assign({}, plant.box, {settings: JSON.stringify(plant.box.settings), device: undefined,}),
+        plant: Object.assign({}, plant, {settings: JSON.stringify(plant.settings), box: undefined, timelapses: undefined,}),
+        meta: JSON.parse(data.meta),
+        url: `https://storage.supergreenlab.com${data.filePath}`,
+        host: "storage.supergreenlab.com",
+      }, {
+        responseType: 'arraybuffer',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+      this.$data.filePath = `data:image/gif;base64,${Buffer.from(dataOverlay, 'binary').toString('base64')}`
+    } catch(e) {
+      console.log(e)
+    }
   },
 }
 </script>
@@ -53,5 +69,13 @@ export default {
 #container
   display: flex
   flex-direction: column
+
+#pic
+  width: 300px
+  height: 200px
+  background-repeat: no-repeat
+  background-position: center
+  background-size: cover
+  border-radius: 5px
 
 </style>
