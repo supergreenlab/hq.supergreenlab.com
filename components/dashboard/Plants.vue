@@ -18,16 +18,20 @@
 
 <template>
   <section :id='$style.container'>
-    <img :src='`https://storage.supergreenlab.com${user.pic}`' width='50pt' height='50pt' />
-    {{ user.nickname }}
+    <SectionTitle :icon='require("~/assets/img/dashboard/icon_plants.svg")' title='Plants' />
+    <div :id='$style.plants'>
+      <div :class='$style.plant' v-for='p in plants' :key='p.id'>
+        <Plant :plant='p' />
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 export default {
   computed: {
-    user() {
-      return this.$store.state.auth.me
+    plants() {
+      return this.$store.state.lab.plants.filter(p => !p.archived)
     },
   },
 }
@@ -38,14 +42,13 @@ export default {
 #container
   display: flex
   flex-direction: column
-  align-items: center
-  justify-content: center
-  color: white
-  padding: 10pt
-  font-weight: bold
 
-#container > img
-  border-radius: 25pt
-  margin-bottom: 10pt
+#plants
+  display: flex
+  margin: 10px
+  flex-wrap: wrap
+
+.plant
+  display: flex
 
 </style>

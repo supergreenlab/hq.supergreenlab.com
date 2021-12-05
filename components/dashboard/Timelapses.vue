@@ -18,16 +18,20 @@
 
 <template>
   <section :id='$style.container'>
-    <img :src='`https://storage.supergreenlab.com${user.pic}`' width='50pt' height='50pt' />
-    {{ user.nickname }}
+    <SectionTitle :icon='require("~/assets/img/dashboard/icon_liveviews.svg")' title='Live views' />
+    <div :id='$style.timelapses'>
+      <div :class='$style.timelapse' v-for='t in timelapses' :key='t.id'>
+        <Timelapse :timelapse='t' />
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 export default {
   computed: {
-    user() {
-      return this.$store.state.auth.me
+    timelapses() {
+      return this.$store.state.lab.timelapses.filter(t => !t.plant.archived)
     },
   },
 }
@@ -38,14 +42,13 @@ export default {
 #container
   display: flex
   flex-direction: column
-  align-items: center
-  justify-content: center
-  color: white
-  padding: 10pt
-  font-weight: bold
 
-#container > img
-  border-radius: 25pt
-  margin-bottom: 10pt
+#timelapses
+  display: flex
+  margin: 10px
+  flex-wrap: wrap
+
+.timelapse
+  display: flex
 
 </style>

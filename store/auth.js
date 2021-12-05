@@ -24,7 +24,6 @@ import { loadFromStorage, saveToStorage } from '~/lib/client-side.js'
 
 const STORAGE_ITEM='auth'
 const API_URL=process.env.API_URL
-const RPI_URL=process.env.RPI_URL
 
 export const state = () => {
   let defaults = {
@@ -72,7 +71,7 @@ export const actions = {
     const { data } = await axios.get(`${API_URL}/users/me`, {
       headers: {'Authorization': `Bearer ${token}`}
     });
-    commit('setUser', data)
+    commit('setMe', data)
   },
 }
 
@@ -80,8 +79,8 @@ export const mutations = {
   setState(state, newState) {
     Object.assign(state, newState)
   },
-  setUser(state, user) {
-    state.user = user
+  setMe(state, me) {
+    state.me = me
     storeState(state)
   },
   setToken(state, token) {

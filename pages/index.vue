@@ -18,24 +18,24 @@
 
 <template>
   <section :id='$style.container'>
-    <div :id='$style.leftbar'>
-      <LeftBar />
-    </div>
+    <Timelapses />
+    <Plants />
   </section>
 </template>
 
 <script>
-export default {}
+export default {
+  layout: 'menu',
+}
 </script>
 
 <style module lang=stylus>
 
 #container
+  flex: 1
   display: flex
+  flex-direction: column
   height: 100vh
-
-#leftbar
-  display: flex
-  height: 100vh
+  overflow-y: auto
 
 </style>

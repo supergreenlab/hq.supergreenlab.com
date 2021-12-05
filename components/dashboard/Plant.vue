@@ -18,18 +18,13 @@
 
 <template>
   <section :id='$style.container'>
-    <img :src='`https://storage.supergreenlab.com${user.pic}`' width='50pt' height='50pt' />
-    {{ user.nickname }}
+    {{ plant.name }}
   </section>
 </template>
 
 <script>
 export default {
-  computed: {
-    user() {
-      return this.$store.state.auth.me
-    },
-  },
+  props: ['plant'],
 }
 </script>
 
@@ -38,14 +33,5 @@ export default {
 #container
   display: flex
   flex-direction: column
-  align-items: center
-  justify-content: center
-  color: white
-  padding: 10pt
-  font-weight: bold
-
-#container > img
-  border-radius: 25pt
-  margin-bottom: 10pt
 
 </style>

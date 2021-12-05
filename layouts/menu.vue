@@ -18,34 +18,33 @@
 
 <template>
   <section :id='$style.container'>
-    <img :src='`https://storage.supergreenlab.com${user.pic}`' width='50pt' height='50pt' />
-    {{ user.nickname }}
+    <div :id='$style.leftbar'>
+      <LeftBar />
+    </div>
+    <div :id='$style.body'>
+      <Nuxt />
+    </div>
   </section>
 </template>
 
 <script>
-export default {
-  computed: {
-    user() {
-      return this.$store.state.auth.me
-    },
-  },
-}
+export default {}
 </script>
 
 <style module lang=stylus>
 
 #container
   display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  color: white
-  padding: 10pt
-  font-weight: bold
+  height: 100vh
 
-#container > img
-  border-radius: 25pt
-  margin-bottom: 10pt
+#leftbar
+  display: flex
+  height: 100vh
+
+#body
+  flex: 1
+  display: flex
+  height: 100vh
+  overflow-y: auto
 
 </style>

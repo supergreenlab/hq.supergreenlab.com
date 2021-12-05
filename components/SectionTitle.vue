@@ -18,18 +18,14 @@
 
 <template>
   <section :id='$style.container'>
-    <img :src='`https://storage.supergreenlab.com${user.pic}`' width='50pt' height='50pt' />
-    {{ user.nickname }}
+    <img :src='icon' width='40px' height='30px' />
+    <h2>{{ title }}</h2>
   </section>
 </template>
 
 <script>
 export default {
-  computed: {
-    user() {
-      return this.$store.state.auth.me
-    },
-  },
+  props: ['title', 'icon',],
 }
 </script>
 
@@ -37,15 +33,15 @@ export default {
 
 #container
   display: flex
-  flex-direction: column
+  border-bottom: 1px solid #909090
+  width: 100%
+  color: #454545
+  margin: 10px 20px
+  padding-bottom: 5px
+  font-family: Roboto
   align-items: center
-  justify-content: center
-  color: white
-  padding: 10pt
-  font-weight: bold
 
 #container > img
-  border-radius: 25pt
-  margin-bottom: 10pt
+  margin-right: 5px
 
 </style>

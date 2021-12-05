@@ -22,6 +22,7 @@ export const actions = {
   nuxtClientInit(context) {
     onNuxtReady(() => {
       context.dispatch('auth/nuxtClientInit')
+      context.dispatch('lab/nuxtClientInit')
     })
   }
 }
