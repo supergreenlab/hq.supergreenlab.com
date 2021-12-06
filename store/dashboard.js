@@ -22,22 +22,20 @@ import axios from 'axios'
 
 import { loadFromStorage, saveToStorage } from '~/lib/client-side.js'
 
-const STORAGE_ITEM='auth'
+const STORAGE_ITEM='dashboard'
 const API_URL=process.env.API_URL
 
 export const state = () => {
   let defaults = {
-    me: null,
-    token: null,
-    error: false,
-    loading: false,
-    loggedIn: false,
+    timelapsesOrder: [],
+    excludedTimelapses: [],
+    cachedPics: {},
   };
   return defaults
 };
 
 const storeState = (state) => {
-  saveToStorage(STORAGE_ITEM, JSON.stringify(state))
+  saveToStorage(STORAGE_ITEM, JSON.stringify(Object.assign({}, state, {cachedPics: []})))
 }
 
 export const actions = {
@@ -45,33 +43,7 @@ export const actions = {
     const saved = loadFromStorage(STORAGE_ITEM)
     if (saved) {
       commit('setState', JSON.parse(saved))
-      await dispatch('loadMe')
     }
-  },
-  async login({ commit, dispatch }, { login, password }) {
-    commit('setLoading', true)
-    try {
-      const resp = await axios.post(`${API_URL}/login`, {
-        handle: login,
-        password,
-      })
-      const token = resp.headers['x-sgl-token']
-      commit('setToken', token)
-
-      await dispatch('loadMe')
-
-      commit('setLoggedIn', true)
-    } catch(e) {
-      commit('setError', true)
-    }
-    commit('setLoading', false)
-  },
-  async loadMe({ commit, state }) {
-    const { token } = state
-    const { data } = await axios.get(`${API_URL}/users/me`, {
-      headers: {'Authorization': `Bearer ${token}`}
-    });
-    commit('setMe', data)
   },
 }
 
@@ -79,23 +51,19 @@ export const mutations = {
   setState(state, newState) {
     Object.assign(state, newState)
   },
-  setMe(state, me) {
-    state.me = me
+  setTimelapsesOrder(state, timelapsesOrder) {
+    state.timelapsesOrder = timelapsesOrder
     storeState(state)
   },
-  setToken(state, token) {
-    state.token = token
+  addExcludedTimelapse(state, timelapse) {
+    state.excludedTimelapses.push(timelapse)
     storeState(state)
   },
-  setLoggedIn(state, loggedIn) {
-    state.loggedIn = loggedIn
-    storeState(state)
+  addCachedPic(state, { url, pic, }) {
+    state.cachedPics[url] = pic
   },
-  setLoading(state, loading) {
-    state.loading = loading
-  },
-  setError(state, error) {
-    state.error = error
+  removeCachedPic(state, url) {
+    delete state.cachedPics[url]
   },
 }
 

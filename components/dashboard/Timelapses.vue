@@ -19,20 +19,87 @@
 <template>
   <section :id='$style.container'>
     <SectionTitle :icon='require("~/assets/img/dashboard/icon_liveviews.svg")' title='Live views' />
-    <div :id='$style.timelapses'>
-      <div :class='$style.timelapse' v-for='t in timelapses' :key='t.id'>
-        <Timelapse :timelapse='t' />
+    <div :id='$style.timelapses' @mouseup='mouseUp' @mousemove='mouseMove'>
+      <div v-for='t in timelapses' :class='$style.timelapse' :key='t.id' @mousedown='mouseDown($event, t)' :ref='t.id'>
+        <Timelapse :timelapse='t' :dragged='dragging == t' />
       </div>
+    </div>
+    <div v-if='draggingOver' :id='$style.draggingoverframe' :style='{top: draggingOverFrame.y, left: draggingOverFrame.x, width: draggingOverFrame.width, height: draggingOverFrame.height}'></div>
+    <div v-if='dragging' :id='$style.dragging' :style='{top: `${mouseY - draggingY}px`, left: `${mouseX - draggingX}px`}' @mouseup='mouseUp' @mousemove='mouseMove'>
+      <Timelapse :timelapse='dragging' />
     </div>
   </section>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      dragging: null,
+      draggingOver: null,
+      mouseX: 0,
+      mouseY: 0,
+      draggingX: 0,
+      draggingY: 0,
+    }
+  },
   computed: {
     timelapses() {
-      return this.$store.state.lab.timelapses.filter(t => !t.plant.archived)
+      let timelapsesOrder = this.$store.state.dashboard.timelapsesOrder
+      const timelapses = this.$store.state.lab.timelapses.filter(t => !t.plant.archived)
+      if (timelapsesOrder.length != timelapses.length) {
+        timelapsesOrder = timelapses.map(t => t.id)
+        this.$store.commit('dashboard/setTimelapsesOrder', timelapsesOrder)
+      }
+      return timelapses.sort((t1, t2) => timelapsesOrder.indexOf(t2.id) - timelapsesOrder.indexOf(t1.id))
     },
+    draggingOverFrame() {
+      if (!this.$data.draggingOver) return {x: 0, y: 0, width: 0, height: 0}
+      const coord = this.$refs[this.$data.draggingOver.id][0].getBoundingClientRect()
+      return {
+        x: `${coord.left + window.pageXOffset}px`,
+        y: `${coord.top + window.pageYOffset}px`,
+        width: `${coord.width}px`,
+        height: `${coord.height}px`,
+      }
+    },
+  },
+  methods: {
+    mouseMove(e) {
+      if (!this.$data.dragging) return
+      this.$data.mouseX = e.pageX
+      this.$data.mouseY = e.pageY
+      for (let key in this.$refs) {
+        const ref = this.$refs[key]
+        const coord = ref[0].getBoundingClientRect()
+        const x = coord.left + window.pageXOffset,
+              y = coord.top + window.pageYOffset
+        if (this.$data.mouseX > x && this.$data.mouseY > y && this.$data.mouseX < x + coord.width && this.$data.mouseY < y + coord.height) {
+          this.$data.draggingOver = this.timelapses.find(t => t.id == key)
+          break
+        }
+      }
+      return false
+    },
+    mouseDown(e, timelapse) {
+      this.$data.mouseX = e.pageX
+      this.$data.mouseY = e.pageY
+      this.$data.draggingX = e.offsetX
+      this.$data.draggingY = e.offsetY
+      this.$data.dragging = timelapse
+    },
+    mouseUp() {
+      if (this.$data.draggingOver && this.$data.draggingOver.id != this.$data.dragging.id) {
+        let timelapsesOrder = [...this.$store.state.dashboard.timelapsesOrder]
+        let added = false
+        let fromIndex = timelapsesOrder.indexOf(this.$data.dragging.id)
+        let toIndex = timelapsesOrder.indexOf(this.$data.draggingOver.id)
+        timelapsesOrder.splice(toIndex, 0, timelapsesOrder.splice(fromIndex, 1)[0]);
+        this.$store.commit('dashboard/setTimelapsesOrder', timelapsesOrder)
+      }
+      this.$data.dragging = null
+      this.$data.draggingOver = null
+    }
   },
 }
 </script>
@@ -42,6 +109,7 @@ export default {
 #container
   display: flex
   flex-direction: column
+  user-select: none
 
 #timelapses
   display: flex
@@ -51,5 +119,16 @@ export default {
 .timelapse
   display: flex
   margin: 10px
+
+#dragging
+  position: absolute
+  opacity: 0.5
+
+#draggingoverframe
+  position: absolute
+  border: 4px solid #3bb30b
+  border-radius: 5px
+  background-color: rgba(255, 255, 255, 0.4)
+  transition: all 0.3s
 
 </style>

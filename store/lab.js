@@ -26,10 +26,10 @@ const API_URL=process.env.API_URL
 
 export const state = () => {
   let defaults = {
-    devices: null,
-    boxes: null,
-    plants: null,
-    timelapses: null,
+    devices: [],
+    boxes: [],
+    plants: [],
+    timelapses: [],
 
     error: false,
     loading: false,
