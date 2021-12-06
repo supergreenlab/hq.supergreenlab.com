@@ -32,6 +32,18 @@
 </template>
 
 <script>
+
+// https://stackoverflow.com/questions/5306680/move-an-array-element-from-one-array-position-to-another?rq=1
+function array_move(arr, old_index, new_index) {
+  if (new_index >= arr.length) {
+    var k = new_index - arr.length + 1;
+    while (k--) {
+      arr.push(undefined);
+    }
+  }
+  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+};
+
 export default {
   data() {
     return {
@@ -45,13 +57,19 @@ export default {
   },
   computed: {
     timelapses() {
-      let timelapsesOrder = this.$store.state.dashboard.timelapsesOrder
+      let timelapsesOrder = [...this.$store.state.dashboard.timelapsesOrder]
       const timelapses = this.$store.state.lab.timelapses.filter(t => !t.plant.archived)
-      if (timelapsesOrder.length != timelapses.length) {
-        timelapsesOrder = timelapses.map(t => t.id)
+      let orderChanged = false
+      for (let i in timelapses) {
+        if (timelapsesOrder.indexOf(timelapses[i].id) == -1) {
+          orderChanged = true
+          timelapsesOrder.unshift(timelapses[i].id)
+        }
+      }
+      if (orderChanged) {
         this.$store.commit('dashboard/setTimelapsesOrder', timelapsesOrder)
       }
-      return timelapses.sort((t1, t2) => timelapsesOrder.indexOf(t2.id) - timelapsesOrder.indexOf(t1.id))
+      return timelapses.sort((t1, t2) => timelapsesOrder.indexOf(t1.id) - timelapsesOrder.indexOf(t2.id))
     },
     draggingOverFrame() {
       if (!this.$data.draggingOver) return {x: 0, y: 0, width: 0, height: 0}
@@ -94,7 +112,7 @@ export default {
         let added = false
         let fromIndex = timelapsesOrder.indexOf(this.$data.dragging.id)
         let toIndex = timelapsesOrder.indexOf(this.$data.draggingOver.id)
-        timelapsesOrder.splice(toIndex, 0, timelapsesOrder.splice(fromIndex, 1)[0]);
+        array_move(timelapsesOrder, fromIndex, toIndex)
         this.$store.commit('dashboard/setTimelapsesOrder', timelapsesOrder)
       }
       this.$data.dragging = null
