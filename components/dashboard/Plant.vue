@@ -21,7 +21,10 @@
     <div :id='$style.name'>{{ plant.name }}</div>
     <div :id='$style.pic' :style='{"background-image": `url(${filePath})`}'></div>
     <div :class='$style.label'>
-      <PlantLabel color='#BA9650' :icon='require("~/assets/img/dashboard/icon_seeds.jpg")' title='White widow'>pouet</PlantLabel>
+      <PlantLabel color='#BA9650' :icon='require("~/assets/img/dashboard/icon_seeds.jpg")' title='White widow'>
+        <template v-slot:left>pouet</template>
+        <template v-slot:right>pouet2</template>
+      </PlantLabel>
     </div>
     <div :class='$style.label'>
       <PlantLabel color='#0BB3A9' :icon='require("~/assets/img/dashboard/icon_environment.jpg")' title='Environment'>toto</PlantLabel>

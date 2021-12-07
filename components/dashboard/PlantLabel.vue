@@ -24,7 +24,10 @@
     <div :id='$style.body'>
       <div :id='$style.bodyleft'>
         <div :id='$style.title' :style='{color}'>{{ title }}</div>
-        <slot />
+        <slot name='left' />
+      </div>
+      <div :id='$style.bodyright'>
+        <slot name='right' />
       </div>
     </div>
   </section>
@@ -54,9 +57,20 @@ export default {
   background-color: white
 
 #body
+  flex: 1
+  display: flex
+  margin: 0 0 0 5px
+
+#bodyleft
+  flex: 1
   display: flex
   flex-direction: column
-  margin: 0 0 0 5px
+
+#bodyright
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 5px
 
 #title
   font-weight: bold
