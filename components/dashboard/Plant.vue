@@ -36,7 +36,7 @@
       <PlantLabel color='#6BBA50' :icon='require("~/assets/img/dashboard/icon_schedules.jpg")' title='Schedules'>toto</PlantLabel>
     </div>
     <div :id='$style.buttons' @mousedown='mouseDown'>
-      <nuxt-link :id='$style.button' to='/'>View plant</nuxt-link>
+      <nuxt-link :id='$style.button' to='/'><b>View plant</b></nuxt-link>
     </div>
   </section>
 </template>
@@ -134,6 +134,7 @@ export default {
   margin: 4pt 0
   white-space: nowrap
   transition: opacity 0.2s
+  text-transform: uppercase
   @media only screen and (max-width: 1000px)
     padding: 7pt 22pt
     font-size: 1.1em
@@ -148,7 +149,5 @@ export default {
 
 #button > b
   font-weight: 600
-
-
 
 </style>

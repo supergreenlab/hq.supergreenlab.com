@@ -65,6 +65,7 @@ export default {
   flex: 1
   display: flex
   flex-direction: column
+  padding-top: 3px
 
 #bodyright
   display: flex
