@@ -20,6 +20,21 @@
   <section :id='$style.container'>
     <div :id='$style.name'>{{ plant.name }}</div>
     <div :id='$style.pic' :style='{"background-image": `url(${filePath})`}'></div>
+    <div :class='$style.label'>
+      <PlantLabel color='#BA9650' :icon='require("~/assets/img/dashboard/icon_seeds.jpg")' title='White widow'>pouet</PlantLabel>
+    </div>
+    <div :class='$style.label'>
+      <PlantLabel color='#0BB3A9' :icon='require("~/assets/img/dashboard/icon_environment.jpg")' title='Environment'>toto</PlantLabel>
+    </div>
+    <div :class='$style.label'>
+      <PlantLabel color='#506EBA' :icon='require("~/assets/img/dashboard/icon_watering.jpg")' title='Latest watering'>toto</PlantLabel>
+    </div>
+    <div :class='$style.label'>
+      <PlantLabel color='#6BBA50' :icon='require("~/assets/img/dashboard/icon_schedules.jpg")' title='Schedules'>toto</PlantLabel>
+    </div>
+    <div :id='$style.buttons' @mousedown='mouseDown'>
+      <nuxt-link :id='$style.button' to='/'>View plant</nuxt-link>
+    </div>
   </section>
 </template>
 
@@ -87,7 +102,7 @@ export default {
   text-transform: uppercase
   font-weight: bold
   color: #454545
-  margin: 5px 0 5px 0
+  margin: 10px 0 10px 0
 
 #pic
   width: 250px
@@ -96,5 +111,41 @@ export default {
   background-position: center
   background-size: cover
   border-radius: 5px
+
+.label
+  margin: 10px 0 10px 0
+
+#buttons
+  display: flex
+  justify-content: flex-end
+
+#button
+  display: block
+  background-color: #3BB30B
+  text-align: center
+  padding: 8pt 25pt
+  border-radius: 5pt
+  color: white
+  text-decoration: none
+  font-size: 1.2em
+  margin: 4pt 0
+  white-space: nowrap
+  transition: opacity 0.2s
+  @media only screen and (max-width: 1000px)
+    padding: 7pt 22pt
+    font-size: 1.1em
+
+#button
+  padding: 6pt 18pt
+  font-size: 1em
+  border-radius: 4pt
+
+#button:hover
+  background-color: #2F880B
+
+#button > b
+  font-weight: 600
+
+
 
 </style>

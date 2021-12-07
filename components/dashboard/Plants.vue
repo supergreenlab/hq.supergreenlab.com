@@ -101,6 +101,8 @@ export default {
       return false
     },
     mouseDown(e, plant) {
+      this.$data.mouseX = e.pageX
+      this.$data.mouseY = e.pageY
       this.$data.draggingX = e.offsetX
       this.$data.draggingY = e.offsetY
       this.$data.dragging = plant

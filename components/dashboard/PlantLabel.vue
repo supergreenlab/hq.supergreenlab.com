@@ -18,36 +18,48 @@
 
 <template>
   <section :id='$style.container'>
-    <div :id='$style.header'>Dashboard</div>
-    <Timelapses />
-    <Plants />
+    <div :id='$style.iconcontainer' :style='{"background-color": color}'>
+      <img :id='$style.icon' :src='icon' />
+    </div>
+    <div :id='$style.body'>
+      <div :id='$style.bodyleft'>
+        <div :id='$style.title' :style='{color}'>{{ title }}</div>
+        <slot />
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 export default {
-  layout: 'menu',
+  props: ['color', 'icon', 'title'],
 }
 </script>
 
 <style module lang=stylus>
 
 #container
-  flex: 1
+  display: flex
+  border-radius: 5px
+  overflow: hidden
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+
+#iconcontainer
+  padding: 5px
+
+#iconcontainer > img
+  width: 30px
+  height: 30px
+  border-radius: 15px
+  background-color: white
+
+#body
   display: flex
   flex-direction: column
-  height: 100vh
-  overflow-y: auto
+  margin: 0 0 0 5px
 
-#container > div, #container > section
-  margin-bottom: 40px !important
-
-#header
-  background-color: white
-  padding: 10px
-  font-size: 40px
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
-  color: #454545
-  font-family: Roboto
+#title
+  font-weight: bold
+  text-transform: uppercase
 
 </style>

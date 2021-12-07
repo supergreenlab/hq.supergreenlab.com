@@ -33,13 +33,14 @@ export default {
 
 #container
   display: flex
-  border-bottom: 1px solid #909090
+  border-bottom: 2px solid #999999
   width: 100%
   color: #454545
   margin: 10px 20px
   padding-bottom: 5px
   font-family: Roboto
   align-items: center
+  font-size: 1.3em
 
 #container > img
   margin-right: 5px
