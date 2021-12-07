@@ -18,13 +18,58 @@
 
 <template>
   <section :id='$style.container'>
-    {{ plant.name }}
+    <div :id='$style.name'>{{ plant.name }}</div>
+    <div :id='$style.pic' :style='{"background-image": `url(${filePath})`}'></div>
   </section>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: ['plant'],
+  data() {
+    return {
+      filePath: null,
+      loading: true,
+    }
+  },
+  async mounted() {
+    const { token } = this.$store.state.auth
+    const API_URL = process.env.API_URL
+    try {
+      const url = `${API_URL}/feedMedias?feedid=${this.$props.plant.feedID}&deleted=false&limit=1`
+      const cachedPic = this.$store.state.dashboard.cachedPics[url]
+      if (cachedPic) {
+        this.$data.filePath = cachedPic
+        return
+      }
+
+      this.$data.loading = true
+      const { data: { feedmedias } } = await axios.get(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+
+      if (feedmedias.length == 0) {
+        return
+      }
+      const pic = `https://storage.supergreenlab.com${feedmedias[0].thumbnailPath}`
+      this.$data.filePath = pic
+      this.$store.commit('dashboard/addCachedPic', {url, pic})
+    } catch(e) {
+      console.log(e)
+    }
+    this.$data.loading = false
+  },
+  methods: {
+    mouseDown(e) {
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      return false
+    },
+  },
 }
 </script>
 
@@ -33,5 +78,23 @@ export default {
 #container
   display: flex
   flex-direction: column
+  background-color: white
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
+  padding: 5px
+  border-radius: 5px
+
+#name
+  text-transform: uppercase
+  font-weight: bold
+  color: #454545
+  margin: 5px 0 5px 0
+
+#pic
+  width: 250px
+  height: 200px
+  background-repeat: no-repeat
+  background-position: center
+  background-size: cover
+  border-radius: 5px
 
 </style>

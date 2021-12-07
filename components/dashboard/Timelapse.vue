@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import { loadFromStorage, saveToStorage } from '~/lib/client-side.js'
 import axios from 'axios'
 
 export default {
@@ -137,6 +136,10 @@ export default {
   display: flex
   flex-direction: column
   transition: opacity 0.3
+  background-color: white
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
+  padding: 5px
+  border-radius: 5px
 
 #pic
   position: relative
@@ -147,9 +150,12 @@ export default {
   background-size: cover
   border-radius: 5px
 
+#pic > video
+  border-radius: 5px
+
 #buttons
   display: flex
-  margin: 5px 0 0 0
+  margin: 5px 0 5px 0
 
 #buttons > a
   display: block

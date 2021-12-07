@@ -28,7 +28,7 @@ const API_URL=process.env.API_URL
 export const state = () => {
   let defaults = {
     timelapsesOrder: [],
-    excludedTimelapses: [],
+    plantsOrder: [],
     cachedPics: {},
   };
   return defaults
@@ -53,6 +53,10 @@ export const mutations = {
   },
   setTimelapsesOrder(state, timelapsesOrder) {
     state.timelapsesOrder = timelapsesOrder
+    storeState(state)
+  },
+  setPlantsOrder(state, plantsOrder) {
+    state.plantsOrder = plantsOrder
     storeState(state)
   },
   addExcludedTimelapse(state, timelapse) {

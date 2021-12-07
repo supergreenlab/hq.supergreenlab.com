@@ -46,5 +46,6 @@ export default {}
   display: flex
   height: 100vh
   overflow-y: auto
+  background-color: #F5F5F5
 
 </style>

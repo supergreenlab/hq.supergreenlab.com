@@ -58,7 +58,7 @@ export default {
   computed: {
     timelapses() {
       let timelapsesOrder = [...this.$store.state.dashboard.timelapsesOrder]
-      const timelapses = this.$store.state.lab.timelapses.filter(t => !t.plant.archived)
+      const timelapses = this.$store.state.lab.timelapses.filter(t => !t.plant.archived && !t.deleted)
       let orderChanged = false
       for (let i in timelapses) {
         if (timelapsesOrder.indexOf(timelapses[i].id) == -1) {
