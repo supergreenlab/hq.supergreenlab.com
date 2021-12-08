@@ -55,7 +55,7 @@
     <div :class='$style.label'>
       <PlantLabel color='#6BBA50' :icon='require("~/assets/img/dashboard/icon_schedules.jpg")' title='Schedules'>
         <template v-slot:left>
-          {{ schedules }}
+          <div :id='$style.schedules' v-html='schedules'></div>
         </template>
       </PlantLabel>
     </div>
@@ -99,7 +99,7 @@ export default {
       const off_hour = (plant.box.settings.schedules[plant.box.settings.schedule] || {}).OFF_HOUR
       const off_min = (plant.box.settings.schedules[plant.box.settings.schedule] || {}).OFF_MIN
 
-      return `From ${on_hour.toString().padStart(2, '0')}:${on_min.toString().padStart(2, '0')} to ${off_hour.toString().padStart(2, '0')}:${off_min.toString().padStart(2, '0')}`
+      return `From <b>${on_hour.toString().padStart(2, '0')}:${on_min.toString().padStart(2, '0')}</b> to <b>${off_hour.toString().padStart(2, '0')}:${off_min.toString().padStart(2, '0')}</b>`
     },
   },
   methods: {
@@ -293,6 +293,9 @@ export default {
   font-family: Roboto
   font-weight: 300
   font-size: 1.3em
+  color: #454545
+
+#schedules
   color: #454545
 
 </style>
