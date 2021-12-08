@@ -53,7 +53,11 @@
       </PlantLabel>
     </div>
     <div :class='$style.label'>
-      <PlantLabel color='#6BBA50' :icon='require("~/assets/img/dashboard/icon_schedules.jpg")' title='Schedules'>toto</PlantLabel>
+      <PlantLabel color='#6BBA50' :icon='require("~/assets/img/dashboard/icon_schedules.jpg")' title='Schedules'>
+        <template v-slot:left>
+          {{ schedules }}
+        </template>
+      </PlantLabel>
     </div>
     <div :id='$style.buttons' @mousedown='mouseDown'>
       <nuxt-link :id='$style.button' to='/'><b>View plant</b></nuxt-link>
@@ -84,7 +88,19 @@ export default {
     this.loadPic()
   },
   computed: {
+    schedules() {
+      const { plant } = this.$props
+      if (!plant.box.settings) {
+        return 'Not set'
+      }
 
+      const on_hour = (plant.box.settings.schedules[plant.box.settings.schedule] || {}).ON_HOUR
+      const on_min = (plant.box.settings.schedules[plant.box.settings.schedule] || {}).ON_MIN
+      const off_hour = (plant.box.settings.schedules[plant.box.settings.schedule] || {}).OFF_HOUR
+      const off_min = (plant.box.settings.schedules[plant.box.settings.schedule] || {}).OFF_MIN
+
+      return `From ${on_hour.toString().padStart(2, '0')}:${on_min.toString().padStart(2, '0')} to ${off_hour.toString().padStart(2, '0')}:${off_min.toString().padStart(2, '0')}`
+    },
   },
   methods: {
     mouseDown(e) {
