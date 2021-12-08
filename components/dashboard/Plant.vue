@@ -21,16 +21,36 @@
     <div :id='$style.name'>{{ plant.name }}</div>
     <div :id='$style.pic' :style='{"background-image": `url(${filePath})`}'></div>
     <div :class='$style.label'>
-      <PlantLabel color='#BA9650' :icon='require("~/assets/img/dashboard/icon_seeds.jpg")' title='White widow'>
-        <template v-slot:left>pouet</template>
-        <template v-slot:right>pouet2</template>
+      <PlantLabel color='#BA9650' :icon='require("~/assets/img/dashboard/icon_seeds.jpg")' :title='plant.settings.strain'>
+        <template v-slot:left><div :id='$style.seedbank'>from <b>{{ plant.settings.seedBank }}</b></div></template>
       </PlantLabel>
     </div>
     <div :class='$style.label'>
-      <PlantLabel color='#0BB3A9' :icon='require("~/assets/img/dashboard/icon_environment.jpg")' title='Environment'>toto</PlantLabel>
+      <PlantLabel color='#0BB3A9' :icon='require("~/assets/img/dashboard/icon_environment.jpg")' title='Environment'>
+        <template v-slot:left>
+          <div :id='$style.environment'>
+            <div :class='$style.metric' :style='{color: "green"}'>
+              <img src='~/assets/img/dashboard/icon_temperature.png' /> {{ metrics.temperature }}°
+            </div>
+            <div :class='$style.metric' :style='{color: "red"}'>
+              <img src='~/assets/img/dashboard/icon_humidity.png' /> {{ metrics.humidity }}%
+            </div>
+          </div>
+        </template>
+        <template v-slot:right>
+          <div :id='$style.daystatus' :style='{color: "green"}'>
+            <img src='~/assets/img/dashboard/icon_sunny.png' />
+            Sunny
+          </div>
+        </template>
+      </PlantLabel>
     </div>
     <div :class='$style.label'>
-      <PlantLabel color='#506EBA' :icon='require("~/assets/img/dashboard/icon_watering.jpg")' title='Latest watering'>toto</PlantLabel>
+      <PlantLabel color='#506EBA' :icon='require("~/assets/img/dashboard/icon_watering.jpg")' title='Latest watering'>
+        <template v-slot:left>
+          <div :id='$style.lastwatering'>{{ parseInt(((new Date()) - Date.parse(lastWatering.date)) / 1000 / 60 / 60 / 24) }} days {{ parseInt((((new Date()) - Date.parse(lastWatering.date)) / 1000 / 60 / 60) % 24) }} hours</div>
+        </template>
+      </PlantLabel>
     </div>
     <div :class='$style.label'>
       <PlantLabel color='#6BBA50' :icon='require("~/assets/img/dashboard/icon_schedules.jpg")' title='Schedules'>toto</PlantLabel>
@@ -49,37 +69,22 @@ export default {
   data() {
     return {
       filePath: null,
-      loading: true,
+      loadingPic: true,
+
+      metrics: {},
+      loadingMetrics: true,
+
+      lastWatering: {},
+      loadingLastWatering: true,
     }
   },
-  async mounted() {
-    const { token } = this.$store.state.auth
-    const API_URL = process.env.API_URL
-    try {
-      const url = `${API_URL}/feedMedias?feedid=${this.$props.plant.feedID}&deleted=false&limit=1`
-      const cachedPic = this.$store.state.dashboard.cachedPics[url]
-      if (cachedPic) {
-        this.$data.filePath = cachedPic
-        return
-      }
+  mounted() {
+    this.loadLastWatering()
+    this.loadMetrics()
+    this.loadPic()
+  },
+  computed: {
 
-      this.$data.loading = true
-      const { data: { feedmedias } } = await axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      })
-
-      if (feedmedias.length == 0) {
-        return
-      }
-      const pic = `https://storage.supergreenlab.com${feedmedias[0].thumbnailPath}`
-      this.$data.filePath = pic
-      this.$store.commit('dashboard/addCachedPic', {url, pic})
-    } catch(e) {
-      console.log(e)
-    }
-    this.$data.loading = false
   },
   methods: {
     mouseDown(e) {
@@ -87,6 +92,99 @@ export default {
       e.stopImmediatePropagation()
       return false
     },
+
+    async loadLastWatering() {
+      const { token } = this.$store.state.auth
+      const API_URL = process.env.API_URL
+
+      try {
+        const url = `${API_URL}/feedEntries?type=FE_WATER&feedid=${this.$props.plant.feedID}&limit=1`
+        const cached = this.$store.state.dashboard.cached[url]
+        if (cached) {
+          this.$data.lastWatering = cached
+          return
+        }
+        const { data: { feedentries } } = await axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        })
+        if (!feedentries.length) {
+          return
+        }
+
+        this.$store.commit('dashboard/addCached', {key: url, item: feedentries[0]})
+        this.$data.lastWatering = feedentries[0]
+      } catch(e) {
+        console.log(e)
+      }
+    },
+
+    async loadMetrics() {
+      const { token } = this.$store.state.auth
+      const API_URL = process.env.API_URL
+
+      if (!this.$props.plant.box.device) {
+        this.$data.loadingMetrics = false
+        return
+      }
+
+      try {
+        const url = `${API_URL}/device/${this.$props.plant.box.deviceID}/params?params=BOX_${this.$props.plant.box.deviceBox}_TEMP&params=BOX_${this.$props.plant.box.deviceBox}_HUMI`
+        const cached = this.$store.state.dashboard.cached[url]
+        if (cached) {
+          this.$data.metrics = cached
+          return
+        }
+
+        this.$data.loadingMetrics = true
+        const { data: { params, }, } = await axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+        const metrics = {
+          temperature: params[`${this.$props.plant.box.device.identifier}.KV.BOX_${this.$props.plant.box.deviceBox}_TEMP`],
+          humidity: params[`${this.$props.plant.box.device.identifier}.KV.BOX_${this.$props.plant.box.deviceBox}_HUMI`],
+        }
+        this.$store.commit('dashboard/addCached', {key: url, item: metrics})
+        this.$data.metrics = metrics
+      } catch(e) {
+        console.log(e)
+      }
+      this.$data.loadingMetrics = false
+    },
+
+    async loadPic() {
+      const { token } = this.$store.state.auth
+      const API_URL = process.env.API_URL
+      try {
+        const url = `${API_URL}/feedMedias?feedid=${this.$props.plant.feedID}&deleted=false&limit=1`
+        const cached = this.$store.state.dashboard.cached[url]
+        if (cached) {
+          this.$data.filePath = cached
+          return
+        }
+
+        this.$data.loadingPic = true
+        const { data: { feedmedias } } = await axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        })
+
+        if (feedmedias.length == 0) {
+          return
+        }
+        const pic = `https://storage.supergreenlab.com${feedmedias[0].thumbnailPath}`
+        this.$data.filePath = pic
+        this.$store.commit('dashboard/addCached', {key: url, item: pic})
+      } catch(e) {
+        console.log(e)
+      }
+      this.$data.loadingPic = false
+    },
+
   },
 }
 </script>
@@ -149,5 +247,36 @@ export default {
 
 #button > b
   font-weight: 600
+
+#seedbank
+  white-space: nowrap
+  color: #454545
+
+#environment
+  display: flex
+
+.metric
+  display: flex
+  align-items: center
+  font-weight: bold
+  font-size: 1.5em
+  margin-right: 5px
+
+.metric > img
+  margin-right: 3px
+
+#daystatus
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  font-weight: bold
+  margin-right: 10px
+
+#lastwatering
+  font-family: Roboto
+  font-weight: 300
+  font-size: 1.3em
+  color: #454545
 
 </style>

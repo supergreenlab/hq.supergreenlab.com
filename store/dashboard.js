@@ -29,13 +29,13 @@ export const state = () => {
   let defaults = {
     timelapsesOrder: [],
     plantsOrder: [],
-    cachedPics: {},
+    cached: {},
   };
   return defaults
 };
 
 const storeState = (state) => {
-  saveToStorage(STORAGE_ITEM, JSON.stringify(Object.assign({}, state, {cachedPics: []})))
+  saveToStorage(STORAGE_ITEM, JSON.stringify(Object.assign({}, state, {cached: []})))
 }
 
 export const actions = {
@@ -63,11 +63,11 @@ export const mutations = {
     state.excludedTimelapses.push(timelapse)
     storeState(state)
   },
-  addCachedPic(state, { url, pic, }) {
-    state.cachedPics[url] = pic
+  addCached(state, { key, item, }) {
+    state.cached[key] = item
   },
-  removeCachedPic(state, url) {
-    delete state.cachedPics[url]
+  removeCached(state, key) {
+    delete state.cached[key]
   },
 }
 

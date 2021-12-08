@@ -62,10 +62,10 @@ export default {
     const API_URL = process.env.API_URL
     try {
       const url = `${API_URL}/timelapse/${timelapse.id}/latest`
-      const cachedPic = this.$store.state.dashboard.cachedPics[url]
-      if (cachedPic) {
+      const cached = this.$store.state.dashboard.cached[url]
+      if (cached) {
         this.$data.loadingPic = false
-        this.$data.filePath = cachedPic
+        this.$data.filePath = cached
         return
       }
       const { data } = await axios.get(url, {
@@ -87,13 +87,19 @@ export default {
       const pic = `data:image/gif;base64,${Buffer.from(dataOverlay, 'binary').toString('base64')}`
       this.$data.filePath = pic
       this.$data.loadingPic = false
-      this.$store.commit('dashboard/addCachedPic', {url, pic})
+      this.$store.commit('dashboard/addCached', {key: url, item: pic})
     } catch(e) {
       console.log(e)
     }
 
     try {
-      const { data: { feedentries } } = await axios.get(`${API_URL}/feedEntries?type=FE_TIMELAPSE&feedid=${timelapse.plant.feedID}&limit=1`, {
+      const url = `${API_URL}/feedEntries?type=FE_TIMELAPSE&feedid=${timelapse.plant.feedID}&limit=1`
+      const cached = this.$store.state.dashboard.cached[url]
+      if (cached) {
+        this.$data.videoPath = cached
+        return
+      }
+      const { data: { feedentries } } = await axios.get(url, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
@@ -104,7 +110,9 @@ export default {
         }
       })
 
-      this.$data.videoPath = `https://storage.supergreenlab.com${feedmedias[0].filePath}`
+      const videoPath = `https://storage.supergreenlab.com${feedmedias[0].filePath}`
+      this.$data.videoPath = videoPath 
+      this.$store.commit('dashboard/addCached', {key: url, item: videoPath})
     } catch(e) {
       console.log(e)
     }
