@@ -53,11 +53,11 @@ export default {
 </script>
 
 <style scoped>
-    .feed-entry-life-event {
-        color: #15A01A;
-        font-weight: bold;
-        font-size: 35px;
-        width: 206px;
-        margin: auto;
-    }
+.feed-entry-life-event {
+  color: #15A01A;
+  font-weight: bold;
+  font-size: 35px;
+  width: 206px;
+  margin: auto;
+}
 </style>

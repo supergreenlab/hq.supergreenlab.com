@@ -17,97 +17,96 @@
  -->
 
 <template>
-    <div class="feed-entry">
-        <div class="feed-entry-header">
-            <img class="feed-entry-header-image" :src="getHeaderIcon(feedEntry.type)">
-            {{getFeedEntryHeading(feedEntry.type)}}
-        </div>
-        <div class="feed-entry-content">
-            <component :is="getFeedComponent(feedEntry.type)" :feedEntry="feedEntry"></component>
-        </div>
-        <div class="feed-entry-footer">
-            <div class="feed-entry-footer-icon-container">
-                <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_like.png')" />
-                <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_comment.png')" />
-                <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_share.png')" />
-                <img v-on:click="dialogTriggered" class="feed-entry-footer-icon flex-end clickable" :src="require('~/assets/img/plant/feed/button_bookmark.png')" />
-            </div>
-            <div class="flex-start">{{getFormattedDate(feedEntry.date)}}</div>
-        </div>
+  <div class="feed-entry">
+    <div class="feed-entry-header">
+      <img class="feed-entry-header-image" :src="getHeaderIcon(feedEntry.type)">
+      {{getFeedEntryHeading(feedEntry.type)}}
     </div>
-
+    <div class="feed-entry-content">
+      <component :is="getFeedComponent(feedEntry.type)" :feedEntry="feedEntry"></component>
+    </div>
+    <div class="feed-entry-footer">
+      <div class="feed-entry-footer-icon-container">
+        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_like.png')" />
+        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_comment.png')" />
+        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_share.png')" />
+        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon flex-end clickable" :src="require('~/assets/img/plant/feed/button_bookmark.png')" />
+      </div>
+      <div class="flex-start">{{getFormattedDate(feedEntry.date)}}</div>
+    </div>
+  </div>
 </template>
 
 <script>
 
 const entries = {
   FE_LIGHT: {
-    component: FeedEntryLight,
+    component: require('~/components/plant/feed/FeedEntryLight.vue'),
     name: 'Stretch control',
     icon: require('~/assets/img/plant/feed/icon_light.svg'),
   },
   FE_WATER: {
-    component: FeedEntryWater,
+    component: require('/components/plant/feed/FeedEntryWater'),
     name: 'Watering',
     icon: require('~/assets/img/plant/feed/icon_watering.svg'),
   },
   FE_MEDIA: {
-    component: FeedEntryMedia,
+    component: require('/components/plant/feed/FeedEntryMedia'),
     name: 'Grow log',
     icon: require('~/assets/img/plant/feed/icon_media.svg'),
   },
   FE_TIMELAPSE: {
-    component: FeedEntryMedia,
+    component: require('/components/plant/feed/FeedEntryMedia'),
     name: 'Timelapse',
     icon: require('~/assets/img/plant/feed/icon_towelie.png'),
   },
   FE_MEASURE: {
-    component: FeedEntryMedia,
+    component: require('/components/plant/feed/FeedEntryMedia'),
     name: 'Measure',
-    icon: require('~/assets/img/plant/feed/icon_measure.png'),
+    icon: require('~/assets/img/plant/feed/icon_measure.svg'),
   },
   FE_LIFE_EVENT: {
-    component: FeedEntryLifeEvent,
+    component: require('/components/plant/feed/FeedEntryLifeEvent'),
     name: 'Life event',
     icon: require('~/assets/img/plant/feed/icon_life_events.svg'),
   },
   FE_VENTILATION: {
-    component: FeedEntryVentilation,
+    component: require('/components/plant/feed/FeedEntryVentilation'),
     name: 'Ventilation change',
     icon: require('~/assets/img/plant/feed/icon_blower.svg'),
   },
   FE_SCHEDULE: {
-    component: FeedEntrySchedule,
+    component: require('/components/plant/feed/FeedEntrySchedule'),
     name: 'Schedule change',
     icon: require('~/assets/img/plant/feed/icon_schedule.svg'),
   },
   FE_NUTRIENT_MIX: {
-    component: FeedEntryNutrientMix,
+    component: require('/components/plant/feed/FeedEntryNutrientMix'),
     name: 'Nutrient mix',
     icon: require('~/assets/img/plant/feed/icon_nutrient_mix.svg'),
   },
   FE_BENDING: {
-    component: FeedEntryTraining,
+    component: require('/components/plant/feed/FeedEntryTraining'),
     name: 'Bending',
     icon: require('~/assets/img/plant/feed/icon_bending.svg'),
   },
   FE_DEFOLIATION: {
-    component: FeedEntryTraining,
+    component: require('/components/plant/feed/FeedEntryTraining'),
     name: 'Defoliation',
     icon: require('~/assets/img/plant/feed/icon_defoliation.svg'),
   },
   FE_TOPPING: {
-    component: FeedEntryTraining,
+    component: require('/components/plant/feed/FeedEntryTraining'),
     name: 'Topping',
     icon: require('~/assets/img/plant/feed/icon_topping.svg'),
   },
   FE_FIMMING: {
-    component: FeedEntryTraining,
+    component: require('/components/plant/feed/FeedEntryTraining'),
     name: 'Fimming',
     icon: require('~/assets/img/plant/feed/icon_fimming.svg'),
   },
   FE_TRANSPLANT: {
-    component: FeedEntryTraining,
+    component: require('/components/plant/feed/FeedEntryTraining'),
     name: 'Transplant',
     icon: require('~/assets/img/plant/feed/icon_transplant.svg'),
   },
@@ -167,41 +166,41 @@ export default {
 }
 
 .feed-entry-header-image {
-        margin-right: 10px;
-    }
+  margin-right: 10px;
+}
 
-    .feed-entry-content {
-        padding: 15px 0;
-    }
+.feed-entry-content {
+  padding: 15px 0;
+}
 
-    .feed-entry-footer {
-        display: flex;
-        flex-direction: column;
-        padding: 0 10px;
-    }
+.feed-entry-footer {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
 
-    .feed-entry-footer-icon-container {
-        display: flex;
-    }
+.feed-entry-footer-icon-container {
+  display: flex;
+}
 
-    .feed-entry-footer-icon {
-        width: 25px;
-        height: 25px;
-        margin-right: 6px;
-    }
+.feed-entry-footer-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 6px;
+}
 
-    .flex-end {
-        margin-right: 0;
-        margin-left: auto;
-    }
+.flex-end {
+  margin-right: 0;
+  margin-left: auto;
+}
 
-    .flex-start {
-        margin-left: 5px;
-        margin-right: auto;
-        margin-top: 10px;
-    }
+.flex-start {
+  margin-left: 5px;
+  margin-right: auto;
+  margin-top: 10px;
+}
 
-    .clickable {
-        cursor: pointer;
-    }
+.clickable {
+  cursor: pointer;
+}
 </style>
