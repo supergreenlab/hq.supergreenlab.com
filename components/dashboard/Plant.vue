@@ -208,6 +208,7 @@ export default {
 <style module lang=stylus>
 
 #container
+  position: relative
   display: flex
   flex-direction: column
   background-color: white

@@ -101,10 +101,16 @@ export default {
       return false
     },
     mouseDown(e, plant) {
+      let plantEl = this.$refs[plant.id][0]
       this.$data.mouseX = e.pageX
       this.$data.mouseY = e.pageY
+
       this.$data.draggingX = e.offsetX
       this.$data.draggingY = e.offsetY
+      if (e.target.parentElement != plantEl) {
+        this.$data.draggingX += e.target.offsetLeft
+        this.$data.draggingY += e.target.offsetTop
+      }
       this.$data.dragging = plant
     },
     mouseUp() {
