@@ -56,7 +56,8 @@ export default {
     }
   },
   mounted() {
-    getFeedMediasByFeedEntryId(this.feedEntry.id)
+    const { token } = this.$store.state.auth
+    getFeedMediasByFeedEntryId(this.feedEntry.id, token)
       .then(data => {
         data.medias.forEach(imageObject => {
           if (JSON.parse(imageObject.params).before) {

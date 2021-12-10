@@ -58,7 +58,8 @@ export default {
     }
   },
   mounted() {
-    getPlantById(this.$route.params.id)
+    const { token } = this.$store.state.auth
+    getPlantById(this.$route.params.id, token)
       .then(plant => {
         this.plant = plant;
         this.plant.settings = JSON.parse(this.plant.settings);
@@ -69,7 +70,7 @@ export default {
         // if no plant is available for the input id -> navigate to 404 page
         this.$router.push('/404')
       });
-    getFeedEntriesById(this.$route.params.id, this.pageSize, this.page)
+    getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page)
       .then(feedEntries => {
         this.feedEntries = this.feedEntries.concat(feedEntries.entries);
       })
@@ -87,7 +88,8 @@ export default {
   methods: {
     loadNextFeedEntriesById($state) {
       this.page++;
-      getFeedEntriesById(this.$route.params.id, this.pageSize, this.page * this.pageSize)
+      const { token } = this.$store.state.auth
+      getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page * this.pageSize)
         .then(feedEntries => {
           $state.loaded();
           if (feedEntries.entries && feedEntries.entries.length > 1) {

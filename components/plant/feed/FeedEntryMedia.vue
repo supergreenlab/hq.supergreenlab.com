@@ -49,7 +49,8 @@ export default {
     }
   },
   mounted() {
-    getFeedMediasByFeedEntryId(this.feedEntry.id)
+    const { token } = this.$store.state.auth
+    getFeedMediasByFeedEntryId(this.feedEntry.id, token)
       .then(data => {
         this.url = 'https://storage.supergreenlab.com' + data.medias[0].filePath;
 
