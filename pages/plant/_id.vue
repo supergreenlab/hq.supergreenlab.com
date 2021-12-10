@@ -50,7 +50,6 @@ export default {
   },
   data() {
     return {
-      url: '',
       plant: null,
       feedEntries: [],
       page: 0,
@@ -59,8 +58,7 @@ export default {
     }
   },
   mounted() {
-    this.$data.url = this.plantURL;
-    getPlantById(this.$route.query.id)
+    getPlantById(this.$route.params.id)
       .then(plant => {
         this.plant = plant;
         this.plant.settings = JSON.parse(this.plant.settings);
@@ -71,7 +69,7 @@ export default {
         // if no plant is available for the input id -> navigate to 404 page
         this.$router.push('/404')
       });
-    getFeedEntriesById(this.$route.query.id, this.pageSize, this.page)
+    getFeedEntriesById(this.$route.params.id, this.pageSize, this.page)
       .then(feedEntries => {
         this.feedEntries = this.feedEntries.concat(feedEntries.entries);
       })
@@ -79,17 +77,17 @@ export default {
   },
   computed: {
     plantURL() {
-      if (this.$route.query.feid) {
-        return `sglapp://supergreenlab.com/public/plant?id=${this.$route.query.id}&feid=${this.$route.query.feid}`
+      if (this.$route.params.feid) {
+        return `sglapp://supergreenlab.com/public/plant?id=${this.$route.params.id}&feid=${this.$route.params.feid}`
       } else {
-        return `sglapp://supergreenlab.com/public/plant?id=${this.$route.query.id}`
+        return `sglapp://supergreenlab.com/public/plant?id=${this.$route.params.id}`
       }
     }
   },
   methods: {
     loadNextFeedEntriesById($state) {
       this.page++;
-      getFeedEntriesById(this.$route.query.id, this.pageSize, this.page * this.pageSize)
+      getFeedEntriesById(this.$route.params.id, this.pageSize, this.page * this.pageSize)
         .then(feedEntries => {
           $state.loaded();
           if (feedEntries.entries && feedEntries.entries.length > 1) {

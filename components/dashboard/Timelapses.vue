@@ -100,10 +100,16 @@ export default {
       return false
     },
     mouseDown(e, timelapse) {
+      let timelapseEl = this.$refs[timelapse.id][0]
       this.$data.mouseX = e.pageX
       this.$data.mouseY = e.pageY
+
       this.$data.draggingX = e.offsetX
       this.$data.draggingY = e.offsetY
+      if (e.target.parentElement != timelapseEl) {
+        this.$data.draggingX += e.target.offsetLeft
+        this.$data.draggingY += e.target.offsetTop
+      }
       this.$data.dragging = timelapse
     },
     mouseUp() {
@@ -135,6 +141,7 @@ export default {
   flex-wrap: wrap
 
 .timelapse
+  position: relative
   display: flex
   margin: 10px
 

@@ -60,7 +60,7 @@
       </PlantLabel>
     </div>
     <div :id='$style.buttons' @mousedown='mouseDown'>
-      <nuxt-link :id='$style.button' to='/'><b>View plant</b></nuxt-link>
+      <nuxt-link :id='$style.button' :to='`/plant/${plant.id}`'><b>View plant</b></nuxt-link>
     </div>
   </section>
 </template>
@@ -208,7 +208,6 @@ export default {
 <style module lang=stylus>
 
 #container
-  position: relative
   display: flex
   flex-direction: column
   background-color: white

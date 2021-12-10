@@ -142,6 +142,7 @@ export default {
   flex-wrap: wrap
 
 .plant
+  position: relative
   display: flex
   margin: 10px
 

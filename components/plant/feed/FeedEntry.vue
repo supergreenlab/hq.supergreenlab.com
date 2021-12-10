@@ -41,72 +41,72 @@
 
 const entries = {
   FE_LIGHT: {
-    component: require('~/components/plant/feed/FeedEntryLight.vue'),
+    component: require('~/components/plant/feed/FeedEntryLight.vue').default,
     name: 'Stretch control',
     icon: require('~/assets/img/plant/feed/icon_light.svg'),
   },
   FE_WATER: {
-    component: require('/components/plant/feed/FeedEntryWater'),
+    component: require('/components/plant/feed/FeedEntryWater').default,
     name: 'Watering',
     icon: require('~/assets/img/plant/feed/icon_watering.svg'),
   },
   FE_MEDIA: {
-    component: require('/components/plant/feed/FeedEntryMedia'),
+    component: require('/components/plant/feed/FeedEntryMedia').default,
     name: 'Grow log',
     icon: require('~/assets/img/plant/feed/icon_media.svg'),
   },
   FE_TIMELAPSE: {
-    component: require('/components/plant/feed/FeedEntryMedia'),
+    component: require('/components/plant/feed/FeedEntryMedia').default,
     name: 'Timelapse',
     icon: require('~/assets/img/plant/feed/icon_towelie.png'),
   },
   FE_MEASURE: {
-    component: require('/components/plant/feed/FeedEntryMedia'),
+    component: require('/components/plant/feed/FeedEntryMedia').default,
     name: 'Measure',
     icon: require('~/assets/img/plant/feed/icon_measure.svg'),
   },
   FE_LIFE_EVENT: {
-    component: require('/components/plant/feed/FeedEntryLifeEvent'),
+    component: require('/components/plant/feed/FeedEntryLifeEvent').default,
     name: 'Life event',
     icon: require('~/assets/img/plant/feed/icon_life_events.svg'),
   },
   FE_VENTILATION: {
-    component: require('/components/plant/feed/FeedEntryVentilation'),
+    component: require('/components/plant/feed/FeedEntryVentilation').default,
     name: 'Ventilation change',
     icon: require('~/assets/img/plant/feed/icon_blower.svg'),
   },
   FE_SCHEDULE: {
-    component: require('/components/plant/feed/FeedEntrySchedule'),
+    component: require('/components/plant/feed/FeedEntrySchedule').default,
     name: 'Schedule change',
     icon: require('~/assets/img/plant/feed/icon_schedule.svg'),
   },
   FE_NUTRIENT_MIX: {
-    component: require('/components/plant/feed/FeedEntryNutrientMix'),
+    component: require('/components/plant/feed/FeedEntryNutrientMix').default,
     name: 'Nutrient mix',
     icon: require('~/assets/img/plant/feed/icon_nutrient_mix.svg'),
   },
   FE_BENDING: {
-    component: require('/components/plant/feed/FeedEntryTraining'),
+    component: require('/components/plant/feed/FeedEntryTraining').default,
     name: 'Bending',
     icon: require('~/assets/img/plant/feed/icon_bending.svg'),
   },
   FE_DEFOLIATION: {
-    component: require('/components/plant/feed/FeedEntryTraining'),
+    component: require('/components/plant/feed/FeedEntryTraining').default,
     name: 'Defoliation',
     icon: require('~/assets/img/plant/feed/icon_defoliation.svg'),
   },
   FE_TOPPING: {
-    component: require('/components/plant/feed/FeedEntryTraining'),
+    component: require('/components/plant/feed/FeedEntryTraining').default,
     name: 'Topping',
     icon: require('~/assets/img/plant/feed/icon_topping.svg'),
   },
   FE_FIMMING: {
-    component: require('/components/plant/feed/FeedEntryTraining'),
+    component: require('/components/plant/feed/FeedEntryTraining').default,
     name: 'Fimming',
     icon: require('~/assets/img/plant/feed/icon_fimming.svg'),
   },
   FE_TRANSPLANT: {
-    component: require('/components/plant/feed/FeedEntryTraining'),
+    component: require('/components/plant/feed/FeedEntryTraining').default,
     name: 'Transplant',
     icon: require('~/assets/img/plant/feed/icon_transplant.svg'),
   },

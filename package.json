@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "vue-infinite-loading": "^2.4.5",
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.15.1",
     "luxon": "^2.1.1",
