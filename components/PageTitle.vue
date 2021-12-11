@@ -18,28 +18,24 @@
 
 <template>
   <section :id='$style.container'>
-    <PageTitle title='Dashboard' />
-    <Timelapses />
-    <Plants />
+    {{ title }}
   </section>
 </template>
 
 <script>
 export default {
-  layout: 'menu',
+  props: ['title'],
 }
 </script>
 
 <style module lang=stylus>
 
 #container
-  flex: 1
-  display: flex
-  flex-direction: column
-  height: 100vh
-  overflow-y: auto
-
-#container > div, #container > section
-  margin-bottom: 40px !important
+  background-color: white
+  padding: 10px
+  font-size: 40px
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+  color: #454545
+  font-family: Roboto
 
 </style>

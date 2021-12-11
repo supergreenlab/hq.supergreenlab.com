@@ -68,7 +68,7 @@ export const actions = {
 
       devices = devices.filter(d => !d.deleted)
 
-      boxes = boxes.filter(b => !b.deleted).map((b, i) => {
+      boxes = boxes.map((b, i) => {
         b = Object.assign({}, b, {
           device: b.deviceID ? devices.find(d => d.id == b.deviceID) : null,
         })

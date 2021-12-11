@@ -48,7 +48,7 @@ export const actions = {
       await dispatch('loadMe')
     }
   },
-  async login({ commit, dispatch }, { login, password }) {
+  async login({ commit, dispatch, }, { login, password }) {
     commit('setLoading', true)
     try {
       const resp = await axios.post(`${API_URL}/login`, {
@@ -59,9 +59,11 @@ export const actions = {
       commit('setToken', token)
 
       await dispatch('loadMe')
+      await dispatch('lab/loadAll', null, { root: true, })
 
       commit('setLoggedIn', true)
     } catch(e) {
+      console.log(e)
       commit('setError', true)
     }
     commit('setLoading', false)

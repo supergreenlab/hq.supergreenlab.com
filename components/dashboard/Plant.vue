@@ -60,7 +60,7 @@
       </PlantLabel>
     </div>
     <div :id='$style.buttons' @mousedown='mouseDown'>
-      <nuxt-link :id='$style.button' :to='`/plant/${plant.id}`'><b>View plant</b></nuxt-link>
+      <Cta title='View plant' :to='`/plant/${plant.id}`' />
     </div>
   </section>
 </template>
@@ -68,13 +68,13 @@
 <script>
 import axios from 'axios'
 
+import load from '~/mixins/load.js'
+
 export default {
   props: ['plant'],
+  mixins: [load,],
   data() {
     return {
-      filePath: null,
-      loadingPic: true,
-
       metrics: {},
       loadingMetrics: true,
 
@@ -170,37 +170,6 @@ export default {
       }
       this.$data.loadingMetrics = false
     },
-
-    async loadPic() {
-      const { token } = this.$store.state.auth
-      const API_URL = process.env.API_URL
-      try {
-        const url = `${API_URL}/feedMedias?feedid=${this.$props.plant.feedID}&deleted=false&limit=1`
-        const cached = this.$store.state.dashboard.cached[url]
-        if (cached) {
-          this.$data.filePath = cached
-          return
-        }
-
-        this.$data.loadingPic = true
-        const { data: { feedmedias } } = await axios.get(url, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          }
-        })
-
-        if (feedmedias.length == 0) {
-          return
-        }
-        const pic = `https://storage.supergreenlab.com${feedmedias[0].thumbnailPath}`
-        this.$data.filePath = pic
-        this.$store.commit('dashboard/addCached', {key: url, item: pic})
-      } catch(e) {
-        console.log(e)
-      }
-      this.$data.loadingPic = false
-    },
-
   },
 }
 </script>
@@ -235,34 +204,6 @@ export default {
 #buttons
   display: flex
   justify-content: flex-end
-
-#button
-  display: block
-  background-color: #3BB30B
-  text-align: center
-  padding: 8pt 25pt
-  border-radius: 5pt
-  color: white
-  text-decoration: none
-  font-size: 1.2em
-  margin: 4pt 0
-  white-space: nowrap
-  transition: opacity 0.2s
-  text-transform: uppercase
-  @media only screen and (max-width: 1000px)
-    padding: 7pt 22pt
-    font-size: 1.1em
-
-#button
-  padding: 6pt 18pt
-  font-size: 1em
-  border-radius: 4pt
-
-#button:hover
-  background-color: #2F880B
-
-#button > b
-  font-weight: 600
 
 #seedbank
   white-space: nowrap

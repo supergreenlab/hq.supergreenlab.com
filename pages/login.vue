@@ -28,6 +28,7 @@
         <div :id='$style.button'>
           <button @click='loginHandler'>LOGIN</button>
         </div>
+        <div v-if='loading' :id='$style.loading'>Loading...</div>
       </div>
     </form>
   </section>
@@ -58,6 +59,9 @@ export default {
     },
   },
   computed: {
+    loading() {
+      return this.$store.state.auth.loading
+    },
     loggedIn() {
       return this.$store.state.auth.loggedIn
     },
@@ -76,6 +80,7 @@ export default {
   align-items: center
 
 #body
+  position: relative
   display: flex
   flex-direction: column
 
@@ -115,5 +120,18 @@ export default {
 
 #app
   color: #454545
+
+#loading
+  position: absolute
+  display: flex
+  align-items: center
+  justify-content: center
+  background-color: rgba(255, 255, 255, 0.5)
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  color: #454545
+  font-weight: bold
 
 </style>

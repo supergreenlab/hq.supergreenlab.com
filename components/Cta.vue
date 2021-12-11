@@ -17,29 +17,43 @@
  -->
 
 <template>
-  <section :id='$style.container'>
-    <PageTitle title='Dashboard' />
-    <Timelapses />
-    <Plants />
-  </section>
+  <nuxt-link :id='$style.button' :to='to'><b>{{ title }}</b></nuxt-link>
 </template>
 
 <script>
 export default {
-  layout: 'menu',
+  props: ['title', 'to',],
 }
 </script>
 
 <style module lang=stylus>
 
-#container
-  flex: 1
-  display: flex
-  flex-direction: column
-  height: 100vh
-  overflow-y: auto
+#button
+  display: block
+  background-color: #3BB30B
+  text-align: center
+  padding: 8pt 25pt
+  border-radius: 5pt
+  color: white
+  text-decoration: none
+  font-size: 1.2em
+  margin: 4pt 0
+  white-space: nowrap
+  transition: opacity 0.2s
+  text-transform: uppercase
+  @media only screen and (max-width: 1000px)
+    padding: 7pt 22pt
+    font-size: 1.1em
 
-#container > div, #container > section
-  margin-bottom: 40px !important
+#button
+  padding: 6pt 18pt
+  font-size: 1em
+  border-radius: 4pt
+
+#button:hover
+  background-color: #2F880B
+
+#button > b
+  font-weight: 600
 
 </style>
