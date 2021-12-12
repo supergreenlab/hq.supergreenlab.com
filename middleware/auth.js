@@ -24,6 +24,6 @@ export default function({ store, redirect, route }) {
     return
   }
   if (!store.state.auth.loggedIn) {
-    return redirect('/login')
+    return redirect('/login', {r: route.path})
   }
 }

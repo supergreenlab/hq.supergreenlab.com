@@ -45,7 +45,7 @@ export default {
   watch: {
     loggedIn(val) {
       if (val == true) {
-        this.$router.replace('/')
+        this.$router.replace(this.$route.query.r || '/')
       }
     },
   },

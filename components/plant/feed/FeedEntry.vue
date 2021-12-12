@@ -128,7 +128,7 @@ export default {
   },
   methods: {
     getFeedComponent(type) {
-      return (entries[type] || {}).component || UnknownCard
+      return (entries[type] || {}).component || require('/components/plant/feed/UnknownCard').default
     },
     getFeedEntryHeading(type) {
       return (entries[type] || {}).name || 'Unknown card'
