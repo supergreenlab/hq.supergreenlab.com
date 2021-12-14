@@ -18,11 +18,14 @@
 
 <template>
   <div>
-    <img v-if="mediaType === MEDIA_TYPES.TYPE_IMAGE" :src='url' class="feed-entry-media-image"/>
-    <video controls v-else-if="mediaType === MEDIA_TYPES.TYPE_VIDEO" ref="videoPlayer" class="feed-entry-media-video">
+    <img v-if="mediaType === MEDIA_TYPES.TYPE_IMAGE" :src='url' :id="$style.image" @click='onClick'/>
+    <video controls v-else-if="mediaType === MEDIA_TYPES.TYPE_VIDEO" ref="videoPlayer" :id="$style.video" @click='onClick'>
       <source :src="url" type="video/mp4">
     </video>
-    <p v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
+    <p :id='$style.message' v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
+    <FullscreenPics v-if='showPic' medias='medias'>
+      toto
+    </FullscreenPics>
   </div>
 </template>
 
@@ -32,6 +35,8 @@ import {getFeedMediasByFeedEntryId} from "~/lib/plant";
 export default {
   data() {
     return {
+      medias: [],
+      showPic: false,
       url: null,
       mediaType: null,
       MEDIA_TYPES:  {
@@ -52,6 +57,7 @@ export default {
     const { token } = this.$store.state.auth
     getFeedMediasByFeedEntryId(this.feedEntry.id, token)
       .then(data => {
+        this.$data.medias = data.medias
         this.url = 'https://storage.supergreenlab.com' + data.medias[0].filePath;
 
         // Here I differentiate between image and video media
@@ -64,22 +70,25 @@ export default {
       })
       .catch(err => console.log(err.message));
   },
-
+  methods: {
+    onClick(e) {
+      this.$data.showPic = true
+    },
+  },
 }
 </script>
 
-<style scoped>
-.feed-entry-media-image {
-  max-width: 100%;
-}
+<style module lang=stylus>
 
-.feed-entry-media-video {
-  width: 100%;
-  height: 260px;
-}
+#image
+  max-width: 100%
 
-p {
-  padding: 10px 15px;
-  text-align: left;
-}
+#video
+  width: 100%
+  height: 260px
+
+#message
+  padding: 10px 15px
+  text-align: left
+
 </style>

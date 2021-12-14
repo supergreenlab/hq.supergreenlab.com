@@ -29,6 +29,8 @@
         </infinite-loading>
       </div>
     </div>
+    <portal-target name='root'>
+    </portal-target>
   </section>
 </template>
 

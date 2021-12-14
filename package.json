@@ -17,6 +17,7 @@
     "nuxt-client-init-module": "^0.3.0",
     "stylus": "^0.55.0",
     "stylus-loader": "^4.3.3",
-    "vue-select": "^3.16.0"
+    "vue-select": "^3.16.0",
+    "portal-vue": "^2.1.7"
   }
 }

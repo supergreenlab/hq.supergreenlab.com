@@ -48,27 +48,27 @@
         <b>LIFE EVENT DATE</b>
         <div :class='$style.label'>
           <PlantLabel color='#3BB30B' :icon='require("~/assets/img/archives/icon_germination_date.svg")' title='germination'>
-          <template v-slot:left><div :id='$style.seedbank'>{{ plant.settings.germinationDate }}</div></template>
+          <template v-slot:left><div :id='$style.seedbank'>{{ formatDate(plant.settings.germinationDate) }}</div></template>
           </PlantLabel>
         </div>
         <div :class='$style.label'>
-          <PlantLabel color='#FAC13C' :icon='require("~/assets/img/archives/icon_vegging_since.svg")' title='germination'>
-          <template v-slot:left><div :id='$style.seedbank'>{{ plant.settings.veggingStart }}</div></template>
+          <PlantLabel color='#FAC13C' :icon='require("~/assets/img/archives/icon_vegging_since.svg")' title='vegging'>
+          <template v-slot:left><div :id='$style.seedbank'>{{ formatDate(plant.settings.veggingStart) }}</div></template>
           </PlantLabel>
         </div>
         <div :class='$style.label'>
-          <PlantLabel color='#E859DA' :icon='require("~/assets/img/archives/icon_blooming_since.svg")' title='germination'>
-          <template v-slot:left><div :id='$style.seedbank'>{{ plant.settings.bloomingStart }}</div></template>
+          <PlantLabel color='#E859DA' :icon='require("~/assets/img/archives/icon_blooming_since.svg")' title='blooming'>
+          <template v-slot:left><div :id='$style.seedbank'>{{ formatDate(plant.settings.bloomingStart) }}</div></template>
           </PlantLabel>
         </div>
         <div :class='$style.label'>
-          <PlantLabel color='#7E7CE3' :icon='require("~/assets/img/archives/icon_drying_since.svg")' title='germination'>
-          <template v-slot:left><div :id='$style.seedbank'>{{ plant.settings.dryingStart }}</div></template>
+          <PlantLabel color='#7E7CE3' :icon='require("~/assets/img/archives/icon_drying_since.svg")' title='drying'>
+          <template v-slot:left><div :id='$style.seedbank'>{{ formatDate(plant.settings.dryingStart) }}</div></template>
           </PlantLabel>
         </div>
         <div :class='$style.label'>
-          <PlantLabel color='#7E7CE3' :icon='require("~/assets/img/archives/icon_curing_since.svg")' title='germination'>
-          <template v-slot:left><div :id='$style.seedbank'>{{ plant.settings.curingStart }}</div></template>
+          <PlantLabel color='#7E7CE3' :icon='require("~/assets/img/archives/icon_curing_since.svg")' title='curing'>
+          <template v-slot:left><div :id='$style.seedbank'>{{ formatDate(plant.settings.curingStart) }}</div></template>
           </PlantLabel>
         </div>
       </div>
@@ -94,6 +94,12 @@ export default {
       e.preventDefault()
       e.stopImmediatePropagation()
       return false
+    },
+  },
+  computed: {
+    formatDate: () => (date) => {
+      if (!date) return 'Not set'
+      return new Date(date).toLocaleDateString()
     },
   },
 }
