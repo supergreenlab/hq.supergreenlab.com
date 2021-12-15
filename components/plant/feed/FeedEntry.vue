@@ -17,22 +17,22 @@
  -->
 
 <template>
-  <div class="feed-entry">
-    <div class="feed-entry-header">
-      <img class="feed-entry-header-image" :src="getHeaderIcon(feedEntry.type)">
-      {{getFeedEntryHeading(feedEntry.type)}}
+  <div :id="$style.container">
+    <div :id="$style.header">
+      <img :id="$style.headerimage" :src="headerIcon(feedEntry.type)">
+      {{feedEntryHeading(feedEntry.type)}}
     </div>
-    <div class="feed-entry-content">
-      <component :is="getFeedComponent(feedEntry.type)" :feedEntry="feedEntry"></component>
+    <div :id="$style.content">
+      <component :is="feedComponent(feedEntry.type)" :feedEntry="feedEntry"></component>
     </div>
-    <div class="feed-entry-footer">
-      <div class="feed-entry-footer-icon-container">
-        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_like.png')" />
-        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_comment.png')" />
-        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon clickable" :src="require('~/assets/img/plant/feed/button_share.png')" />
-        <img v-on:click="dialogTriggered" class="feed-entry-footer-icon flex-end clickable" :src="require('~/assets/img/plant/feed/button_bookmark.png')" />
+    <div :id="$style.footer">
+      <div :id="$style.footericons">
+        <img v-on:click="dialogTriggered" :class="{[$style.footericon]: true, [$style.clickable]: true}" :src="require('~/assets/img/plant/feed/button_like.png')" />
+        <img v-on:click="dialogTriggered" :class="{[$style.footericon]: true, [$style.clickable]: true}" :src="require('~/assets/img/plant/feed/button_comment.png')" />
+        <img v-on:click="dialogTriggered" :class="{[$style.footericon]: true, [$style.clickable]: true}" :src="require('~/assets/img/plant/feed/button_share.png')" />
+        <img v-on:click="dialogTriggered" :class="{[$style.footericon]: true, [$style.flexend]: true, clickable: true}" :src="require('~/assets/img/plant/feed/button_bookmark.png')" />
       </div>
-      <div class="flex-start">{{getFormattedDate(feedEntry.date)}}</div>
+      <div :id="$style.flexstart">{{formattedDate(feedEntry.date)}}</div>
     </div>
   </div>
 </template>
@@ -126,81 +126,75 @@ export default {
       this.feedEntry.params = JSON.parse(this.feedEntry.params);
     }
   },
-  methods: {
-    getFeedComponent(type) {
+  computed: {
+    feedComponent: () => (type) => {
       return (entries[type] || {}).component || require('/components/plant/feed/UnknownCard').default
     },
-    getFeedEntryHeading(type) {
+    feedEntryHeading: () => (type) =>  {
       return (entries[type] || {}).name || 'Unknown card'
     },
-    getHeaderIcon(type) {
+    headerIcon: () => (type) =>  {
       return (entries[type] || {}).icon || '~/assets/img/plant/feed/icon_unknown.svg'
     },
-    getFormattedDate(date) {
+    formattedDate: () => (date) =>  {
       date = new Date(date);
       return date.toLocaleDateString();
     },
+  },
+  methods: {
     dialogTriggered() {
       this.$emit('dialogTriggered');
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style scoped>
-.feed-entry {
-  padding: 12px 0;
-  background: #FFFFFF;
-  border: 1px solid #D9D9D9;
-  box-sizing: border-box;
-  border-radius: 5px;
-  margin: 5px;
-  width: 100%;
-  max-width: 450px;
-}
+<style module lang=stylus>
 
-.feed-entry-header {
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-}
+#container
+  padding: 12px 0
+  background: #FFFFFF
+  border: 1px solid #D9D9D9
+  box-sizing: border-box
+  border-radius: 5px
+  margin: 5px
+  width: 100%
+  max-width: 450px
 
-.feed-entry-header-image {
-  margin-right: 10px;
-}
+#header
+  display: flex
+  align-items: center
+  padding: 0 10px
 
-.feed-entry-content {
-  padding: 15px 0;
-}
+#headerimage
+  margin-right: 10px
 
-.feed-entry-footer {
-  display: flex;
-  flex-direction: column;
-  padding: 0 10px;
-}
+#content
+  padding: 15px 0
 
-.feed-entry-footer-icon-container {
-  display: flex;
-}
+#footer
+  display: flex
+  flex-direction: column
+  padding: 0 10px
 
-.feed-entry-footer-icon {
-  width: 25px;
-  height: 25px;
-  margin-right: 6px;
-}
+#footericons
+  display: flex
 
-.flex-end {
-  margin-right: 0;
-  margin-left: auto;
-}
+.footericon
+  width: 25px
+  height: 25px
+  margin-right: 6px
 
-.flex-start {
-  margin-left: 5px;
-  margin-right: auto;
-  margin-top: 10px;
-}
+.flexend
+  margin-right: 0
+  margin-left: auto
 
-.clickable {
-  cursor: pointer;
-}
+#flexstart
+  margin-left: 5px
+  margin-right: auto
+  margin-top: 10px
+
+.clickable
+  cursor: pointer
+
 </style>

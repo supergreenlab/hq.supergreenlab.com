@@ -17,21 +17,21 @@
  -->
 
 <template>
-  <div>
-    <div class="feed-entry-ventilation-content" v-if="feedEntry.params.values">
-      <div class="feed-entry-ventilation-card">
-        <span class="feed-entry-ventilation-settings">
-          <img class="feed-entry-ventilation-icon" :src="require('~/assets/img/plant/feed/icon_blower.svg')" />
+  <div :id='$style.container'>
+    <div :id='$style.content' v-if='feedEntry.params.values'>
+      <div :class='$style.card'>
+        <span :class='$style.settings'>
+          <img :class='$style.icon' src='~/assets/img/plant/feed/icon_blower.svg' />
           Night settings
         </span>
-        <span class="feed-entry-ventilation-volume">{{feedEntry.params.values.blowerMin}}%</span>
+        <span :class='$style.volume'>{{feedEntry.params.values.blowerMin}}%</span>
       </div>
-      <div class="feed-entry-ventilation-card">
-        <span class="feed-entry-ventilation-settings">
-          <img class="feed-entry-ventilation-icon" :src="require('~/assets/img/plant/feed/icon_blower.svg')" />
+      <div :class='$style.card'>
+        <span :class='$style.settings'>
+          <img :class='$style.icon' src='~/assets/img/plant/feed/icon_blower.svg' />
           Day settings
         </span>
-        <span class="feed-entry-ventilation-volume">{{feedEntry.params.values.blowerMax}}%</span>
+        <span :class='$style.volume'>{{feedEntry.params.values.blowerMax}}%</span>
       </div>
     </div>
   </div>
@@ -39,7 +39,6 @@
 
 <script>
 export default {
-  name: "feed-entry-ventilation",
   props: {
     feedEntry: {
       type: Object,
@@ -50,39 +49,38 @@ export default {
 }
 </script>
 
-<style scoped>
-.feed-entry-ventilation-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
+<style module lang=stylus>
 
-.feed-entry-ventilation-content {
-  display: inline-flex;
-}
+#container
+  display: flex
 
-.feed-entry-ventilation-card {
-  width: 150px;
-  margin: 5px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  height: 90px;
-  padding: 10px;
-}
+#header
+  display: flex
+  justify-content: space-between
+  margin-bottom: 10px
 
-.feed-entry-ventilation-settings {
-  display: flex;
-  align-items: center;
-}
+#content
+  display: inline-flex
 
-.feed-entry-ventilation-icon {
-  width: 20px;
-  margin-right: 10px;
-}
+.card
+  width: 150px
+  margin: 5px
+  border: 1px solid lightgray
+  border-radius: 5px
+  height: 90px
+  padding: 10px
 
-.feed-entry-ventilation-volume {
-  font-size: 25px;
-  display: block;
-  margin-top: 15px;
-}
+.settings
+  display: flex
+  align-items: center
+
+.icon
+  width: 20px
+  margin-right: 10px
+
+.volume
+  font-size: 25px
+  display: block
+  margin-top: 15px
+
 </style>

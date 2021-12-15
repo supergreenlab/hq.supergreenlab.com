@@ -17,12 +17,13 @@
  -->
 
 <template>
-  <div class="feed-entry-life-event">
+  <div :id="$style.container">
     Uknown card!
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     feedEntry: {
@@ -31,33 +32,17 @@ export default {
       default: {}
     }
   },
-  methods: {
-    getLifeEventLabel(phase) {
-      switch(phase) {
-        case 'BLOOMING':
-          return 'Blooming Started!';
-        case 'VEGGING':
-          return 'Vegging Started!';
-        case 'GERMINATING':
-          return 'Germination!';
-        case 'CURING':
-          return 'Curing Started!';
-        case 'DRYING':
-          return 'Drying Started!';
-        default:
-          return phase;
-      }
-    }
-  }
 }
+
 </script>
 
-<style scoped>
-.feed-entry-life-event {
-  color: #15A01A;
-  font-weight: bold;
-  font-size: 35px;
-  width: 206px;
-  margin: auto;
-}
+<style module lang=stylus>
+
+#container
+  color: #15A01A
+  font-weight: bold
+  font-size: 35px
+  width: 206px
+  margin: auto
+
 </style>

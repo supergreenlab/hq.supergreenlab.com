@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <div class="feed-entry-life-event">
+  <div :id="$style.container">
     Flipped to {{(feedEntry.params.schedule)}}
   </div>
 </template>
@@ -31,15 +31,15 @@ export default {
       default: {}
     }
   },
-  name: "feed-entry-schedule"
 }
 </script>
 
-<style scoped>
-.feed-entry-life-event {
-  color: #15A01A;
-  font-size: 35px;
-  width: 206px;
-  margin: auto;
-}
+<style module lang=stylus>
+
+#container
+  color: #15A01A
+  font-size: 35px
+  width: 206px
+  margin: auto
+
 </style>

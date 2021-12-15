@@ -17,12 +17,12 @@
  -->
 
 <template>
-  <div class="feed-entry-light-content">
+  <div :id="$style.container">
     <div v-for="(initialValue, key) in feedEntry.params.initialValues"
          v-if="initialValue !== feedEntry.params.values[key]"
-         class="feed-entry-light-content-entry">
+         :class="$style.entry">
       <span>channel</span>
-      <span class="channel-number">{{key + 1}}</span>
+      <span :class="$style.channel">{{key + 1}}</span>
       {{initialValue}}%&nbsp;&#10132;&nbsp;{{feedEntry.params.values[key]}}%
     </div>
   </div>
@@ -30,7 +30,6 @@
 
 <script>
 export default {
-  name: "feed-entry-light",
   props: {
     feedEntry: {
       type: Object,
@@ -41,21 +40,20 @@ export default {
 }
 </script>
 
-<style scoped>
-.feed-entry-light-content {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+<style module lang=stylus>
 
-.feed-entry-light-content-entry {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
+#container
+  display: inline-flex
+  flex-wrap: wrap
+  justify-content: center
 
-.channel-number {
-  font-size: 35px;
-  color: gray;
-}
+.value
+  display: flex
+  flex-direction: column
+  margin: 10px
+
+.channel
+  font-size: 35px
+  color: gray
+
 </style>

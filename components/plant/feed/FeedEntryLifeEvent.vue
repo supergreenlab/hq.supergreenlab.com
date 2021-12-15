@@ -17,8 +17,8 @@
  -->
 
 <template>
-  <div class="feed-entry-life-event">
-    {{getLifeEventLabel(feedEntry.params.phase)}}
+  <div :id="$style.container">
+    {{lifeEventLabel(feedEntry.params.phase)}}
   </div>
 </template>
 
@@ -31,8 +31,8 @@ export default {
       default: {}
     }
   },
-  methods: {
-    getLifeEventLabel(phase) {
+  computed: {
+    lifeEventLabel: () => (phase) => {
       switch(phase) {
         case 'BLOOMING':
           return 'Blooming Started!';
@@ -52,12 +52,13 @@ export default {
 }
 </script>
 
-<style scoped>
-.feed-entry-life-event {
-  color: #15A01A;
-  font-weight: bold;
-  font-size: 35px;
-  width: 206px;
-  margin: auto;
-}
+<style module lang=stylus>
+
+#container
+  color: #15A01A
+  font-weight: bold
+  font-size: 35px
+  width: 206px
+  margin: auto
+
 </style>

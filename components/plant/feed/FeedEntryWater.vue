@@ -49,7 +49,6 @@
 
 <script>
 export default {
-  name: "feed-entry-water",
   props: {
     feedEntry: {
       type: Object,

@@ -18,16 +18,14 @@
 
 <template>
   <section :id="$style.container">
-    <div :id='$style.body' v-if="plant">
-      <PlantInfo :plant="plant"></PlantInfo>
-      <FeedEntry v-for="feedEntry in feedEntries" v-bind:key="feedEntry.id" :feedEntry="feedEntry" v-on:dialogTriggered="toggleDialog"></FeedEntry>
-      <div :class="$style.spinner_container">
-        <infinite-loading
-                spinner="spiral"
-                @infinite="loadNextFeedEntriesById">
-          <div slot="no-more"></div>
-        </infinite-loading>
-      </div>
+    <PlantInfo :plant="plant"></PlantInfo>
+    <FeedEntry v-for="feedEntry in feedEntries" v-bind:key="feedEntry.id" :feedEntry="feedEntry" v-on:dialogTriggered="toggleDialog"></FeedEntry>
+    <div :class="$style.spinner_container">
+      <infinite-loading
+              spinner="spiral"
+              @infinite="loadNextFeedEntriesById">
+        <div slot="no-more"></div>
+      </infinite-loading>
     </div>
     <portal-target name='root'>
     </portal-target>
@@ -38,6 +36,7 @@
 import {getPlantById, getFeedEntriesById} from "~/lib/plant";
 
 export default {
+  layout: 'menu',
   head() {
     return {
       title: 'SuperGreenLab - Automated LED Grow Lights for ninja growers',
@@ -119,31 +118,9 @@ export default {
 
 #container
   display: flex
-  width: 100%
   flex-direction: column
-
-#header
-  position: fixed
-  width: 100%
-  top: 0
-  left: 0
-  z-index: 1000
-
-#body
-  display: flex
-  flex-direction: column
-  flex: 1
-  top: 0
-  left: 0
-  position: absolute
-  width: 100vw
-  height: auto
   align-items: center
-  justify-content: flex-start
-  text-align: center
-  margin-top: 56px
-  background-color: #E5E5E5
-  padding-bottom: 175px
+  flex: 1
 
 .button
   background-color: #3bb30b

@@ -23,9 +23,7 @@
       <source :src="url" type="video/mp4">
     </video>
     <p :id='$style.message' v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
-    <FullscreenPics v-if='showPic' medias='medias'>
-      toto
-    </FullscreenPics>
+    <FullscreenPics v-if='showPic' medias='medias' />
   </div>
 </template>
 
