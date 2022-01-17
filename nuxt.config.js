@@ -1,3 +1,6 @@
+import path from 'path'
+import fs from 'fs'
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -67,4 +70,11 @@ export default {
   env: {
     API_URL: process.env.API_URL || 'https://api2.supergreenlab.com',
   },
+
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'dev.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'dev.crt'))
+    }
+  }
 }

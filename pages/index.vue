@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <section :id='$style.container'>
+  <section ref='scroller' :id='$style.container'>
     <PageTitle title='Dashboard' />
     <Timelapses />
     <Plants />
@@ -27,6 +27,22 @@
 <script>
 export default {
   layout: 'menu',
+  mounted() {
+    window.addEventListener("gamepadconnected", (e) => {
+      this.interval = setInterval(() => {
+        if (navigator.getGamepads()[0].axes[1] == 1) {
+          this.$refs.scroller.scrollBy({left: 0, top: 70, behavior: 'smooth'})
+        } else if (navigator.getGamepads()[0].axes[1] == -1) {
+          this.$refs.scroller.scrollBy({left: 0, top: -70, behavior: 'smooth'})
+        }
+
+      }, 50)
+    })
+  },
+  destroyed() {
+    clearInterval(this.interval)
+  },
+
 }
 </script>
 

@@ -29,6 +29,8 @@
     <div :id='$style.buttons' @mousedown='mouseDown'>
       <a href='javascript:void(0)' @click='setToday' :class='livePic ? $style.selected : ""'><img src='~/assets/img/dashboard/icon_today.svg' /> Today</a>
       <a href='javascript:void(0)' @click='setYesterday' :class='!livePic ? $style.selected : ""'><img src='~/assets/img/dashboard/icon_yesterday.svg' /> Yesterday</a>
+      <div :id='$style.spacer'></div>
+      <nuxt-link :to='`/plant/${timelapse.plantID}`' :id='$style.view'><img src='~/assets/img/dashboard/icon_view_plant.svg' /> View plant</nuxt-link>
     </div>
   </section>
 </template>
@@ -166,7 +168,9 @@ export default {
   margin: 5px
 
 #buttons > a
-  display: block
+  display: flex
+  align-items: center
+  justify-content: center
   text-decoration: none
   margin-right: 5px
   color: #454545
@@ -186,5 +190,12 @@ export default {
   left: 0
   font-weight: bold
   background-color: rgba(255, 255, 255, 0.3)
+
+#spacer
+  flex: 1
+
+#view
+  color: #666DAD !important
+  border-bottom: 2px solid #666DAD !important
 
 </style>
