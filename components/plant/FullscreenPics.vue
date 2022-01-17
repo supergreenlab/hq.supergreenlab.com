@@ -17,22 +17,24 @@
  -->
 
 <template>
-  <FullscreenPortal>
+  <FullscreenPortal :onClose='onClose'>
     <div :id='$style.container'>
-      toto
+      <MediaViewer :medias='medias' size='contain' height='500px' />
     </div>
   </FullscreenPortal>
 </template>
 
 <script>
 export default {
-  props: ['medias',],
+  props: ['medias', 'onClose',],
 }
 </script>
 
 <style module lang=stylus>
 
 #container
+  width: 100%
+  max-width: 900px
   background-color: white
   padding: 20px
   border-radius: 5px

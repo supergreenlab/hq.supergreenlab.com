@@ -17,17 +17,14 @@
  -->
 
 <template>
-  <div>
-    <img v-if="mediaType === MEDIA_TYPES.TYPE_IMAGE" :src='url' :id="$style.image" @click='onClick'/>
-    <video controls v-else-if="mediaType === MEDIA_TYPES.TYPE_VIDEO" ref="videoPlayer" :id="$style.video" @click='onClick'>
-      <source :src="url" type="video/mp4">
-    </video>
+  <section :id='$style.container'>
+    <MediaViewer v-if='medias.length > 0' :medias='medias' height='400px' :onMediaClick='onClick'/>
     <p :id='$style.message' v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
-    <FullscreenPics v-if='showPic' medias='medias' />
-  </div>
+    <FullscreenPics v-if='showPic' :medias='medias' :onClose='onClose'/>
+  </section>
 </template>
 
- <script>
+<script>
 import {getFeedMediasByFeedEntryId} from "~/lib/plant";
 
 export default {
@@ -43,7 +40,6 @@ export default {
       }
     }
   },
-  name: "feed-entry-media",
   props: {
     feedEntry: {
       type: Object,
@@ -56,34 +52,26 @@ export default {
     getFeedMediasByFeedEntryId(this.feedEntry.id, token)
       .then(data => {
         this.$data.medias = data.medias
-        this.url = 'https://storage.supergreenlab.com' + data.medias[0].filePath;
-
-        // Here I differentiate between image and video media
-        if (this.url.includes('/feedmedias/pictures')) {
-          this.mediaType = this.MEDIA_TYPES.TYPE_IMAGE;
-        } else if (this.url.includes('/feedmedias/videos')) {
-          this.mediaType = this.MEDIA_TYPES.TYPE_VIDEO;
-        }
-
       })
       .catch(err => console.log(err.message));
   },
   methods: {
     onClick(e) {
+      console.log('pouet')
       this.$data.showPic = true
     },
+    onClose(e) {
+      this.$data.showPic = false
+    }
   },
 }
 </script>
 
 <style module lang=stylus>
 
-#image
-  max-width: 100%
-
-#video
-  width: 100%
-  height: 260px
+#container
+  display: flex
+  flex-direction: column
 
 #message
   padding: 10px 15px

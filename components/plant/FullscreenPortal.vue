@@ -18,7 +18,7 @@
 
 <template>
   <portal to='root'>
-    <section :id='$style.container'>
+    <section :id='$style.container' @click='onClose'>
       <slot />
     </section>
   </portal>
@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  props: ['onClose'],
   head: {
     bodyAttrs: {
       class: 'noscroll'
@@ -42,7 +43,7 @@ export default {
   left: 0
   width: 100vw
   height: 100vh
-  background-color: rgba(255, 255, 255, 0.3)
+  background-color: rgba(0, 0, 0, 0.5)
   display: flex
   align-items: center
   justify-content: center

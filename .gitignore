@@ -90,3 +90,6 @@ sw.*
 *.swp
 
 nohup.out
+
+dev.crt
+dev.key
