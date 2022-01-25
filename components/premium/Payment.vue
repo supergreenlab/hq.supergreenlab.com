@@ -142,6 +142,9 @@ export default {
 #expirescvc > div:nth-of-type(3)
   width: 100px
 
+#expirescvc > div:nth-of-type(4)
+  width: 110px
+
 #slash
   font-size: 1.5em
   align-self: flex-end
