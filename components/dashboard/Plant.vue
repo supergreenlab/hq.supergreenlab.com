@@ -60,7 +60,9 @@
       </PlantLabel>
     </div>
     <div :id='$style.buttons' @mousedown='mouseDown'>
-      <Cta title='View plant' :to='`/plant/${plant.id}`' />
+      <Cta :to='`/plant/${plant.id}`'>
+        <b>View plant</b>
+      </Cta>
     </div>
   </section>
 </template>

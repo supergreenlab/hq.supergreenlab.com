@@ -73,7 +73,9 @@
         </div>
       </div>
       <div :id='$style.buttons' @mousedown='mouseDown'>
-        <Cta :to='`/plant/${plant.id}`' title='View plant' />
+        <Cta :to='`/plant/${plant.id}`'>
+          <b>View plant</b>
+        </Cta>
       </div>
     </div>
   </section>

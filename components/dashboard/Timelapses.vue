@@ -19,6 +19,27 @@
 <template>
   <section :id='$style.container'>
     <SectionTitle :icon='require("~/assets/img/dashboard/icon_liveviews.svg")' title='Live views' />
+    <div v-if='timelapses.length == 0' :id='$style.notimelapses'>
+      <h1>Track your grow with a live view!</h1>
+      <div :id='$style.guidecontainer'>
+        <img src='~/assets/img/dashboard/remotecam_guide.png' />
+        <div :id='$style.guide'>
+          Checkout our guide <b>“How to setup a remote camera”</b>!<br /><br />
+          So far the best and most reliable sensor we have, our eyes.
+          Keep an eye on your grow from anywhere, directly from the app for free.
+          <br /><br />
+          <b>Get the premium package and receive daily and weekly timelapses directly into your diary.</b><br />
+          <small>
+            By getting premium you’re also helping me fund the AI project, the point is to be able to detect
+            the plant’s movements. From that information we could detect issues before they arise. (Checkout the guide for more informations)
+          </small>
+        </div>
+        <div :id='$style.buttons'>
+          <Cta to='https://www.supergreenlab.com/guide/how-to-setup-a-remote-live-camera'><b>VIEW GUIDE</b></Cta>
+          <Cta to='/premium'><b>VIEW PREMIUM</b><br /><small>Thanks for YOUR support!</small></Cta>
+        </div>
+      </div>
+    </div>
     <div :id='$style.timelapses' @mouseup='mouseUp' @mousemove='mouseMove'>
       <div v-for='t in timelapses' :class='$style.timelapse' :key='t.id' @mousedown='mouseDown($event, t)' :ref='t.id'>
         <Timelapse :timelapse='t' :dragged='dragging == t' />
@@ -155,5 +176,33 @@ export default {
   border-radius: 5px
   background-color: rgba(255, 255, 255, 0.4)
   transition: all 0.3s
+
+#notimelapses
+  background-color: white
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
+  border-radius: 5px
+  padding: 0 20px 20px 20px
+  margin: 25px
+  color: #636363
+  max-width: 1200px
+
+#guidecontainer
+  display: flex
+  align-items: center
+
+#guidecontainer > img
+  margin-right: 20px
+  object-fit: none
+
+#guide
+  margin-right: 20px
+  > b
+    color: #3bb30b
+
+#buttons
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  justify-content: center
 
 </style>

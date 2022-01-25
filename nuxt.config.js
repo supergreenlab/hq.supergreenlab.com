@@ -74,10 +74,10 @@ export default {
     API_URL: process.env.API_URL || 'https://api2.supergreenlab.com',
   },
 
-  server: process.env.NODE_ENV !== 'production' ? {
+  /*  server: process.env.NODE_ENV !== 'production' ? {
     https: {
       key: fs.readFileSync(path.resolve(__dirname, 'dev.key')),
       cert: fs.readFileSync(path.resolve(__dirname, 'dev.crt'))
     }
-  } : {}
+  } : {}*/
 }

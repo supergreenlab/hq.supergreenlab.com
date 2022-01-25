@@ -1,5 +1,5 @@
 <!--
-      Copyright (C) 2021  SuperGreenLab <towelie@supergreenlab.com>
+      Copyright (C) 2022  SuperGreenLab <towelie@supergreenlab.com>
       Author: Constantin Clauzel <constantin.clauzel@gmail.com>
 
       This program is free software: you can redistribute it and/or modify
@@ -17,44 +17,19 @@
  -->
 
 <template>
-  <nuxt-link v-if='to.indexOf("http") != 0' :id='$style.button' :to='to'><slot></slot></nuxt-link>
-  <a v-else :id='$style.button' :href='to' target='_blank'><slot></slot></a>
+  <section :id='$style.container'>
+    premium
+  </section>
 </template>
 
 <script>
 export default {
-  props: ['to',],
 }
 </script>
 
 <style module lang=stylus>
 
-#button
-  display: block
-  background-color: #3BB30B
-  text-align: center
-  padding: 8pt 25pt
-  border-radius: 5pt
-  color: white
-  text-decoration: none
-  font-size: 1.2em
-  margin: 4pt 0
-  white-space: nowrap
-  transition: opacity 0.2s
-  text-transform: uppercase
-  @media only screen and (max-width: 1000px)
-    padding: 7pt 22pt
-    font-size: 1.1em
-
-#button
-  padding: 6pt 18pt
-  font-size: 1em
-  border-radius: 4pt
-
-#button:hover
-  background-color: #2F880B
-
-#button > b
-  font-weight: 600
+#container
+  display: flex
 
 </style>
