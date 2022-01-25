@@ -18,46 +18,45 @@
 
 <template>
   <section :id='$style.container'>
-    <PageTitle title='Premium' />
-    <div :class='$style.section'>
-      <Offer />
-    </div>
-    <div :class='$style.section'>
-      <Contact />
-    </div>
-    <div :class='$style.section'>
-      <Payment />
-    </div>
+    <div :id='$style.label'>{{ label }} <span v-if='!optional'>*</span></div>
+    <input type='text' :name='name' :value='value' @input='onInput' @change='onChange' />
   </section>
 </template>
 
 <script>
 export default {
-  layout: 'menu',
+  props: ['label', 'value', 'name', 'optional',],
+  methods: {
+    onInput(e) {
+      this.$emit('input', e.target.value.trim());
+    },
+    onChange(e) {
+      this.$emit('input', e.target.value.trim());
+    },
+  },
 }
 </script>
 
 <style module lang=stylus>
 
 #container
-  flex: 1
-  display: flex
-  flex-direction: column
-  height: 100vh
-  overflow-y: auto
-
-#container > div, #container > section
-  margin-bottom: 40px !important
-
-.section
   width: 100%
-  max-width: 800pt
-  border-radius: 5pt
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
-  background-color: white
-  padding: 20pt 20pt
-  margin: 0 25px 25px 25px
-  color: #323232
+
+#label
+  margin: 0 0 5pt 0
+  font-weight: 600
+  font-size: 1.1em
+  color: #454545
+
+#label > span
+  color: red
+
+#container > input
+  width: 100%
+  border: 1pt solid #BCBCBC
   font-weight: 400
+  padding: 5px
+  color: #454545
+  border-radius: 3px
 
 </style>

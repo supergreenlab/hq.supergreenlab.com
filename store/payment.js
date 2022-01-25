@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  SuperGreenLab <towelie@supergreenlab.com>
+ * Copyright (C) 2022  SuperGreenLab <towelie@supergreenlab.com>
  * Author: Constantin Clauzel <constantin.clauzel@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,15 +16,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { onNuxtReady } from '~/lib/client-side.js'
+import Vue from 'vue'
+import axios from 'axios'
+
+export const state = () => {
+  let defaults = {
+    firstname: '',
+    lastname: '',
+    phone: '',
+    email: '',
+    order: '',
+    cardnum: '',
+    expiresm: '',
+    expiresy: '',
+    cvc: '',
+  };
+  return defaults
+};
 
 export const actions = {
-  nuxtClientInit(context) {
-    onNuxtReady(() => {
-      context.dispatch('auth/nuxtClientInit')
-      context.dispatch('lab/nuxtClientInit')
-      context.dispatch('dashboard/nuxtClientInit')
-      context.dispatch('payment/nuxtClientInit')
-    })
+  async nuxtClientInit({ commit, dispatch }) {
+  },
+  async createPayment({ commit, dispatch }) {
   }
+}
+
+export const mutations = {
+  setInfo(state, { key, value }) {
+    state[key] = value
+  },
+}
+
+export const getters = {
 }

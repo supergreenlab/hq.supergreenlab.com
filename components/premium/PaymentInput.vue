@@ -17,47 +17,35 @@
  -->
 
 <template>
-  <section :id='$style.container'>
-    <PageTitle title='Premium' />
-    <div :class='$style.section'>
-      <Offer />
-    </div>
-    <div :class='$style.section'>
-      <Contact />
-    </div>
-    <div :class='$style.section'>
-      <Payment />
-    </div>
+  <section :id='$style.section'>
+    <TextInput :label='label' :name='name' :optional='optional' v-model='value' />
   </section>
 </template>
 
 <script>
+
+const binding = (name) => ({
+})
+
+
 export default {
-  layout: 'menu',
+  props: ['label', 'name', 'optional',],
+  computed: {
+    value: {
+      get() {
+        return this.$store.state.payment[this.$props.name].value
+      },
+      set(value) {
+        this.$store.commit('payment/setInfo', {key: this.$props.name, value})
+      },
+    },
+  },
 }
 </script>
 
 <style module lang=stylus>
 
 #container
-  flex: 1
   display: flex
-  flex-direction: column
-  height: 100vh
-  overflow-y: auto
-
-#container > div, #container > section
-  margin-bottom: 40px !important
-
-.section
-  width: 100%
-  max-width: 800pt
-  border-radius: 5pt
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
-  background-color: white
-  padding: 20pt 20pt
-  margin: 0 25px 25px 25px
-  color: #323232
-  font-weight: 400
 
 </style>

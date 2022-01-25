@@ -17,13 +17,14 @@
  -->
 
 <template>
-  <nuxt-link v-if='to.indexOf("http") != 0' :id='$style.button' :to='to'><slot></slot></nuxt-link>
-  <a v-else :id='$style.button' :href='to' target='_blank'><slot></slot></a>
+  <a v-if='to && to.indexOf("http") == 0' :id='$style.button' :href='to' target='_blank' :class='{[$style.nomargin]: nomargin}'><slot></slot></a>
+  <a v-else-if='onClick' :id='$style.button' href='javascript:void(0)' @click='onClick' :class='{[$style.nomargin]: nomargin}'><slot></slot></a>
+  <nuxt-link v-else :id='$style.button' :to='to' :class='{[$style.nomargin]: nomargin}'><slot></slot></nuxt-link>
 </template>
 
 <script>
 export default {
-  props: ['to',],
+  props: ['to', 'nomargin', 'onClick'],
 }
 </script>
 
@@ -45,6 +46,9 @@ export default {
   @media only screen and (max-width: 1000px)
     padding: 7pt 22pt
     font-size: 1.1em
+
+.nomargin
+  margin: 0 !important
 
 #button
   padding: 6pt 18pt

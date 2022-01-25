@@ -185,6 +185,7 @@ export default {
   margin: 25px
   color: #636363
   max-width: 1200px
+  font-weight: 400
 
 #guidecontainer
   display: flex
