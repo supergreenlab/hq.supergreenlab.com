@@ -22,8 +22,8 @@
       <VueSlickCarousel v-bind="settings">
         <div v-for='media in medias' :key='media.id'>
           <div v-if="mediaType(media) === MEDIA_TYPES.TYPE_IMAGE" :style='{"background-image": `url(${url(media)})`, height: height, "background-size": size}' :class="$style.image" @click='onClick(media)'></div>
-          <video controls v-else-if="mediaType(media) === MEDIA_TYPES.TYPE_VIDEO" ref="videoPlayer" :class="$style.video" @click='onClick(media)'>
-            <source :src="url" type="video/mp4">
+          <video controls v-else-if="mediaType(media) === MEDIA_TYPES.TYPE_VIDEO" ref="videoPlayer" :class="$style.video" @click='onClick(media)' autoplay loop playsinline muted defaultMuted>
+            <source :src="url(media)" type="video/mp4">
           </video>
         </div>
       </VueSlickCarousel>
