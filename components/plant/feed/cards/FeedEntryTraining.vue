@@ -20,13 +20,14 @@
   <div :id='$style.container'>
     <div  v-if="images.after && images.after[0]">
       <div :class="$style.label">After</div>
-      <img :src='mediaUrl(images.after[0].filePath)' :class="$style.image"/>
+      <MediaViewer :medias='images.after' height='400px' :onMediaClick='onClickAfter' />
     </div>
     <div v-if="images.before && images.before[0]">
       <div :class="$style.label">Before</div>
-      <img :src='mediaUrl(images.before[0].filePath)' :class="$style.image"/>
+      <MediaViewer :medias='images.before' height='400px' :onMediaClick='onClickBefore' />
     </div>
     <p :id='$style.message' v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
+    <FullscreenPics v-if='showPic' :medias='medias' :onClose='onClose'/>
   </div>
 </template>
 
@@ -37,6 +38,8 @@ export default {
   name: "feed-entry-training",
   data() {
     return {
+      showPic: false,
+      medias: null,
       images: {
         before: [],
         after: []
@@ -48,11 +51,6 @@ export default {
       type: Object,
       required: true,
       default: {}
-    }
-  },
-  computed: {
-    mediaUrl: () => (url) => {
-      return 'https://storage.supergreenlab.com' + url;
     }
   },
   mounted() {
@@ -68,6 +66,24 @@ export default {
         })
       })
       .catch(err => console.log(err.message));
+  },
+  computed: {
+    mediaUrl: () => (url) => {
+      return 'https://storage.supergreenlab.com' + url;
+    }
+  },
+  methods: {
+    onClickAfter(e) {
+      this.$data.showPic = true
+      this.$data.medias = this.$data.images.after
+    },
+    onClickBefore(e) {
+      this.$data.showPic = true
+      this.$data.medias = this.$data.images.before
+    },
+    onClose(e) {
+      this.$data.showPic = false
+    }
   },
 }
 </script>

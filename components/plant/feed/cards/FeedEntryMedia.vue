@@ -32,7 +32,6 @@ export default {
     return {
       medias: [],
       showPic: false,
-      url: null,
       mediaType: null,
       MEDIA_TYPES:  {
         TYPE_IMAGE: 1,
