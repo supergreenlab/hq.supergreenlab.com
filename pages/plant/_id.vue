@@ -20,7 +20,7 @@
   <section :id="$style.container">
     <PlantInfo :plant="plant"></PlantInfo>
     <FeedEntry v-for="feedEntry in feedEntries" v-bind:key="feedEntry.id" :feedEntry="feedEntry" v-on:dialogTriggered="toggleDialog"></FeedEntry>
-    <div :class="$style.spinner_container">
+    <div v-if='feedEntries.length' :class="$style.spinner_container">
       <infinite-loading
               spinner="spiral"
               @infinite="loadNextFeedEntriesById">
@@ -54,8 +54,8 @@ export default {
       plant: null,
       feedEntries: [],
       page: 0,
-      pageSize: 5,
-      showDialog: false
+      pageSize: 10,
+      showDialog: false,
     }
   },
   mounted() {
@@ -92,9 +92,9 @@ export default {
       const { token } = this.$store.state.auth
       getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page * this.pageSize)
         .then(feedEntries => {
-          $state.loaded();
           if (feedEntries.entries && feedEntries.entries.length > 1) {
             this.feedEntries = this.feedEntries.concat(feedEntries.entries);
+            $state.loaded();
           } else {
             $state.complete();
           }
