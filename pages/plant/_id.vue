@@ -58,24 +58,12 @@ export default {
       showDialog: false,
     }
   },
-  mounted() {
+  async mounted() {
     const { token } = this.$store.state.auth
-    getPlantById(this.$route.params.id, token)
-      .then(plant => {
-        this.plant = plant;
-        this.plant.settings = JSON.parse(this.plant.settings);
-        this.plant.boxSettings = JSON.parse(this.plant.boxSettings);
-      })
-      .catch(err => {
-        console.log(err.message);
-        // if no plant is available for the input id -> navigate to 404 page
-        this.$router.push('/404')
-      });
-    getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page)
-      .then(feedEntries => {
-        this.feedEntries = this.feedEntries.concat(feedEntries.entries);
-      })
-      .catch(err => console.log(err.message));
+    const plant = await getPlantById(this.$route.params.id, token)
+    this.plant = plant;
+    const feedEntries = await getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page)
+    this.feedEntries = this.feedEntries.concat(feedEntries);
   },
   computed: {
     plantURL() {
@@ -87,19 +75,16 @@ export default {
     }
   },
   methods: {
-    loadNextFeedEntriesById($state) {
+    async loadNextFeedEntriesById($state) {
       this.page++;
       const { token } = this.$store.state.auth
-      getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page * this.pageSize)
-        .then(feedEntries => {
-          if (feedEntries.entries && feedEntries.entries.length > 1) {
-            this.feedEntries = this.feedEntries.concat(feedEntries.entries);
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
-        })
-        .catch(err => console.log(err.message));
+      const feedEntries = await getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page * this.pageSize)
+      if (feedEntries.length > 0) {
+        this.feedEntries = this.feedEntries.concat(feedEntries);
+        $state.loaded();
+      } else {
+        $state.complete();
+      }
     },
     toggleDialog(event) {
       if (this.showDialog) {

@@ -43,7 +43,7 @@ export default {
     }, 0)
     this.interval = setInterval(this.updateHeight, 500)
   },
-  destroy() {
+  destroyed() {
     clearInterval(this.interval)
   },
   methods: {

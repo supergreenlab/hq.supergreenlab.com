@@ -40,7 +40,7 @@
             {{plant.settings.medium}}
           </div>
         </div>
-        <div :class="$style.data_entry">
+        <div v-if='plant.boxSettings' :class="$style.data_entry">
           <img :class="$style.data_icon" :src="require('~/assets/img/plant/infos/icon_dimension.svg')"/>
           <div>
             <span :class="$style.data_entry_name">Lab dimensions</span>
@@ -96,11 +96,11 @@
             {{plant.settings.strain}} from {{plant.settings.seedbank}}
           </div>
         </div>
-        <div :class="$style.data_entry" v-if="plant.boxSettings.products[0]">
+        <div v-if='plant.boxSettings' :class="$style.data_entry" v-for="product in plant.boxSettings.products">
           <img :class="$style.data_icon" :src="require('~/assets/img/plant/infos/icon_furniture.svg')"/>
           <div>
             <span :class="$style.data_entry_name">Furniture</span>
-            {{plant.boxSettings.products[0].name}} by {{plant.boxSettings.products[0].specs.brand}}
+            {{product.name}} by {{product.specs.brand}}
           </div>
         </div>
       </div>

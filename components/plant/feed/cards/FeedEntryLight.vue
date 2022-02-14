@@ -20,10 +20,10 @@
   <div :id="$style.container">
     <div v-for="(initialValue, key) in feedEntry.params.initialValues"
          v-if="initialValue !== feedEntry.params.values[key]"
-         :class="$style.entry">
+         :class="$style.value">
       <span>channel</span>
       <span :class="$style.channel">{{key + 1}}</span>
-      {{initialValue}}%&nbsp;&#10132;&nbsp;{{feedEntry.params.values[key]}}%
+      <span>{{initialValue}}%&nbsp;&#10132;&nbsp;{{feedEntry.params.values[key]}}%</span>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@ export default {
 .value
   display: flex
   flex-direction: column
+  align-items: center
   margin: 10px
 
 .channel

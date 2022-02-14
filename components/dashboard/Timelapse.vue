@@ -54,7 +54,7 @@ export default {
       this.$data.livePic = !this.$data.livePic
     }, 20000)
   },
-  destroy() {
+  destroyed() {
     clearInterval(this.interval)
   },
   async created() {

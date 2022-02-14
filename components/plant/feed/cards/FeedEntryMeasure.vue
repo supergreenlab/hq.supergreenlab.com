@@ -18,19 +18,19 @@
 
 <template>
   <section :id='$style.container'>
-    <MediaViewer v-if='medias.length > 0' :medias='medias' height='400px' :onMediaClick='onClick'/>
+    <MediaViewer v-if='media' :medias='[media]' height='400px' :onMediaClick='onClick'/>
     <p :id='$style.message' v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
-    <FullscreenPics v-if='showPic' :medias='medias' :onClose='onClose'/>
+    <FullscreenPics v-if='showPic' :medias='[media]' :onClose='onClose'/>
   </section>
 </template>
 
 <script>
-import {getFeedMediasByFeedEntryId} from "~/lib/plant";
+import {getFeedMediaById, getFeedMediasByFeedEntryId} from "~/lib/plant";
 
 export default {
   data() {
     return {
-      medias: [],
+      media: null,
       showPic: false,
     }
   },
@@ -44,7 +44,17 @@ export default {
   async mounted() {
     const { token } = this.$store.state.auth
     const data = await getFeedMediasByFeedEntryId(this.feedEntry.id, token)
-    this.$data.medias = data.medias
+    const media = data.medias[0]
+
+    const { feedEntry } = this.$props
+    console.log('feedEntry.params', feedEntry.params)
+    if (feedEntry.params.previous) {
+      const previous = await getFeedMediaById(feedEntry.params.previous, token)
+      console.log('previous', previous)
+      media.previous = previous
+    }
+
+    this.$data.media = media
   },
   methods: {
     onClick(e) {

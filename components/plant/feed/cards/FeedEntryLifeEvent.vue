@@ -55,6 +55,10 @@ export default {
 <style module lang=stylus>
 
 #container
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
   color: #15A01A
   font-weight: bold
   font-size: 35px

@@ -61,7 +61,7 @@ const entries = {
     icon: require('~/assets/img/plant/feed/icon_towelie.png'),
   },
   FE_MEASURE: {
-    component: require('/components/plant/feed/cards/FeedEntryMedia').default,
+    component: require('/components/plant/feed/cards/FeedEntryMeasure').default,
     name: 'Measure',
     icon: require('~/assets/img/plant/feed/icon_measure.svg'),
   },
@@ -122,9 +122,6 @@ export default {
     }
   },
   mounted() {
-    if (this.feedEntry.params) {
-      this.feedEntry.params = JSON.parse(this.feedEntry.params);
-    }
   },
   computed: {
     feedComponent: () => (type) => {

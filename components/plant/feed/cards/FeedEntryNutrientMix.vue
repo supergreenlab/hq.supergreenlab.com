@@ -19,7 +19,7 @@
 <template>
   <div :id="$style.container">
     <div :id="$style.header" v-if="feedEntry.params.phase">
-      <span>Phase: {{getPhase(feedEntry.params.phase)}}</span>
+      <span>Phase: {{phase(feedEntry.params.phase)}}</span>
     </div>
 
     <div :id="$style.cards">
@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-    phase: (phase) => () => {
+    phase: () => (phase) => {
       switch (phase) {
         case "EARLY_VEG":
           return "Early veg";

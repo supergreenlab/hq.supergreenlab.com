@@ -17,29 +17,29 @@
  -->
 
 <template>
-  <div class="feed-entry-water-wrapper">
-    <div  class="feed-entry-water-header">
+  <div :class="$style.container">
+    <div  :class="$style.header">
       <span>Was dry: {{feedEntry.params.tooDry ? 'YES' : 'NO'}}</span>
       <span>With nutes: {{feedEntry.params.nutrient ? 'YES' : 'NO'}}</span>
     </div>
 
-    <div class="feed-entry-water-wrapper">
-      <div class="feed-entry-water-cards">
-        <div class="feed-entry-water-content">
+    <div :class="$style.wrapper">
+      <div :class="$style.cards">
+        <div :class="$style.content">
           <span>Water quantity</span>
-          <span class="feed-entry-water-volume">{{feedEntry.params.volume}} L</span>
+          <span :class="$style.volume">{{feedEntry.params.volume}} L</span>
         </div>
-        <div class="feed-entry-water-content" v-if="feedEntry.params.ph">
+        <div :class="$style.content" v-if="feedEntry.params.ph">
           <span>PH</span>
-          <span class="feed-entry-water-volume">{{feedEntry.params.ph}}</span>
+          <span :class="$style.volume">{{feedEntry.params.ph}}</span>
         </div>
-        <div class="feed-entry-water-content" v-if="feedEntry.params.ec">
+        <div :class="$style.content" v-if="feedEntry.params.ec">
           <span>EC</span>
-          <span class="feed-entry-water-volume">{{feedEntry.params.ec}}</span>
+          <span :class="$style.volume">{{feedEntry.params.ec}}</span>
         </div>
-        <div class="feed-entry-water-content" v-if="feedEntry.params.tds">
+        <div :class="$style.content" v-if="feedEntry.params.tds">
           <span>TDS</span>
-          <span class="feed-entry-water-volume">{{feedEntry.params.tds}}</span>
+          <span :class="$style.volume">{{feedEntry.params.tds}}</span>
         </div>
       </div>
       <p v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
@@ -59,19 +59,20 @@ export default {
 }
 </script>
 
-<style scoped>
-.feed-entry-water-wrapper {
-}
+<style module lang=stylus>
 
-.feed-entry-water-header {
+.container
+  display: flex
+  flex-direction: column
+
+.header
   display: flex;
   justify-content: space-between;
   color: gray;
   margin-bottom: 10px;
   padding: 0 20px;
-}
 
-.feed-entry-water-content {
+.content
   width: 150px;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -80,22 +81,19 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 10px;
-}
 
-.feed-entry-water-volume {
+.volume
   font-size: 25px;
   display: block;
   margin-top: 15px;
-}
 
-p {
+p
   padding: 10px 15px;
   text-align: left;
-}
 
-.feed-entry-water-cards {
+.cards
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
-}
+
 </style>
