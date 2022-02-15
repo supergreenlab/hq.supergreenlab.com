@@ -114,17 +114,7 @@ const entries = {
 
 export default {
   name: "feed-entry",
-  props: {
-    lib: {
-      type: Object,
-      required: true,
-    },
-    feedEntry: {
-      type: Object,
-      required: true,
-      default: {}
-    }
-  },
+  props: ['lib', 'feedEntry'],
   mounted() {
   },
   computed: {

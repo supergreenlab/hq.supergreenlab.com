@@ -19,7 +19,7 @@
 <template>
   <section :id="$style.container">
     <PlantInfo v-if='plant' :plant="plant"></PlantInfo>
-    <Feed :lib='lib' />
+    <Feed :lib='lib' :plantID='plantID' />
     <portal-target name='root'>
     </portal-target>
   </section>
@@ -56,6 +56,9 @@ export default {
   },
   computed: {
     lib() { return wrapToken(lib, this.$store.state.auth.token) },
+    plantID() {
+      return this.$route.params.id
+    }
   },
 }
 </script>

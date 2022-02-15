@@ -32,16 +32,7 @@ export default {
       showPic: false,
     }
   },
-  props: {
-    feedEntry: {
-      type: Object,
-      required: true,
-    },
-    lib: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['lib', 'feedEntry'],
   async mounted() {
     const { lib } = this.$props
     const data = await lib.getFeedMediasForFeedEntryId(this.feedEntry.id)
