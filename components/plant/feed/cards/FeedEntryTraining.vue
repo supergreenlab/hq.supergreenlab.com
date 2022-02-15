@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import {getFeedMediasByFeedEntryId} from "~/lib/plant";
-
 export default {
   name: "feed-entry-training",
   data() {
@@ -51,21 +49,22 @@ export default {
       type: Object,
       required: true,
       default: {}
-    }
+    },
+    lib: {
+      type: Object,
+      required: true,
+    },
   },
-  mounted() {
-    const { token } = this.$store.state.auth
-    getFeedMediasByFeedEntryId(this.feedEntry.id, token)
-      .then(data => {
-        data.medias.forEach(imageObject => {
-          if (JSON.parse(imageObject.params).before) {
-            this.images.before.push(imageObject);
-          } else {
-            this.images.after.push(imageObject);
-          }
-        })
-      })
-      .catch(err => console.log(err.message));
+  async mounted() {
+    const { lib } = this.$props
+    const data = await lib.getFeedMediasForFeedEntryId(this.feedEntry.id)
+    data.medias.forEach(imageObject => {
+      if (JSON.parse(imageObject.params).before) {
+        this.images.before.push(imageObject);
+      } else {
+        this.images.after.push(imageObject);
+      }
+    })
   },
   computed: {
     mediaUrl: () => (url) => {

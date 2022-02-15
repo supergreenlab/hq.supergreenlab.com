@@ -18,22 +18,17 @@
 
 <template>
   <section :id="$style.container">
-    <PlantInfo :plant="plant"></PlantInfo>
-    <FeedEntry v-for="feedEntry in feedEntries" v-bind:key="feedEntry.id" :feedEntry="feedEntry" v-on:dialogTriggered="toggleDialog"></FeedEntry>
-    <div v-if='feedEntries.length' :class="$style.spinner_container">
-      <infinite-loading
-              spinner="spiral"
-              @infinite="loadNextFeedEntriesById">
-        <div slot="no-more"></div>
-      </infinite-loading>
-    </div>
+    <PlantInfo v-if='plant' :plant="plant"></PlantInfo>
+    <Feed :lib='lib' />
     <portal-target name='root'>
     </portal-target>
   </section>
 </template>
 
 <script>
-import {getPlantById, getFeedEntriesById} from "~/lib/plant";
+import * as lib from "~/lib/plant";
+
+const wrapToken = (lib, token) => Object.keys(lib).reduce((acc, k) => Object.assign(acc, {}, {[k]: function() { return lib[k](token, ...arguments) }}), {})
 
 export default {
   layout: 'menu',
@@ -52,50 +47,16 @@ export default {
   data() {
     return {
       plant: null,
-      feedEntries: [],
-      page: 0,
-      pageSize: 10,
-      showDialog: false,
     }
   },
   async mounted() {
     const { token } = this.$store.state.auth
-    const plant = await getPlantById(this.$route.params.id, token)
+    const plant = await lib.getPlantById(token, this.$route.params.id)
     this.plant = plant;
-    const feedEntries = await getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page)
-    this.feedEntries = this.feedEntries.concat(feedEntries);
   },
   computed: {
-    plantURL() {
-      if (this.$route.params.feid) {
-        return `sglapp://supergreenlab.com/public/plant?id=${this.$route.params.id}&feid=${this.$route.params.feid}`
-      } else {
-        return `sglapp://supergreenlab.com/public/plant?id=${this.$route.params.id}`
-      }
-    }
+    lib() { return wrapToken(lib, this.$store.state.auth.token) },
   },
-  methods: {
-    async loadNextFeedEntriesById($state) {
-      this.page++;
-      const { token } = this.$store.state.auth
-      const feedEntries = await getFeedEntriesById(this.$route.params.id, token, this.pageSize, this.page * this.pageSize)
-      if (feedEntries.length > 0) {
-        this.feedEntries = this.feedEntries.concat(feedEntries);
-        $state.loaded();
-      } else {
-        $state.complete();
-      }
-    },
-    toggleDialog(event) {
-      if (this.showDialog) {
-        if (event && (event.target.id === 'backdrop' || event.target.id === 'closeButton')) {
-          this.showDialog = !this.showDialog;
-        }
-      } else {
-        this.showDialog = !this.showDialog;
-      }
-    }
-  }
 }
 </script>
 
@@ -106,104 +67,5 @@ export default {
   flex-direction: column
   align-items: center
   flex: 1
-
-.button
-  background-color: #3bb30b
-  padding: 10pt 15pt
-  border-radius: 2pt
-  display: flex
-  justify-content: center
-  margin: 5pt 0
-
-.button > a
-  color: white
-  text-decoration: none
-  font-size: 1.1em
-
-.spinner_container div
-  width: 250px
-
-.app_cta_wrapper
-  background-color: #fff
-  position: fixed
-  bottom: 0
-  height: fit-content
-  width: 100%
-  display: flex
-  justify-content: center
-  align-items: center
-
-.app_cta
-  max-height: 420px
-  max-width: 300px
-
-.open_in_app
-  font-size: 20px
-  font-weight: bold
-  margin-top: 5px
-
-.open_in_app a
-  color: black
-  text-decoration: none
-
-.install_app
-  display: flex
-  align-items: center
-  justify-content: center
-  text-decoration: none
-  margin-bottom: 5px
-  color: black
-
-.install_app_text
-  margin-right: 10px
-  font-weight: bold
-
-.install_app img
-  width: 25px
-
-.app_cta_text
-  margin-top: 5px;
-
-.ctaDialog
-  background-color: rgba(0,0,0,0.6)
-  position: fixed
-  z-index: 1000
-  left: 0
-  top: 0
-  width: 100%
-  height: 100%
-  display: flex
-  justify-content: center
-  align-items: center
-
-.dialog_content_wrapper
-  background-color: white
-  max-height: 420px
-  max-width: 600px
-
-
-.dialog_content
-  padding: 50px 100px
-  text-align: center
-
-.closeButton
-  position: realtive
-  top: 0
-  right: 0
-  text-align: right;
-  padding: 10px 20px 0 15px;
-  font-size: 30px;
-
-.closeButton span:hover
-  cursor: pointer
-
-.green
-  color: #3bb30b
-  margin: 0
-
-.open_app_icon
-  width: 25px
-
-
 
 </style>

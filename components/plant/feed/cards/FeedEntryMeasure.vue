@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import {getFeedMediaById, getFeedMediasByFeedEntryId} from "~/lib/plant";
-
 export default {
   data() {
     return {
@@ -38,19 +36,20 @@ export default {
     feedEntry: {
       type: Object,
       required: true,
-      default: {}
-    }
+    },
+    lib: {
+      type: Object,
+      required: true,
+    },
   },
   async mounted() {
-    const { token } = this.$store.state.auth
-    const data = await getFeedMediasByFeedEntryId(this.feedEntry.id, token)
+    const { lib } = this.$props
+    const data = await lib.getFeedMediasForFeedEntryId(this.feedEntry.id)
     const media = data.medias[0]
 
     const { feedEntry } = this.$props
-    console.log('feedEntry.params', feedEntry.params)
     if (feedEntry.params.previous) {
-      const previous = await getFeedMediaById(feedEntry.params.previous, token)
-      console.log('previous', previous)
+      const previous = await lib.getFeedMediaById(feedEntry.params.previous)
       media.previous = previous
     }
 

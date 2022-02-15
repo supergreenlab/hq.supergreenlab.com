@@ -23,7 +23,7 @@
       {{feedEntryHeading(feedEntry.type)}}
     </div>
     <div :id="$style.content">
-      <component :is="feedComponent(feedEntry.type)" :feedEntry="feedEntry"></component>
+      <component :is="feedComponent(feedEntry.type)" :feedEntry="feedEntry" :lib='lib'></component>
     </div>
     <div :id="$style.footer">
       <div :id="$style.footericons">
@@ -115,6 +115,10 @@ const entries = {
 export default {
   name: "feed-entry",
   props: {
+    lib: {
+      type: Object,
+      required: true,
+    },
     feedEntry: {
       type: Object,
       required: true,

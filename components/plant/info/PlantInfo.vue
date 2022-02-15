@@ -93,7 +93,7 @@
           <img :class="$style.data_icon" :src="require('~/assets/img/plant/infos/icon_seed.svg')"/>
           <div>
             <span :class="$style.data_entry_name">Seeds</span>
-            {{plant.settings.strain}} from {{plant.settings.seedbank}}
+            {{plant.settings.strain}} from {{plant.settings.seedBank}}
           </div>
         </div>
         <div v-if='plant.boxSettings' :class="$style.data_entry" v-for="product in plant.boxSettings.products">

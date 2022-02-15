@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import {getFeedMediasByFeedEntryId} from "~/lib/plant";
-
 export default {
   data() {
     return {
@@ -39,11 +37,15 @@ export default {
       type: Object,
       required: true,
       default: {}
-    }
+    },
+    lib: {
+      type: Object,
+      required: true,
+    },
   },
   async mounted() {
-    const { token } = this.$store.state.auth
-    const data = await getFeedMediasByFeedEntryId(this.feedEntry.id, token)
+    const { lib } = this.$props
+    const data = await lib.getFeedMediasForFeedEntryId(this.feedEntry.id)
     this.$data.medias = data.medias
   },
   methods: {
