@@ -28,6 +28,8 @@
     <div v-if='dragging' :id='$style.dragging' :style='{top: `${mouseY - draggingY}px`, left: `${mouseX - draggingX}px`}' @mouseup='mouseUp' @mousemove='mouseMove'>
       <Timelapse :timelapse='dragging' />
     </div>
+    <FullscreenPics v-if='getFullscreenTimelapse != null && cachedLastFrame(getFullscreenTimelapse)' :medias='[{id: 0, filePath: cachedLastFrame(getFullscreenTimelapse)}]' :onClose='onClose'>
+    </FullscreenPics>
   </section>
 </template>
 
@@ -47,12 +49,18 @@ function array_move(arr, old_index, new_index) {
 export default {
   data() {
     return {
+      fullscreenTimelapse: null,
       dragging: null,
       draggingOver: null,
       mouseX: 0,
       mouseY: 0,
       draggingX: 0,
       draggingY: 0,
+    }
+  },
+  mounted() {
+    if (this.$route.query.timelapse) {
+      this.$data.fullscreenTimelapse = this.$route.query.timelapse
     }
   },
   computed: {
@@ -81,8 +89,22 @@ export default {
         height: `${coord.height}px`,
       }
     },
+    getFullscreenTimelapse() {
+      const { fullscreenTimelapse } = this.$data
+      if (!fullscreenTimelapse) return null
+      return this.timelapses.find(t => t.id == fullscreenTimelapse)
+    },
+    cachedLastFrame() {
+      const API_URL = process.env.API_URL
+      return function(timelapse) {
+        return this.$store.state.dashboard.cached[`${API_URL}/timelapse/${timelapse.id}/latest`]
+      }
+    },
   },
   methods: {
+    onClose() {
+      this.$data.fullscreenTimelapse = null
+    },
     mouseMove(e) {
       if (!this.$data.dragging) return
       this.$data.mouseX = e.pageX

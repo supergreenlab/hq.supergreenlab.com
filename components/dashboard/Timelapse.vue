@@ -149,6 +149,7 @@ export default {
   background-color: white
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
   border-radius: 5px
+  position: relative
 
 #pic
   position: relative

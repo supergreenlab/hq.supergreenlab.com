@@ -71,13 +71,16 @@ export default {
   computed: {
     mediaType: () => media => {
       const url = media.filePath
+      if (url.indexOf('base64') != -1) {
+        return MEDIA_TYPES.TYPE_IMAGE
+      }
       if (url.includes('/feedmedias/pictures')) {
         return MEDIA_TYPES.TYPE_IMAGE;
       } else if (url.includes('/feedmedias/videos')) {
         return MEDIA_TYPES.TYPE_VIDEO;
       }
     },
-    url: () => media => `https://storage.supergreenlab.com${media.filePath}`,
+    url: () => media => (media.filePath.indexOf('base64') != -1) ? media.filePath : `https://storage.supergreenlab.com${media.filePath}`,
   },
 }
 </script>

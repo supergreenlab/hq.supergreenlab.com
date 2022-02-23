@@ -47,7 +47,6 @@ export default {
   left: 50px
   height: calc(100vh - 150px)
   width: calc(100vw - 100px)
-  background-color: rgba(0, 0, 0, 0.5)
   @media only screen and (max-width: 600px), screen and (max-height: 500px)
     top: 0
     left: 0

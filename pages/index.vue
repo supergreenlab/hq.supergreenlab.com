@@ -21,6 +21,8 @@
     <PageTitle title='Dashboard' />
     <Timelapses />
     <Plants />
+    <portal-target name='root'>
+    </portal-target>
   </section>
 </template>
 
