@@ -18,7 +18,7 @@
 
 <template>
   <section :id='$style.container'>
-    <MediaViewer v-if='media' :medias='[media]' height='400px' :onMediaClick='onClick'/>
+    <MediaViewer v-if='media' :medias='[media]' height='400px' :onMediaClick='onClick' :setShownMedias='setShownMedias'/>
     <p :id='$style.message' v-if="feedEntry.params.message">{{feedEntry.params.message}}</p>
     <FullscreenPics v-if='showPic' :medias='[media]' :onClose='onClose'/>
   </section>
@@ -32,19 +32,28 @@ export default {
       showPic: false,
     }
   },
-  props: ['lib', 'feedEntry'],
+  props: ['lib', 'feedEntry', 'feedMedias', 'setShownMedias',],
   async mounted() {
-    const { lib } = this.$props
-    const data = await lib.getFeedMediasForFeedEntryId(this.feedEntry.id)
-    const media = data.medias[0]
+    if (!this.$props.feedMedias) {
+      if (!this.$props.lib) {
+        return
+      }
+      const { lib } = this.$props
+      const data = await lib.getFeedMediasForFeedEntryId(this.feedEntry.id)
+      const media = data.medias[0]
+      this.$props.setShownMedias(data.medias)
 
-    const { feedEntry } = this.$props
-    if (feedEntry.params.previous) {
-      const previous = await lib.getFeedMediaById(feedEntry.params.previous)
-      media.previous = previous
+      const { feedEntry } = this.$props
+      if (feedEntry.params.previous) {
+        const previous = await lib.getFeedMediaById(feedEntry.params.previous)
+        media.previous = previous
+      }
+      this.$data.media = media
+    } else {
+      this.$props.setShownMedias(this.$props.feedMedias)
+      this.$data.media = this.$props.feedMedias[0]
     }
 
-    this.$data.media = media
   },
   methods: {
     onClick(e) {

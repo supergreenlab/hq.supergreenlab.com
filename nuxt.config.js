@@ -43,6 +43,7 @@ export default {
     { src: '~plugins/vue-select.js', ssr: false },
     { src: '~plugins/infinite-loading.js', ssr: false },
     { src: '~plugins/vue-slick-carousel.js', ssr: false },
+    { src: '~/plugins/chart.js', mode: 'client', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -17,36 +17,19 @@
  -->
 
 <template>
-  <div :id="$style.container">
-    {{lifeEventLabel(feedEntry.params.phase)}}
-  </div>
+  <portal to='root'>
+    <section :id='$style.container' @click='onClose'>
+      <slot />
+    </section>
+  </portal>
 </template>
 
 <script>
 export default {
-  props: {
-    feedEntry: {
-      type: Object,
-      required: true,
-      default: {}
-    }
-  },
-  computed: {
-    lifeEventLabel: () => (phase) => {
-      switch(phase) {
-        case 'BLOOMING':
-          return 'Blooming Started!';
-        case 'VEGGING':
-          return 'Vegging Started!';
-        case 'GERMINATING':
-          return 'Germination!';
-        case 'CURING':
-          return 'Curing Started!';
-        case 'DRYING':
-          return 'Drying Started!';
-        default:
-          return phase;
-      }
+  props: ['onClose'],
+  head: {
+    bodyAttrs: {
+      class: 'noscroll'
     }
   }
 }
@@ -55,13 +38,20 @@ export default {
 <style module lang=stylus>
 
 #container
+  z-index: 10000
   display: flex
   align-items: center
   justify-content: center
-  text-align: center
-  color: #15A01A
-  font-weight: bold
-  font-size: 35px
-  margin: auto
+  position: fixed
+  top: 100px
+  left: 50px
+  height: calc(100vh - 150px)
+  width: calc(100vw - 100px)
+  background-color: rgba(0, 0, 0, 0.5)
+  @media only screen and (max-width: 600px), screen and (max-height: 500px)
+    top: 0
+    left: 0
+    height: 100vh
+    width: 100vw
 
 </style>

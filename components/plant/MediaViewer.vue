@@ -25,9 +25,14 @@
             <div v-if='media.previous' :style='{"background-image": `url(${url(media.previous)})`, height: height, "background-size": size, opacity: 1 - measureOpacity/100}' :class="{ [$style.image]: true, [$style.previous]: true}" @click='e => onClick(e, media)'></div>
             <input v-if='media.previous' :class='$style.slider' type="range" min="0" max="100" v-model='measureOpacity'>
           </div>
-          <video v-else-if="mediaType(media) === MEDIA_TYPES.TYPE_VIDEO" ref="videoPlayer" :class="$style.video" @click='e => onClick(e, media)' :style='{height, "object-fit": size || "cover"}' autoplay loop playsinline muted defaultMuted>
-            <source :src="url(media)" type="video/mp4">
-          </video>
+          <div v-else-if="mediaType(media) === MEDIA_TYPES.TYPE_VIDEO">
+            <div v-if='!playing' :style='{"background-image": `url(${thumbnail(media)})`, height: height, "background-size": size}' :class="$style.image" @click='onPlay'>
+              <img src='~/assets/img/icon-play.svg' height='120px' />
+            </div>
+            <video v-else :poster='thumbnail(media)' ref="videoPlayer" :class="$style.video" @click='e => onClick(e, media)' :style='{height, "object-fit": size || "cover"}' autoplay loop playsinline muted defaultMuted>
+              <source :src="url(media)" type="video/mp4">
+            </video>
+          </div>
         </div>
       </VueSlickCarousel>
     </div>
@@ -42,9 +47,10 @@ const MEDIA_TYPES = {
 }
 
 export default {
-  props: ['medias', 'onMediaClick', 'thumbnails', 'height', 'size'],
+  props: ['medias', 'onMediaClick', 'thumbnails', 'height', 'size',],
   data() {
     return {
+      playing: false,
       measureOpacity: 100,
       settings: {
         arrows: true,
@@ -67,20 +73,21 @@ export default {
       if (!this.$props.onMediaClick) return
       this.$props.onMediaClick(media)
     },
+    onPlay() {
+      this.$data.playing = true
+    }
   },
   computed: {
     mediaType: () => media => {
       const url = media.filePath
-      if (url.indexOf('base64') != -1) {
-        return MEDIA_TYPES.TYPE_IMAGE
-      }
-      if (url.includes('/feedmedias/pictures')) {
+      if (url.includes('/feedmedias/pictures') || (media.type || '').indexOf('image/') == 0) {
         return MEDIA_TYPES.TYPE_IMAGE;
-      } else if (url.includes('/feedmedias/videos')) {
+      } else if (url.includes('/feedmedias/videos') || (media.type || '').indexOf('video/') == 0) {
         return MEDIA_TYPES.TYPE_VIDEO;
       }
     },
-    url: () => media => (media.filePath.indexOf('base64') != -1) ? media.filePath : `https://storage.supergreenlab.com${media.filePath}`,
+    url: () => media => !media.type ? `https://storage.supergreenlab.com${media.filePath}` : media.filePath,
+    thumbnail: () => media => !media.type ? `https://storage.supergreenlab.com${media.thumbnailPath}` : media.thumbnailPath,
   },
 }
 </script>
@@ -122,5 +129,10 @@ export default {
   bottom: 10px
   width: 300px
   left: calc(50% - 150px)
+
+.image
+  display: flex
+  align-items: center
+  justify-content: center
 
 </style>

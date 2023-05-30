@@ -9,16 +9,22 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "vue-infinite-loading": "^2.4.5",
     "@nuxtjs/axios": "^5.13.6",
+    "byte-base64": "^1.1.0",
     "core-js": "^3.15.1",
+    "fflate": "^0.8.0",
     "luxon": "^2.1.1",
     "nuxt": "^2.15.7",
     "nuxt-client-init-module": "^0.3.0",
+    "portal-vue": "^2.1.7",
     "stylus": "^0.55.0",
     "stylus-loader": "^4.3.3",
+    "vue-infinite-loading": "^2.4.5",
     "vue-select": "^3.16.0",
-    "portal-vue": "^2.1.7",
-    "vue-slick-carousel": "^1.0.6"
+    "vue-slick-carousel": "^1.0.6",
+    "chart.js": "3.9.1",
+    "chartjs-adapter-date-fns": "^2.0.1",
+    "date-fns": "^2.29.3",
+    "vue-chartjs": "4.1.2"
   }
 }

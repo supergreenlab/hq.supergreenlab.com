@@ -84,7 +84,7 @@ export const actions = {
           settings: JSON.parse(t.settings),
         })
         return t
-      }).filter(t => !t.plant.deleted)
+      }).filter(t => t.plant && !t.plant.deleted)
 
       plants = plants.filter(p => !p.deleted).map((p, i) => {
         p = Object.assign({}, p, {
