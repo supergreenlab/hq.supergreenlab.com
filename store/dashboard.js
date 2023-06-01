@@ -22,7 +22,7 @@ import axios from 'axios'
 
 import { loadFromStorage, saveToStorage } from '~/lib/client-side.js'
 
-const STORAGE_ITEM='dashboard'
+const STORAGE_ITEM='dashboard2'
 const API_URL=process.env.API_URL
 
 export const state = () => {
