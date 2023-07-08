@@ -75,6 +75,7 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       const { login, password, token } = this.$data
+      console.log('pouet: ', login, password, token)
       this.$store.dispatch('auth/login', { login, password, token })
       return false
     },
@@ -87,7 +88,6 @@ export default {
       }
       this.$data.loadingCaptcha = true
       const token = await this.$recaptcha.getResponse()
-      console.log('pouet: ', token)
       this.$recaptcha.destroy()
       this.$data.token = token
     },
