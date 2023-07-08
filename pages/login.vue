@@ -21,13 +21,18 @@
     <form @submit='loginHandler'>
       <div :id='$style.body'>
         <div :id='$style.title'>S<span :id='$style.green'>G</span>L LOGIN</div>
-        <recaptcha
-            v-if='!token'
-            @error="onError"
-            @success="onSuccess"
-            @expired="onExpired"
-            />
-
+        <div :id='$style.fields'>
+          <input type='text' placeholder='Login' v-model='login' @change=''/>
+          <input type='password' placeholder='Password' v-model='password' />
+        </div>
+        <div>
+          <recaptcha
+              v-if='!token'
+              @error="onError"
+              @success="onSuccess"
+              @expired="onExpired"
+              />
+        </div>
         <div :id='$style.app'>No account yet? create one on the <a target='_blank' href='https://www.supergreenlab.com/app'>sgl app</a></div>
         <span :id='$style.error' v-if='error'>Wrong login/password</span>
         <div :id='$style.button'>
@@ -163,5 +168,13 @@ export default {
   height: 100%
   color: #454545
   font-weight: bold
+
+#fields
+  display: flex
+  flex-direction: column
+
+#fields > input
+  margin: 5px 0
+  padding: 5px
 
 </style>
