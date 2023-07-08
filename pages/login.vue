@@ -76,14 +76,15 @@ export default {
     },
     onError() {
     },
-    async onSuccess() {
+    onSuccess() {
       console.log('1')
-      const token = await this.$recaptcha.getResponse()
-      console.log('1.5')
-      await this.$recaptcha.destroy()
-      console.log('2')
-      this.$data.token = token
-      console.log('3')
+      this.$recaptcha.getResponse().then(token => {
+        console.log('1.5')
+        this.$recaptcha.destroy()
+        console.log('2')
+        this.$data.token = token
+        console.log('3')
+      })
     },
     onExpired() {
     },
