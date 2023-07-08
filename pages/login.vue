@@ -79,10 +79,10 @@ export default {
     async onSuccess() {
       console.log('1')
       const token = await this.$recaptcha.getResponse()
+      await this.$recaptcha.destroy()
       console.log('2')
       this.$data.token = token
       console.log('3')
-      await this.$recaptcha.destroy()
     },
     onExpired() {
     },
