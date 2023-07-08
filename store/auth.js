@@ -48,12 +48,13 @@ export const actions = {
       await dispatch('loadMe')
     }
   },
-  async login({ commit, dispatch, }, { login, password }) {
+  async login({ commit, dispatch, }, { login, password, token }) {
     commit('setLoading', true)
     try {
       const resp = await axios.post(`${API_URL}/login`, {
         handle: login,
         password,
+        token,
       })
       const token = resp.headers['x-sgl-token']
       commit('setToken', token)
