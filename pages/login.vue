@@ -21,8 +21,6 @@
     <form @submit='loginHandler'>
       <div :id='$style.body'>
         <div :id='$style.title'>S<span :id='$style.green'>G</span>L LOGIN</div>
-        <input type='text' placeholder='Login' v-model='login' @change=''/>
-        <input type='password' placeholder='Password' v-model='password' />
         <recaptcha
             v-if='!token'
             @error="onError"
@@ -48,6 +46,7 @@ export default {
       login: '',
       password: '',
       token: '',
+      loadingCaptcha: false,
     }
   },
   watch: {
@@ -76,15 +75,15 @@ export default {
     },
     onError() {
     },
-    onSuccess() {
+    async onSuccess() {
       console.log('1')
-      this.$recaptcha.getResponse().then(token => {
-        console.log('1.5')
-        //this.$recaptcha.destroy()
-        //console.log('2')
-        //this.$data.token = token
-        //console.log('3')
-      })
+      if (this.$data.loadingCaptcha) {
+        return
+      }
+      this.$data.loadingCaptcha = true
+      const token = await this.$recaptcha.getResponse()
+      this.$recaptcha.destroy()
+      this.$data.token = token
     },
     onExpired() {
     },
