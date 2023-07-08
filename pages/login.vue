@@ -87,6 +87,7 @@ export default {
       }
       this.$data.loadingCaptcha = true
       const token = await this.$recaptcha.getResponse()
+      console.log('pouet: ', token)
       this.$recaptcha.destroy()
       this.$data.token = token
     },
