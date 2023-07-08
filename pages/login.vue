@@ -23,6 +23,12 @@
         <div :id='$style.title'>S<span :id='$style.green'>G</span>L LOGIN</div>
         <input type='text' placeholder='Login' v-model='login' @change=''/>
         <input type='password' placeholder='Password' v-model='password' />
+        <recaptcha
+            @error="onError"
+            @success="onSuccess"
+            @expired="onExpired"
+            />
+
         <div :id='$style.app'>No account yet? create one on the <a target='_blank' href='https://www.supergreenlab.com/app'>sgl app</a></div>
         <span :id='$style.error' v-if='error'>Wrong login/password</span>
         <div :id='$style.button'>
@@ -40,6 +46,7 @@ export default {
     return {
       login: '',
       password: '',
+      token: '',
     }
   },
   watch: {
@@ -49,13 +56,31 @@ export default {
       }
     },
   },
+  async mounted() {
+    try {
+      setTimeout(() => {
+        this.$recaptcha.init()
+      }, 500)
+    } catch (e) {
+      console.error(e);
+    }
+  },
   methods: {
     loginHandler(e) {
       e.preventDefault()
       e.stopPropagation()
-      const { login, password } = this.$data
-      this.$store.dispatch('auth/login', { login, password })
+      const { login, password, token } = this.$data
+      this.$store.dispatch('auth/login', { login, password, token })
       return false
+    },
+    onError() {
+    },
+    async onSuccess() {
+      const token = await this.$recaptcha.getResponse()
+      this.$data.token = token
+      await this.$recaptcha.destroy()
+    },
+    onExpired() {
     },
   },
   computed: {

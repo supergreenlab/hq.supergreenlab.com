@@ -62,6 +62,11 @@ export default {
     '@nuxtjs/axios',
     'nuxt-client-init-module',
     'portal-vue/nuxt',
+    ['@nuxtjs/recaptcha', {
+      mode: 'base',
+      siteKey: process.env.RECAPTCHA_KEY || '6Lc4abcmAAAAAPRQ1EAYfqjm5phbDGSbqefX1EXx',
+      version: 2
+    }],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
