@@ -75,7 +75,6 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       const { login, password, token } = this.$data
-      console.log('pouet: ', login, password, token)
       this.$store.dispatch('auth/login', { login, password, token })
       return false
     },

@@ -51,6 +51,7 @@ export const actions = {
   async login({ commit, dispatch, }, { login, password, token }) {
     commit('setLoading', true)
     try {
+      console.log('pouet store: ', login, password, token)
       const resp = await axios.post(`${API_URL}/login`, {
         handle: login,
         password,
