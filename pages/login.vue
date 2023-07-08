@@ -80,10 +80,10 @@ export default {
       console.log('1')
       this.$recaptcha.getResponse().then(token => {
         console.log('1.5')
-        this.$recaptcha.destroy()
-        console.log('2')
-        this.$data.token = token
-        console.log('3')
+        //this.$recaptcha.destroy()
+        //console.log('2')
+        //this.$data.token = token
+        //console.log('3')
       })
     },
     onExpired() {
