@@ -24,6 +24,7 @@
         <input type='text' placeholder='Login' v-model='login' @change=''/>
         <input type='password' placeholder='Password' v-model='password' />
         <recaptcha
+            v-if='!token'
             @error="onError"
             @success="onSuccess"
             @expired="onExpired"
@@ -81,6 +82,7 @@ export default {
       console.log('2')
       this.$data.token = token
       console.log('3')
+      await this.$recaptcha.destroy()
     },
     onExpired() {
     },
