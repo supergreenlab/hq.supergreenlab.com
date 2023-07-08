@@ -48,14 +48,14 @@ export const actions = {
       await dispatch('loadMe')
     }
   },
-  async login({ commit, dispatch, }, { login, password, token }) {
+  async login({ commit, dispatch, }, { login, password, captcha }) {
     commit('setLoading', true)
     try {
-      console.log('pouet store: ', login, password, token)
+      console.log('pouet store: ', login, password, captcha)
       const resp = await axios.post(`${API_URL}/login`, {
         handle: login,
         password,
-        token,
+        token: captcha,
       })
       const token = resp.headers['x-sgl-token']
       commit('setToken', token)

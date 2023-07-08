@@ -75,7 +75,7 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       const { login, password, token } = this.$data
-      this.$store.dispatch('auth/login', { login, password, token })
+      this.$store.dispatch('auth/login', { login, password, captcha: token })
       return false
     },
     onError() {
