@@ -78,6 +78,7 @@ export default {
 
   env: {
     API_URL: process.env.API_URL || 'https://api2.supergreenlab.com',
+    SKIP_CAPTCHA_TOKEN: process.env.SKIP_CAPTCHA_TOKEN || '',
   },
 
   server: process.env.NODE_ENV !== 'production' ? {

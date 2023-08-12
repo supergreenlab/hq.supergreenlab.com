@@ -25,7 +25,7 @@
           <input type='text' placeholder='Login' v-model='login' @change=''/>
           <input type='password' placeholder='Password' v-model='password' />
         </div>
-        <div>
+        <div v-if='!skipCaptchaToken'>
           <recaptcha
               v-if='!token'
               @error="onError"
@@ -52,6 +52,7 @@ export default {
       password: '',
       token: '',
       loadingCaptcha: false,
+      skipCaptchaToken: process.env.SKIP_CAPTCHA_TOKEN,
     }
   },
   watch: {
@@ -75,13 +76,12 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       const { login, password, token } = this.$data
-      this.$store.dispatch('auth/login', { login, password, captcha: token })
+      this.$store.dispatch('auth/login', { login, password, captcha: this.$data.skipCaptchaToken || token, })
       return false
     },
     onError() {
     },
     async onSuccess() {
-      console.log('1')
       if (this.$data.loadingCaptcha) {
         return
       }
@@ -175,6 +175,6 @@ export default {
 
 #fields > input
   margin: 5px 0
-  padding: 5px
+  padding: 7px 10px
 
 </style>
