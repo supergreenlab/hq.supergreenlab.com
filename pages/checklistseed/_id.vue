@@ -19,6 +19,7 @@
 <template>
   <section :id='$style.container'>
     <PageTitle title='Checklist seed' />
+    <ChecklistSeed :checklistSeed='checklistSeed' />
   </section>
 </template>
 
@@ -27,13 +28,8 @@ export default {
   layout: 'menu',
   data() {
     return {
-      title: '',
-      description: '',
-      category: '',
-      repeat: false,
-      conditions: [],
-      exitConditions: [],
-      actions: [],
+      loading: true,
+      checklistSeed: null,
     }
   },
   mounted() {

@@ -25,7 +25,21 @@
 <script>
 
 export default {
-  props: [],
+  props: ['checklistSeed'],
+  data() {
+    return {
+      title: '',
+      description: '',
+      category: '',
+      repeat: false,
+      conditions: [],
+      exitConditions: [],
+      actions: [],
+    }
+  },
+  mounted() {
+    console.log(this.$route.params.id)
+  },
 }
 </script>
 
