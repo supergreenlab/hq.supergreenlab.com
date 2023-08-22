@@ -19,13 +19,17 @@
 <template>
   <section :id='$style.container'>
     Checklist condition
+    <ChecklistCardCondition v-if='condition.type == "after_card"' />
+    <ChecklistMetricCondition v-if='condition.type == "metric"' />
+    <ChecklistPhaseCondition v-if='condition.type == "after_phase"' />
+    <ChecklistTimerCondition v-if='condition.type == "timer"' />
   </section>
 </template>
 
 <script>
 
 export default {
-  props: [],
+  props: ['condition',],
 }
 </script>
 
