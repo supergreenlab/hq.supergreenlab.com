@@ -18,21 +18,28 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistSeed v-for='seed in checklistSeeds' :key='seed.id' :seed='seed' />
-    <nuxt-link to='/checklistseed/new'>Add checklist seed</nuxt-link>
+    <PageTitle title='Checklist seed' />
   </section>
 </template>
 
 <script>
-
 export default {
-  props: ['collection',],
+  layout: 'menu',
   data() {
     return {
-      checklistSeeds: [],
+      title: '',
+      description: '',
+      category: '',
+      repeat: false,
+      conditions: [],
+      exitConditions: [],
+      actions: [],
     }
   },
-  methods: {
+  mounted() {
+    console.log(this.$route.params.id)
+  },
+  computed: {
   },
 }
 </script>
@@ -40,7 +47,10 @@ export default {
 <style module lang=stylus>
 
 #container
+  flex: 1
   display: flex
   flex-direction: column
+  height: 100vh
+  overflow-y: auto
 
 </style>

@@ -1,5 +1,5 @@
 <!--
-      Copyright (C) 2021  SuperGreenLab <towelie@supergreenlab.com>
+      Copyright (C) 2023  SuperGreenLab <towelie@supergreenlab.com>
       Author: Constantin Clauzel <constantin.clauzel@gmail.com>
 
       This program is free software: you can redistribute it and/or modify
@@ -18,22 +18,14 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistSeed v-for='seed in checklistSeeds' :key='seed.id' :seed='seed' />
-    <nuxt-link to='/checklistseed/new'>Add checklist seed</nuxt-link>
+    Checklist action
   </section>
 </template>
 
 <script>
 
 export default {
-  props: ['collection',],
-  data() {
-    return {
-      checklistSeeds: [],
-    }
-  },
-  methods: {
-  },
+  props: [],
 }
 </script>
 
