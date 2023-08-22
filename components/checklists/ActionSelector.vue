@@ -19,6 +19,10 @@
 <template>
   <section :id='$style.container'>
     Action Selector
+    <a href='javascript:void(0)' @click='onCreateBuyProduct'>Buy product</a><br />
+    <a href='javascript:void(0)' @click='onCreateDiaryCard'>Create card</a><br />
+    <a href='javascript:void(0)' @click='onCreateMessage'>Message</a><br />
+    <a href='javascript:void(0)' @click='onCreateWebpage'>Webpage</a>
   </section>
 </template>
 

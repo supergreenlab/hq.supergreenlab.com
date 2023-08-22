@@ -19,6 +19,10 @@
 <template>
   <section :id='$style.container'>
     Condition Selector
+    <a href='javascript:void(0)' @click='onCreateAfterCard'>After card</a><br />
+    <a href='javascript:void(0)' @click='onCreateMetric'>Metric monitoring</a><br />
+    <a href='javascript:void(0)' @click='onCreateAfterPhase'>After phase</a><br />
+    <a href='javascript:void(0)' @click='onCreateTimer'>Timer</a><br />
   </section>
 </template>
 
