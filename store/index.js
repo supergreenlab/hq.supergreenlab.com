@@ -24,6 +24,7 @@ export const actions = {
       context.dispatch('auth/nuxtClientInit')
       context.dispatch('lab/nuxtClientInit')
       context.dispatch('dashboard/nuxtClientInit')
+      context.dispatch('checklists/nuxtClientInit')
     })
   }
 }

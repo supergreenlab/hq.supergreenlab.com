@@ -18,13 +18,14 @@
 
 <template>
   <section :id='$style.container'>
-
+    Condition Selector
   </section>
 </template>
 
 <script>
 
 export default {
+  props: ['onConditionCreated'],
   data() {
     return {
     }

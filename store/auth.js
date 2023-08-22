@@ -62,6 +62,7 @@ export const actions = {
 
       await dispatch('loadMe')
       await dispatch('lab/loadAll', null, { root: true, })
+      await dispatch('checklists/loadAll', null, { root: true, })
 
       commit('setLoggedIn', true)
     } catch(e) {

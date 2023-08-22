@@ -50,6 +50,11 @@ export const actions = {
     commit('setLoading', true)
     try {
       const { token } = rootState.auth
+      let { data: { checklistcollections: collections } } = await axios.get(`${API_URL}/checklistcollections/mine`, {
+        headers: {'Authorization': `Bearer ${token}`}
+      })
+      console.log(collections)
+      commit('setCollections', collections)
     } catch(e) {
       console.error(e)
       commit('setError', e)
@@ -59,6 +64,19 @@ export const actions = {
 }
 
 export const mutations = {
+  setState(state, newState) {
+    Object.assign(state, newState)
+  },
+  setCollections(state, collections) {
+    state.collections = collections
+    storeState(state)
+  },
+  setError(state, error) {
+    state.error = error
+  },
+  setLoading(state, loading) {
+    state.loading = loading
+  },
 }
 
 export const getters = {

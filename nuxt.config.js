@@ -81,10 +81,10 @@ export default {
     SKIP_CAPTCHA_TOKEN: process.env.SKIP_CAPTCHA_TOKEN || '',
   },
 
-  server: process.env.NODE_ENV !== 'production' ? {
+  /*server: process.env.NODE_ENV !== 'production' ? {
     https: {
       key: fs.readFileSync(path.resolve(__dirname, 'dev.key')),
       cert: fs.readFileSync(path.resolve(__dirname, 'dev.crt'))
     }
-  } : {}
+  } : {}*/
 }

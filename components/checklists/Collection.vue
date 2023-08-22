@@ -18,22 +18,18 @@
 
 <template>
   <section :id='$style.container'>
-    <img :id='$style.logo' src='~/assets/img/logo.svg' />
-    <div :id='$style.separator'></div>
-    <LeftBarItem :icon='require("~/assets/img/icon_dashboard.svg")' title='Dashboard' to='/' />
-    <LeftBarItem :icon='require("~/assets/img/icon_archives.svg")' title='Archives' to='/archives' />
-    <LeftBarItem v-if='isSGL' :icon='require("~/assets/img/icon_checklist.svg")' title='Checklist' to='/checklists' />
-    <div :id='$style.spacer'></div>
-    <User />
+    <ChecklistSeed v-for='seed in checklistSeeds' :key='seed.id' :seed='seed' />
   </section>
 </template>
 
 <script>
+
 export default {
-  computed: {
-    isSGL() {
-      return process.env.NODE_ENV == "development" || (this.$store.state.auth.loggedIn && this.$store.state.auth.me.id=='9dade237-135b-4ee3-8c85-a60a03b1d84d')
-    },
+  props: ['collection',],
+  data() {
+    return {
+      checklistSeeds: [],
+    }
   },
 }
 </script>
@@ -43,18 +39,5 @@ export default {
 #container
   display: flex
   flex-direction: column
-  background-color: #454545
-
-#logo
-  padding: 10pt
-
-#separator
-  background-color: white
-  height: 2px
-  width: 100%
-  margin: 10pt 0
-
-#spacer
-  flex: 1
 
 </style>
