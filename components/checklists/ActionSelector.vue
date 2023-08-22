@@ -34,6 +34,28 @@ export default {
     return {
     }
   },
+  methods: {
+    onCreateBuyProduct() {
+      this.$props.onActionCreated({
+        type: 'buy_product',
+      })
+    },
+    onCreateDiaryCard() {
+      this.$props.onActionCreated({
+        type: 'card',
+      })
+    },
+    onCreateMessage() {
+      this.$props.onActionCreated({
+        type: 'message',
+      })
+    },
+    onCreateWebpage() {
+      this.$props.onActionCreated({
+        type: 'webpage',
+      })
+    },
+  },
 }
 </script>
 

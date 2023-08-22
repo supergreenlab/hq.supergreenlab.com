@@ -34,6 +34,28 @@ export default {
     return {
     }
   },
+  methods: {
+    onCreateAfterCard() {
+      this.$props.onConditionCreated({
+        type: 'after_card',
+      })
+    },
+    onCreateMetric() {
+      this.$props.onConditionCreated({
+        type: 'metric',
+      })
+    },
+    onCreateAfterPhase() {
+      this.$props.onConditionCreated({
+        type: 'after_phase',
+      })
+    },
+    onCreateTimer() {
+      this.$props.onConditionCreated({
+        type: 'timer',
+      })
+    },
+  },
 }
 </script>
 
