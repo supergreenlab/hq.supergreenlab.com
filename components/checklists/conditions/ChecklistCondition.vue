@@ -18,7 +18,6 @@
 
 <template>
   <section :id='$style.container'>
-    Checklist condition
     <ChecklistCardCondition v-if='condition.type == "after_card"' />
     <ChecklistMetricCondition v-if='condition.type == "metric"' />
     <ChecklistPhaseCondition v-if='condition.type == "after_phase"' />

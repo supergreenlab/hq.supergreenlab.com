@@ -18,7 +18,6 @@
 
 <template>
   <section :id='$style.container'>
-    Checklist action
     <ChecklistBuyProductAction v-if='action.type == "buy_product"' />
     <ChecklistDiaryAction v-if='action.type == "card"' />
     <ChecklistMessageAction v-if='action.type == "message"' />

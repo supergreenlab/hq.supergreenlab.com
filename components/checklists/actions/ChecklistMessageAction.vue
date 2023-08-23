@@ -17,9 +17,9 @@
  -->
 
 <template>
-  <section :id='$style.container'>
+  <ChecklistSection>
     Checklist message action
-  </section>
+  </ChecklistSection>
 </template>
 
 <script>

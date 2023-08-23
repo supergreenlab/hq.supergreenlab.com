@@ -17,9 +17,9 @@
  -->
 
 <template>
-  <ChecklistSection>
-    Checklist buy product action
-  </ChecklistSection>
+  <section :id='$style.container'>
+    <slot></slot>
+  </section>
 </template>
 
 <script>
@@ -34,5 +34,9 @@ export default {
 #container
   display: flex
   flex-direction: column
+  padding: 10px
+  background-color: white
+  border: 1px solid #cdcdcd
+  margin: 5px 10px
 
 </style>

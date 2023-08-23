@@ -17,15 +17,22 @@
  -->
 
 <template>
-  <ChecklistSection>
-    Checklist buy product action
-  </ChecklistSection>
+  <section :id='$style.container'>
+    <input :value='duration' />
+    <select>
+      <option value='MINUTES'>Min</option>
+      <option value='HOURS'>Hours</option>
+      <option value='DAYS'>Days</option>
+      <option value='WEEKS'>Weeks</option>
+      <option value='MONTHS'>Months</option>
+    </select>
+  </section>
 </template>
 
 <script>
 
 export default {
-  props: [],
+  props: ['duration', 'durationUnit'],
 }
 </script>
 
@@ -33,6 +40,9 @@ export default {
 
 #container
   display: flex
-  flex-direction: column
+
+#container > input
+  height: 30px
+  margin-right: 5px
 
 </style>

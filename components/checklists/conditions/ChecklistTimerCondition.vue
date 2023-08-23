@@ -17,9 +17,9 @@
  -->
 
 <template>
-  <section :id='$style.container'>
+  <ChecklistSection>
     Checklist timer condition
-  </section>
+  </ChecklistSection>
 </template>
 
 <script>

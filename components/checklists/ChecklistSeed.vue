@@ -18,26 +18,25 @@
 
 <template>
   <section :id='$style.container'>
-    Checklist seed
     <div :class='$style.section'>
-      Conditions
+      <h3>Conditions</h3>
       <ChecklistCondition v-for='c in conditions' :key='c.id' :condition='c' />
       <a href='javascript:void(0)' @click='setShowSelector("condition")'>+ Add condition</a>
     </div>
     <div :class='$style.section'>
-      Exit conditions
+      <h3>Exit conditions</h3>
       <ChecklistCondition v-for='c in exitConditions' :key='c.id' :condition='c' />
       <a href='javascript:void(0)' @click='setShowSelector("exitCondition")'>+ Add exit condition</a>
     </div>
     <div :class='$style.section'>
-      Actions
+      <h3>Actions</h3>
       <ChecklistAction v-for='a in actions' :key='a.id' :action='a' />
       <a href='javascript:void(0)' @click='setShowSelector("action")'>+ Add action</a>
     </div>
 
-    <ConditionSelector v-if='showSelector == "condition"' :onConditionCreated='onAddCondition' />
-    <ConditionSelector v-if='showSelector == "exitCondition"' :onConditionCreated='onAddExitCondition' />
-    <ActionSelector v-if='showSelector == "action"' :onActionCreated='onAddAction' />
+    <ConditionSelector v-if='showSelector == "condition"' :onConditionCreated='onAddCondition' :onClose='onCloseSelector' />
+    <ConditionSelector v-if='showSelector == "exitCondition"' :onConditionCreated='onAddExitCondition' :onClose='onCloseSelector' />
+    <ActionSelector v-if='showSelector == "action"' :onActionCreated='onAddAction' :onClose='onCloseSelector' />
   </section>
 </template>
 
@@ -74,6 +73,9 @@ export default {
     onAddAction(action) {
       this.$data.actions.push(action)
     },
+    onCloseSelector() {
+      this.$data.showSelector = false
+    },
   },
 }
 
@@ -84,5 +86,8 @@ export default {
 #container
   display: flex
   flex-direction: column
+
+.section
+  margin: 0 0 30px 0
 
 </style>

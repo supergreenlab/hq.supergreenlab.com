@@ -17,19 +17,21 @@
  -->
 
 <template>
-  <section :id='$style.container'>
-    Condition Selector
-    <a href='javascript:void(0)' @click='onCreateAfterCard'>After card</a><br />
-    <a href='javascript:void(0)' @click='onCreateMetric'>Metric monitoring</a><br />
-    <a href='javascript:void(0)' @click='onCreateAfterPhase'>After phase</a><br />
-    <a href='javascript:void(0)' @click='onCreateTimer'>Timer</a><br />
-  </section>
+  <div :id='$style.background' @click='onClose'>
+    <section :id='$style.container'>
+      <h3>Condition Selector</h3>
+      <a href='javascript:void(0)' @click='onCreateAfterCard'>After card</a><br />
+      <a href='javascript:void(0)' @click='onCreateMetric'>Metric monitoring</a><br />
+      <a href='javascript:void(0)' @click='onCreateAfterPhase'>After phase</a><br />
+      <a href='javascript:void(0)' @click='onCreateTimer'>Timer</a><br />
+    </section>
+  </div>
 </template>
 
 <script>
 
 export default {
-  props: ['onConditionCreated'],
+  props: ['onConditionCreated', 'onClose',],
   data() {
     return {
     }
@@ -61,9 +63,24 @@ export default {
 
 <style module lang=stylus>
 
+#background
+  position: absolute
+  display: flex
+  align-items: center
+  justify-content: center
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  background-color: rgba(255, 255, 255, 0.8)
+
 #container
   display: flex
   flex-direction: column
   user-select: none
+  background-color: white
+  padding: 20px
+  border: 1px solid #cdcdcd
+  border-radius: 5px
 
 </style>

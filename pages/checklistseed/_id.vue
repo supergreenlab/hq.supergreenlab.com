@@ -19,7 +19,9 @@
 <template>
   <section :id='$style.container'>
     <PageTitle title='Checklist seed' />
-    <ChecklistSeed :checklistSeed='checklistSeed' />
+    <div :id='$style.body'>
+      <ChecklistSeed :checklistSeed='checklistSeed' />
+    </div>
   </section>
 </template>
 
@@ -46,7 +48,16 @@ export default {
   flex: 1
   display: flex
   flex-direction: column
+
+#body
+  display: flex
+  flex-direction: column
+  width: 100%
+  max-width: 800px
   height: 100vh
   overflow-y: auto
+  background-color: white
+  padding: 10px 25px
+  margin: 0 20px
 
 </style>

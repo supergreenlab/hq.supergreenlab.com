@@ -17,9 +17,9 @@
  -->
 
 <template>
-  <section :id='$style.container'>
+  <ChecklistSection>
     Checklist phase condition
-  </section>
+  </ChecklistSection>
 </template>
 
 <script>

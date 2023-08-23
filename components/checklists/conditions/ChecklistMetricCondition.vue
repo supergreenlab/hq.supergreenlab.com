@@ -17,9 +17,9 @@
  -->
 
 <template>
-  <section :id='$style.container'>
+  <ChecklistSection>
     Checklist metric condition
-  </section>
+  </ChecklistSection>
 </template>
 
 <script>
