@@ -18,6 +18,7 @@
 
 <template>
   <section :id='$style.container'>
+    <ChecklistInfos />
     <div :class='$style.section'>
       <h3>Conditions</h3>
       <ChecklistCondition v-for='c in conditions' :key='c.id' :condition='c' />
