@@ -18,7 +18,13 @@
 
 <template>
   <ChecklistSection>
-    Checklist phase condition
+    <h4>Checklist phase condition</h4>
+    <div>
+      When plant is: <ConditionPhase />
+    </div>
+    <div>
+      <ConditionDuration />
+    </div>
   </ChecklistSection>
 </template>
 

@@ -19,22 +19,11 @@
 <template>
   <section :id='$style.container'>
     <select>
-      <option value='FE_WATER'>Watering</option>
-      <option value='FE_LIGHT'>Light</option>
-      <option value='FE_VENTILATION'>Ventilation</option>
-      <option value='FE_MEDIA'>Media</option>
-      <option value='FE_MEASURE'>Measure</option>
-      <option value='FE_NUTRIENT_MIX'>Nutrient mix</option>
-      <option value='FE_TRANSPLANT'>Transplant</option>
-      <option value='FE_BENDING'>Bending</option>
-      <option value='FE_FIMMING'>Fimming</option>
-      <option value='FE_TOPPING'>Topping</option>
-      <option value='FE_DEFOLIATION'>Defolation</option>
-      <option value='FE_TIMELAPSE'>Timelapse</option>
-      <option value='FE_SCHEDULE'>Schedule</option>
-      <option value='FE_SCHEDULE_VEG'>Schedule Veg</option>
-      <option value='FE_SCHEDULE_BLOOM'>Schedule Bloom</option>
-      <option value='FE_SCHEDULE_AUTO'>Schedule Auto</option>
+      <option value='SEED'>Seed</option>
+      <option value='VEGGING'>Vegging</option>
+      <option value='BLOOMING'>Blooming</option>
+      <option value='DRYING'>Drying</option>
+      <option value='CURING'>Curing</option>
     </select>
   </section>
 </template>

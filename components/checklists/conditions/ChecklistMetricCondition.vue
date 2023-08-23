@@ -18,7 +18,46 @@
 
 <template>
   <ChecklistSection>
-    Checklist metric condition
+    <h4>Checklist metric condition</h4>
+    <div :class='$style.line'>
+      <div :class='$style.row'>
+        <b>Monitored metric: </b>&nbsp;<ChecklistMetric />
+      </div>
+    </div>
+    <div :class='$style.line'>
+      <div>
+        <input type='checkbox' />&nbsp;Trigger this condition when the value is OUT of this range.
+      </div>
+      <div>
+        <input type='checkbox' />&nbsp;Trigger this condition when the value is IN of this range.
+      </div>
+    </div>
+    <div :class='$style.line'>
+      <div :class='$style.row'>
+        <div :class='$style.field'>
+          Minimum value:
+          <input />
+        </div>
+        <div :class='$style.field'>
+          Maximum value:
+          <input />
+        </div>
+      </div>
+    </div>
+    <div :class='$style.line'>
+      <div :class='$style.field'>
+        For how long?
+        <ConditionDuration />
+      </div>
+    </div>
+    <div :class='$style.line'>
+      <div :class='$style.row'>
+        <div>
+          <input type='checkbox' />&nbsp;This should repeat multiple days in a row.
+          <ConditionDuration />
+        </div>
+      </div>
+    </div>
   </ChecklistSection>
 </template>
 
@@ -34,5 +73,22 @@ export default {
 #container
   display: flex
   flex-direction: column
+
+.line
+  margin: 10px 0
+
+.field
+  display: flex
+  flex-direction: column
+  margin-right: 10px
+
+.field > input
+  height: 35px
+
+.row
+  display: flex
+
+.row > b
+  font-weight: bold
 
 </style>

@@ -18,7 +18,10 @@
 
 <template>
   <ChecklistSection>
-    Checklist card condition
+  <h4>Checklist card condition</h4>
+    <div :id='$style.after'>
+      After:&nbsp;&nbsp;<ChecklistCardType />
+    </div>
     <ConditionDuration />
   </ChecklistSection>
 </template>
@@ -39,5 +42,9 @@ export default {
   background-color: white
   border: 1px solid #cdcdcd
   margin: 5px 10px
+
+#after
+  display: flex
+  margin: 10px 0
 
 </style>
