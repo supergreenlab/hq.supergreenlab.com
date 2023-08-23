@@ -37,6 +37,6 @@ export default {
   padding: 10px
   background-color: white
   border: 1px solid #cdcdcd
-  margin: 5px 0
+  margin: 5px 0 10px 0
 
 </style>
