@@ -41,6 +41,7 @@ export default {
   background-color: white
   border: 1px solid #cdcdcd
   margin: 5px 0 10px 0
+  border-radius: 5px
 
 #title
   display: flex

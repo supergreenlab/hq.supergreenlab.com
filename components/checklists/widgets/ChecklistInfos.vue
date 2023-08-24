@@ -32,7 +32,7 @@
     </div>
     <div :class='$style.line'>
       <div :class='$style.field'>
-        <input type='checkbox' />&nbsp;This checklist entry can repeat. Entries that don\’t repeat will be removed from your checklist when checked.
+        <input type='checkbox' />&nbsp;This checklist entry can repeat. Entries that don’t repeat will be removed from your checklist when checked.
       </div>
     </div>
     <div :class='$style.line'>
@@ -73,11 +73,13 @@ export default {
   width: 100%
   height: 200px
   box-sizing: border-box
+  padding: 5px
 
 .field
   display: flex
 
-.field > input
+.line > input, .field > input
+  padding: 5px
   margin-right: 10px
 
 </style>
