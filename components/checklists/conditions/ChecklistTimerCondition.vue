@@ -19,13 +19,14 @@
 <template>
   <ChecklistSection>
     Checklist timer condition
+    <date-picker placeholder="MM/DD/YYYY" format="MM/dd/yyyy" :value='date' @input='onChange($event.target.value)' />
   </ChecklistSection>
 </template>
 
 <script>
 
 export default {
-  props: [],
+  props: ['date', 'onChange'],
 }
 </script>
 

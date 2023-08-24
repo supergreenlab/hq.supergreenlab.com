@@ -19,6 +19,13 @@
 <template>
   <ChecklistSection>
     Checklist diary action
+    <div :class='$style.line'>
+      <ChecklistCardType />
+    </div>
+    <div :class='$style.line'>
+      <h4>Instructions</h4>
+      <textarea type='text' placeholder='Ex: When the temperature get too high, ...'></textarea>
+    </div>
   </ChecklistSection>
 </template>
 
@@ -34,5 +41,17 @@ export default {
 #container
   display: flex
   flex-direction: column
+
+.line
+  margin: 5px 0
+
+.line > h4
+  margin-bottom: 5px
+  color: #454545
+
+.line > textarea
+  width: 100%
+  height: 200px
+  box-sizing: border-box
 
 </style>

@@ -44,6 +44,7 @@ export default {
     { src: '~plugins/infinite-loading.js', ssr: false },
     { src: '~plugins/vue-slick-carousel.js', ssr: false },
     { src: '~/plugins/chart.js', mode: 'client', ssr: false },
+    { src: '~/plugins/vue-datepicker', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
