@@ -17,8 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection>
-    <h4>Checklist metric condition</h4>
+  <ChecklistSection :icon='require("~/assets/img/icon_monitoring.svg")' title='Checklist metric condition'>
     <div :class='$style.line'>
       <div :class='$style.row'>
         <b>Monitored metric: </b>&nbsp;<ChecklistMetric />

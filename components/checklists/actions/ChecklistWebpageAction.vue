@@ -17,8 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection>
-    Checklist webpage action
+  <ChecklistSection :icon='require("~/assets/img/icon_webpage.svg")' title='Checklist webpage action'>
     <div :class='$style.line'>
       <h4>Enter URL of the webpage to open:</h4>
       <input type='text' placeholder='https://...' />

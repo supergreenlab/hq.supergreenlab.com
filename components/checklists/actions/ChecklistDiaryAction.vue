@@ -17,8 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection>
-    Checklist diary action
+  <ChecklistSection :icon='require("~/assets/img/icon_create_diary.svg")' title='Checklist diary action'>
     <div :class='$style.line'>
       <ChecklistCardType />
     </div>

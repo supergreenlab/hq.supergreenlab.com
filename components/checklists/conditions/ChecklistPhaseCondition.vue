@@ -17,8 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection>
-    <h4>Checklist phase condition</h4>
+  <ChecklistSection :icon='require("~/assets/img/icon_phase.svg")' title='Checklist phase action'>
     <div>
       When plant is: <ConditionPhase />
     </div>

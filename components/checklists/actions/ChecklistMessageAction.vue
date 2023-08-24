@@ -17,8 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection>
-    Checklist message action
+  <ChecklistSection :icon='require("~/assets/img/icon_message.svg")' title='Checklist message action'>
     <div :class='$style.line'>
       <h4>Notification title</h4>
       <input type='text' placeholder='Ex: Check that ...' />

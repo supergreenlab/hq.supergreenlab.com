@@ -18,6 +18,9 @@
 
 <template>
   <section :id='$style.container'>
+    <div :id='$style.title'>
+      <img :src='icon' />&nbsp; {{ title }}
+    </div>
     <slot></slot>
   </section>
 </template>
@@ -34,9 +37,18 @@ export default {
 #container
   display: flex
   flex-direction: column
-  padding: 10px
+  padding: 15px
   background-color: white
   border: 1px solid #cdcdcd
   margin: 5px 0 10px 0
+
+#title
+  display: flex
+  align-items: center
+  margin: 5px 0 10px 0
+
+#title > img
+  width: 20px
+  margin-right: 5px
 
 </style>

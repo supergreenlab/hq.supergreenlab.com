@@ -17,8 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection>
-    Checklist buy product action
+  <ChecklistSection :icon='require("~/assets/img/icon_buy_product.svg")' title='Checklist buy product action'>
     <div :class='$style.line'>
       <h4>Name of the product</h4>
       <input type='text' placeholder='Ex: Calmag' />

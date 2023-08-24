@@ -17,8 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection>
-  <h4>Checklist card condition</h4>
+  <ChecklistSection :icon='require("~/assets/img/icon_diary.svg")' title='Checklist card condition'>
     <div :id='$style.after'>
       After:&nbsp;&nbsp;<ChecklistCardType />
     </div>
