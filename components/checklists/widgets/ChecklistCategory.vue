@@ -17,20 +17,22 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_phase.svg")' title='Checklist phase action'>
-    <div :class='$style.line'>
-      When plant is:&nbsp;<ConditionPhase />
-    </div>
-    <div :class='$style.line'>
-      <ConditionDuration />
-    </div>
-  </ChecklistSection>
+  <section :id='$style.container'>
+    <select>
+      <option value='CH_FEEDING'>Feeding</option>
+      <option value='CH_PESTS'>Pest/fungus/parasits control</option>
+      <option value='CH_TRAINING'>Plant care and training</option>
+      <option value='CH_ENVIRONMENT'>Environment</option>
+      <option value='CH_SUPPLY'>Supply</option>
+      <option value='CH_OTHER'>Other</option>
+    </select>
+  </section>
 </template>
 
 <script>
 
 export default {
-  props: [],
+  props: ['duration', 'durationUnit'],
 }
 </script>
 
@@ -38,11 +40,9 @@ export default {
 
 #container
   display: flex
-  flex-direction: column
 
-.line
-  display: flex
-  align-items: center
-  margin: 10px 0
+#container > input
+  height: 30px
+  margin-right: 5px
 
 </style>

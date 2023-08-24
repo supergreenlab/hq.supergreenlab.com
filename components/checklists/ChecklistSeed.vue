@@ -91,4 +91,8 @@ export default {
 .section
   margin: 0 0 30px 0
 
+.section h3
+  color: #454545
+  margin-bottom: 5px
+
 </style>

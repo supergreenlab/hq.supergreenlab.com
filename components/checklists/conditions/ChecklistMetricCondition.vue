@@ -86,6 +86,7 @@ export default {
 
 .row
   display: flex
+  align-items: center
 
 .row > b
   font-weight: bold

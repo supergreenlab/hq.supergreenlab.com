@@ -18,7 +18,7 @@
 
 <template>
   <ChecklistSection :icon='require("~/assets/img/icon_diary.svg")' title='Checklist card condition'>
-    <div :id='$style.after'>
+    <div :class='$style.line'>
       After:&nbsp;&nbsp;<ChecklistCardType />
     </div>
     <ConditionDuration />
@@ -42,8 +42,9 @@ export default {
   border: 1px solid #cdcdcd
   margin: 5px 10px
 
-#after
+.line
   display: flex
+  align-items: center
   margin: 10px 0
 
 </style>

@@ -17,8 +17,29 @@
  -->
 
 <template>
-  <ChecklistSection>
-    Infos
+  <ChecklistSection :icon='require("~/assets/img/icon_checklist.svg")' title='Infos'>
+    <div :class='$style.line'>
+      <h4>Category:</h4>
+      <ChecklistCategory />
+    </div>
+    <div :class='$style.line'>
+      <h4>Title</h4>
+      <input type='text' placeholder='ex: Check for XXX' />
+    </div>
+    <div :class='$style.line'>
+      <h4>Description</h4>
+      <textarea placeholder='ex: When the temperature gets too high, some fungus might develop on your leaves...'></textarea>
+    </div>
+    <div :class='$style.line'>
+      <div :class='$style.field'>
+        <input type='checkbox' />&nbsp;This checklist entry can repeat. Entries that don\’t repeat will be removed from your checklist when checked.
+      </div>
+    </div>
+    <div :class='$style.line'>
+      <div :class='$style.field'>
+        <input type='checkbox' />&nbsp;Make this checklist entry public so others can add it to their checklist too.
+      </div>
+    </div>
   </ChecklistSection>
 </template>
 
@@ -34,5 +55,29 @@ export default {
 #container
   display: flex
   flex-direction: column
+
+.line h4
+  color: #454545
+  margin-bottom: 8px
+
+.line
+  display: flex
+  flex-direction: column
+  margin-bottom: 10px
+
+.line > h4
+  margin-bottom: 5px
+  color: #454545
+
+.line > textarea
+  width: 100%
+  height: 200px
+  box-sizing: border-box
+
+.field
+  display: flex
+
+.field > input
+  margin-right: 10px
 
 </style>
