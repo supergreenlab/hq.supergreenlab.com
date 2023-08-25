@@ -19,7 +19,9 @@
 <template>
   <section :id='$style.container'>
     <PageTitle title='Checklist collections' />
-    <Collections />
+    <div :id='$style.body'>
+      <Collections />
+    </div>
   </section>
 </template>
 
@@ -42,5 +44,14 @@ export default {
   display: flex
   width: 50pt
   height: 100vh
+
+#body
+  flex: 1
+  width: 100%
+  max-width: 800px
+  max-height: 100%
+  background-color: white
+  margin: 0 20px
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
 
 </style>
