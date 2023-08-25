@@ -18,21 +18,23 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistInfos :checklistSeed='checklistSeed' :onChange='(cs) => this.$data.checklistSeed = cs' />
-    <div :class='$style.section'>
-      <h3>Conditions</h3>
-      <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => $set(conditions, i, value)' :onClose='() => onRemoveCondition(i)' />
-      <a href='javascript:void(0)' @click='setShowSelector("condition")'>+ Add condition</a>
-    </div>
-    <div :class='$style.section'>
-      <h3>Exit conditions</h3>
-      <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => $set(exitConditions, i, value)' :onClose='() => onRemoveExitCondition(i)' />
-      <a href='javascript:void(0)' @click='setShowSelector("exitCondition")'>+ Add exit condition</a>
-    </div>
-    <div :class='$style.section'>
-      <h3>Actions</h3>
-      <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => $set(actions, i, value)' :onClose='() => onRemoveAction(i)' />
-      <a href='javascript:void(0)' @click='setShowSelector("action")'>+ Add action</a>
+    <div :id='$style.body'>
+      <ChecklistInfos :checklistSeed='checklistSeed' :onChange='(cs) => this.$data.checklistSeed = cs' />
+      <div :class='$style.section'>
+        <h3>Conditions</h3>
+        <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => $set(conditions, i, value)' :onClose='() => onRemoveCondition(i)' />
+        <a href='javascript:void(0)' @click='setShowSelector("condition")'>+ Add condition</a>
+      </div>
+      <div :class='$style.section'>
+        <h3>Exit conditions</h3>
+        <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => $set(exitConditions, i, value)' :onClose='() => onRemoveExitCondition(i)' />
+        <a href='javascript:void(0)' @click='setShowSelector("exitCondition")'>+ Add exit condition</a>
+      </div>
+      <div :class='$style.section'>
+        <h3>Actions</h3>
+        <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => $set(actions, i, value)' :onClose='() => onRemoveAction(i)' />
+        <a href='javascript:void(0)' @click='setShowSelector("action")'>+ Add action</a>
+      </div>
     </div>
 
     <div :id='$style.bottom'>
@@ -48,6 +50,8 @@
 <script>
 
 import axios from 'axios'
+
+const API_URL=process.env.API_URL
 
 export default {
   props: ['checklistSeedID'],
@@ -97,11 +101,24 @@ export default {
       this.$data.showSelector = false
     },
     async onSave() {
-      const resp = await axios.post(`${API_URL}/login`, {
-        handle: login,
-        password,
-        token: captcha,
+      const { token } = this.$store.state.auth
+      const data = Object.assign({}, this.$data.checklistSeed, {
+        conditions: JSON.stringify(this.$data.conditions),
+        exitConditions: JSON.stringify(this.$data.exitConditions),
+        actions: JSON.stringify(this.$data.actions),
       })
+      if (this.$props.checklistSeedID != 'new') {
+        data.ID = this.$props.checklistSeedID
+        const resp = await axios.put(`${API_URL}/checklistseed`, data, {
+          headers: {'Authorization': `Bearer ${token}`}
+        })
+        console.log(resp)
+      } else {
+        const resp = await axios.post(`${API_URL}/checklistseed`, data, {
+          headers: {'Authorization': `Bearer ${token}`}
+        })
+        console.log(resp)
+      }
     },
   },
 }
@@ -113,9 +130,15 @@ export default {
 #container
   display: flex
   flex-direction: column
-  position: relative
   padding-bottom: 40px
-  min-height: 100%
+  max-height: 100%
+
+#body
+  display: flex
+  flex-direction: column
+  background-color: white
+  padding: 10px 25px
+  padding-bottom: 40px
 
 .section
   margin: 0 0 30px 0
@@ -131,8 +154,9 @@ export default {
   position: absolute
   background-color: white
   bottom: 0
-  left: 0
-  right: 0
+  left: 120px
+  width: 100%
+  max-width: 800px
   padding: 10px
 
 #save

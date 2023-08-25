@@ -53,7 +53,6 @@ export const actions = {
       let { data: { checklistcollections: collections } } = await axios.get(`${API_URL}/checklistcollections/mine`, {
         headers: {'Authorization': `Bearer ${token}`}
       })
-      console.log(collections)
       commit('setCollections', collections)
     } catch(e) {
       console.error(e)

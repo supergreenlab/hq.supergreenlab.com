@@ -50,14 +50,11 @@ export default {
   flex-direction: column
 
 #body
-  display: flex
-  flex-direction: column
+  flex: 1
   width: 100%
   max-width: 800px
-  height: 100vh
-  overflow-y: auto
+  max-height: 100%
   background-color: white
-  padding: 10px 25px
   margin: 0 20px
 
 </style>
