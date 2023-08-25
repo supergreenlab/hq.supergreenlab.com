@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_webpage.svg")' title='Checklist webpage action'>
+  <ChecklistSection :icon='require("~/assets/img/icon_webpage.svg")' title='Checklist webpage action' :onClose='onClose'>
    {{ action }}
     <div :class='$style.line'>
       <h4>Enter URL of the webpage to open:</h4>
@@ -33,7 +33,7 @@
 <script>
 
 export default {
-  props: ['action', 'onChange'],
+  props: ['action', 'onChange', 'onClose'],
 }
 </script>
 

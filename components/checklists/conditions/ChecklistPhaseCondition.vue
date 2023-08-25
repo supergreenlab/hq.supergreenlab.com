@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_phase.svg")' title='Checklist phase action'>
+  <ChecklistSection :icon='require("~/assets/img/icon_phase.svg")' title='Checklist phase action' :onClose='onClose'>
     <div :class='$style.line'>
       When plant is:&nbsp;<ConditionPhase :value='condition.phase' :onChange='(v) => onChange(Object.assign({}, condition, {phase: v}))' />
     </div>
@@ -30,7 +30,7 @@
 <script>
 
 export default {
-  props: ['condition', 'onChange'],
+  props: ['condition', 'onChange', 'onClose'],
 }
 </script>
 

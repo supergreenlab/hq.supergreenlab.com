@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_reminder.svg")' title='Checklist timer condition'>
+  <ChecklistSection :icon='require("~/assets/img/icon_reminder.svg")' title='Checklist timer condition' :onClose='onClose'>
     <date-picker placeholder="MM/DD/YYYY" format="MM/dd/yyyy" :value='condition.date' @input='v => onChange(Object.assign({}, condition, {date: v}))' />
   </ChecklistSection>
 </template>
@@ -25,7 +25,7 @@
 <script>
 
 export default {
-  props: ['condition', 'onChange'],
+  props: ['condition', 'onChange', 'onClose',],
 }
 </script>
 

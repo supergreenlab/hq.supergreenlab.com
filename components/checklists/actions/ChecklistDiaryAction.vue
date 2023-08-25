@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_create_diary.svg")' title='Checklist diary action'>
+  <ChecklistSection :icon='require("~/assets/img/icon_create_diary.svg")' title='Checklist diary action' :onClose='onClose'>
     <div :class='$style.line'>
       <ChecklistCardType :value='action.entryType' :onChange='v => onChange(Object.assign({}, action, {entryType: v}))' />
     </div>
@@ -31,7 +31,7 @@
 <script>
 
 export default {
-  props: ['action', 'onChange'],
+  props: ['action', 'onChange', 'onClose'],
 }
 </script>
 

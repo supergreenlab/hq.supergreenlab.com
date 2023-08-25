@@ -18,8 +18,11 @@
 
 <template>
   <section :id='$style.container'>
-    <div :id='$style.title'>
-      <img :src='icon' />&nbsp; {{ title }}
+    <div :id='$style.header'>
+      <div :id='$style.title'>
+        <img :src='icon' />&nbsp;{{ title }}
+      </div>
+      <a v-if='onClose' href='javascript:void(0)' @click='onClose'>X</a>
     </div>
     <slot></slot>
   </section>
@@ -28,7 +31,7 @@
 <script>
 
 export default {
-  props: ['icon', 'title',],
+  props: ['icon', 'title', 'onClose',],
 }
 </script>
 
@@ -42,6 +45,15 @@ export default {
   border: 1px solid #cdcdcd
   margin: 5px 0 10px 0
   border-radius: 5px
+
+#header
+  display: flex
+  justify-content: space-between
+
+#header > a
+  text-decoration: none
+  font-weight: bold
+  color: #454545
 
 #title
   display: flex

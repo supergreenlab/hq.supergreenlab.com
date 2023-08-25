@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_diary.svg")' title='Checklist card condition'>
+  <ChecklistSection :icon='require("~/assets/img/icon_diary.svg")' title='Checklist card condition' :onClose='onClose'>
     <div :class='$style.line'>
       After:&nbsp;&nbsp;<ChecklistCardType :value='condition.phase' :onChange='(v) => onChange(Object.assign({}, condition, {entryType: v}))' />
     </div>
@@ -28,7 +28,7 @@
 <script>
 
 export default {
-  props: ['condition', 'onChange'],
+  props: ['condition', 'onChange', 'onClose',],
 }
 </script>
 

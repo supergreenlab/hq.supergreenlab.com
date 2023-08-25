@@ -18,7 +18,8 @@
 
 <template>
   <section :id='$style.container'>
-    <select>
+    <select :value='value' @input='e => onChange(e.target.value)'>
+      <option disabled selected hidden>Choose card type</option>
       <option value='CH_FEEDING'>Feeding</option>
       <option value='CH_PESTS'>Pest/fungus/parasits control</option>
       <option value='CH_TRAINING'>Plant care and training</option>
@@ -32,7 +33,7 @@
 <script>
 
 export default {
-  props: ['duration', 'durationUnit'],
+  props: ['value', 'onChange'],
 }
 </script>
 

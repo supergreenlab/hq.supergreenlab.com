@@ -19,6 +19,7 @@
 <template>
   <section :id='$style.container'>
     <select :value='value' @input='e => onChange(e.target.value)'>
+      <option disabled selected hidden>Choose card type</option>
       <option value='FE_WATER'>Watering</option>
       <option value='FE_LIGHT'>Light</option>
       <option value='FE_VENTILATION'>Ventilation</option>

@@ -20,7 +20,7 @@
   <section :id='$style.container'>
     <PageTitle title='Checklist seed' />
     <div :id='$style.body'>
-      <ChecklistSeed :checklistSeed='checklistSeed' />
+      <ChecklistSeed :checklistSeedID='checklistSeedID' />
     </div>
   </section>
 </template>
@@ -30,14 +30,14 @@ export default {
   layout: 'menu',
   data() {
     return {
-      loading: true,
-      checklistSeed: null,
     }
   },
   mounted() {
-    console.log(this.$route.params.id)
   },
   computed: {
+    checklistSeedID() {
+      return this.$route.params.id
+    },
   },
 }
 </script>

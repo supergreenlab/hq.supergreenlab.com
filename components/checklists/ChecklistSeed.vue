@@ -18,21 +18,25 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistInfos />
+    <ChecklistInfos :checklistSeed='checklistSeed' :onChange='() => this.$data.checklistSeed = checklistSeed' />
     <div :class='$style.section'>
       <h3>Conditions</h3>
-      <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => $set(conditions, i, value)' />
+      <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => $set(conditions, i, value)' :onClose='() => onRemoveCondition(i)' />
       <a href='javascript:void(0)' @click='setShowSelector("condition")'>+ Add condition</a>
     </div>
     <div :class='$style.section'>
       <h3>Exit conditions</h3>
-      <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => $set(exitConditions, i, value)' />
+      <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => $set(exitConditions, i, value)' :onClose='() => onRemoveExitCondition(i)' />
       <a href='javascript:void(0)' @click='setShowSelector("exitCondition")'>+ Add exit condition</a>
     </div>
     <div :class='$style.section'>
       <h3>Actions</h3>
-      <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => $set(actions, i, value)' />
+      <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => $set(actions, i, value)' :onClose='() => onRemoveAction(i)' />
       <a href='javascript:void(0)' @click='setShowSelector("action")'>+ Add action</a>
+    </div>
+
+    <div :id='$style.bottom'>
+      <a href='javascript:void(0)' @click='onSave' :id='$style.save'>Save</a>
     </div>
 
     <ConditionSelector v-if='showSelector == "condition"' :onConditionCreated='onAddCondition' :onClose='onCloseSelector' />
@@ -43,14 +47,20 @@
 
 <script>
 
+import axios from 'axios'
+
 export default {
-  props: ['checklistSeed'],
+  props: ['checklistSeedID'],
   data() {
     return {
-      title: '',
-      description: '',
-      category: '',
-      repeat: false,
+      loading: false,
+      checklistSeed: {
+        title: '',
+        description: '',
+        category: '',
+        repeat: false,
+        public: true,
+      },
       conditions: [],
       exitConditions: [],
       actions: [],
@@ -68,14 +78,30 @@ export default {
     onAddCondition(condition) {
       this.$data.conditions.push(condition)
     },
+    onRemoveCondition(index) {
+      this.$delete(this.$data.conditions, index)
+    },
     onAddExitCondition(condition) {
       this.$data.exitConditions.push(condition)
+    },
+    onRemoveExitCondition(index) {
+      this.$delete(this.$data.exitConditions, index)
     },
     onAddAction(action) {
       this.$data.actions.push(action)
     },
+    onRemoveAction(index) {
+      this.$delete(this.$data.actions, index)
+    },
     onCloseSelector() {
       this.$data.showSelector = false
+    },
+    async onSave() {
+      const resp = await axios.post(`${API_URL}/login`, {
+        handle: login,
+        password,
+        token: captcha,
+      })
     },
   },
 }
@@ -87,6 +113,9 @@ export default {
 #container
   display: flex
   flex-direction: column
+  position: relative
+  padding-bottom: 40px
+  min-height: 100%
 
 .section
   margin: 0 0 30px 0
@@ -94,5 +123,23 @@ export default {
 .section h3
   color: #454545
   margin-bottom: 5px
+
+#bottom
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  position: absolute
+  background-color: white
+  bottom: 0
+  left: 0
+  right: 0
+  padding: 10px
+
+#save
+  background-color: #3bb30b
+  padding: 6px 30px
+  color: white
+  text-decoration: none
+  border-radius: 3px
 
 </style>

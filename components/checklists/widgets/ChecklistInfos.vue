@@ -20,24 +20,24 @@
   <ChecklistSection :icon='require("~/assets/img/icon_checklist.svg")' title='Infos'>
     <div :class='$style.line'>
       <h4>Category:</h4>
-      <ChecklistCategory />
+      <ChecklistCategory :value='checklistSeed.category' :onChange='v => onChange(Object.assign({}, checklistSeed, {category: v}))' />
     </div>
     <div :class='$style.line'>
       <h4>Title</h4>
-      <input type='text' placeholder='ex: Check for XXX' />
+      <input type='text' placeholder='ex: Check for XXX' :value='checklistSeed.title' @input='e => onChange(Object.assign({}, checklistSeed, {title: e.target.value}))' />
     </div>
     <div :class='$style.line'>
       <h4>Description</h4>
-      <textarea placeholder='ex: When the temperature gets too high, some fungus might develop on your leaves...'></textarea>
+      <textarea placeholder='ex: When the temperature gets too high, some fungus might develop on your leaves...' :value='checklistSeed.description' @input='e => onChange(Object.assign({}, checklistSeed, {description: e.target.value}))' ></textarea>
     </div>
     <div :class='$style.line'>
       <div :class='$style.field'>
-        <input type='checkbox' />&nbsp;This checklist entry can repeat. Entries that don’t repeat will be removed from your checklist when checked.
+        <input type='checkbox' :checked='checklistSeed.repeat' @input='e => onChange(Object.assign({}, checklistSeed, {repeat: !checklistSeed.repeat}))' />&nbsp;This checklist entry can repeat. Entries that don’t repeat will be removed from your checklist when checked.
       </div>
     </div>
     <div :class='$style.line'>
       <div :class='$style.field'>
-        <input type='checkbox' />&nbsp;Make this checklist entry public so others can add it to their checklist too.
+        <input type='checkbox' :checked='checklistSeed.public' @input='e => onChange(Object.assign({}, checklistSeed, {public: !checklistSeed.public}))' />&nbsp;Make this checklist entry public so others can add it to their checklist too.
       </div>
     </div>
   </ChecklistSection>
@@ -46,7 +46,7 @@
 <script>
 
 export default {
-  props: [],
+  props: ['checklistSeed', 'onChange'],
 }
 </script>
 

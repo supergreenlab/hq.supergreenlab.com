@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_monitoring.svg")' title='Checklist metric condition'>
+  <ChecklistSection :icon='require("~/assets/img/icon_monitoring.svg")' title='Checklist metric condition' :onClose='onClose'>
     <div :class='$style.line'>
       <div :class='$style.row'>
         <b>Monitored metric: </b>&nbsp;<ChecklistMetric :value='condition.key' :onChange='v => onChange(Object.assign({}, condition, {key: v}))' />
@@ -65,7 +65,7 @@
 <script>
 
 export default {
-  props: ['condition', 'onChange'],
+  props: ['condition', 'onChange', 'onClose'],
 }
 </script>
 
