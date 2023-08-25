@@ -22,7 +22,7 @@
     <div :id='$style.separator'></div>
     <LeftBarItem :icon='require("~/assets/img/icon_dashboard.svg")' title='Dashboard' to='/' />
     <LeftBarItem :icon='require("~/assets/img/icon_archives.svg")' title='Archives' to='/archives' />
-    <LeftBarItem v-if='isSGL' :icon='require("~/assets/img/icon_checklist.svg")' title='Checklist' to='/checklists' />
+    <LeftBarItem v-if='isSGL' :icon='require("~/assets/img/icon_checklist.svg")' title='Checklist' to='/collections' />
     <div :id='$style.spacer'></div>
     <User />
   </section>

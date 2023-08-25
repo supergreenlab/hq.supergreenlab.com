@@ -22,7 +22,7 @@
       {{ collection }}
       <nuxt-link :to='`/collection/${collection.id}`'>View</nuxt-link>
     </div>
-    <nuxt-link :to='`/collection/new`'>Add</nuxt-link>
+    <nuxt-link :to='`/collection/new`'>Add new collection</nuxt-link>
   </section>
 </template>
 
@@ -32,6 +32,9 @@ export default {
   data() {
     return {
     }
+  },
+  mounted() {
+    this.$store.dispatch('checklists/loadCollections')
   },
   computed: {
     collections() {

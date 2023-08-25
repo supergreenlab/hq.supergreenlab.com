@@ -18,6 +18,7 @@
 
 <template>
   <section :id='$style.container'>
+    <CollectionInfos :collection='collection' :onChange='c => this.$data.collection = c' />
     <ChecklistSeed v-for='seed in checklistSeeds' :key='seed.id' :seed='seed' />
     <nuxt-link to='/checklistseed/new'>Add checklist seed</nuxt-link>
   </section>
@@ -26,11 +27,14 @@
 <script>
 
 export default {
-  props: ['collection',],
+  props: ['collectionID',],
   data() {
     return {
+      collection: {},
       checklistSeeds: [],
     }
+  },
+  mounted() {
   },
   methods: {
   },

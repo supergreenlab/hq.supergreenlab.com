@@ -18,45 +18,26 @@
 
 <template>
   <section :id='$style.container'>
-    <PageTitle title='Checklist collections' />
-    <div :id='$style.body'>
-      <Collection :collectionID='collectionID' />
+    <div :class='$style.line'>
     </div>
+    {{ collection }}
   </section>
 </template>
 
 <script>
+
 export default {
-  layout: 'menu',
-  computed: {
-    collectionID() {
-      return this.$route.params.id
-    },
-  },
+  props: ['collection', 'onChange'],
 }
 </script>
 
 <style module lang=stylus>
 
 #container
-  flex: 1
   display: flex
   flex-direction: column
-  height: 100vh
-  overflow-y: auto
 
-#leftbar
-  display: flex
-  width: 50pt
-  height: 100vh
-
-#body
-  flex: 1
-  width: 100%
-  max-width: 800px
-  max-height: 100%
-  background-color: white
-  margin: 0 20px
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+.line
+  margin: 10px 0
 
 </style>

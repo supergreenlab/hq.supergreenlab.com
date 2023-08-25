@@ -44,9 +44,9 @@ export const actions = {
     if (saved) {
       commit('setState', JSON.parse(saved))
     }
-    await dispatch('loadAll')
+    await dispatch('loadCollections')
   },
-  async loadAll({ commit, dispatch, rootState }) {
+  async loadCollections({ commit, dispatch, rootState }) {
     commit('setLoading', true)
     try {
       const { token } = rootState.auth
