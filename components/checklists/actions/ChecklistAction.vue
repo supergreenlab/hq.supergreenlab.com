@@ -18,17 +18,17 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistBuyProductAction v-if='action.type == "buy_product"' />
-    <ChecklistDiaryAction v-if='action.type == "card"' />
-    <ChecklistMessageAction v-if='action.type == "message"' />
-    <ChecklistWebpageAction v-if='action.type == "webpage"' />
+    <ChecklistBuyProductAction v-if='action.type == "buy_product"' :action='action' :onChange='onChange' />
+    <ChecklistDiaryAction v-if='action.type == "card"' :action='action' :onChange='onChange' />
+    <ChecklistMessageAction v-if='action.type == "message"' :action='action' :onChange='onChange' />
+    <ChecklistWebpageAction v-if='action.type == "webpage"' :action='action' :onChange='onChange' />
   </section>
 </template>
 
 <script>
 
 export default {
-  props: ['action'],
+  props: ['action', 'onChange'],
 }
 </script>
 

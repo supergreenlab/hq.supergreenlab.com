@@ -18,13 +18,14 @@
 
 <template>
   <ChecklistSection :icon='require("~/assets/img/icon_webpage.svg")' title='Checklist webpage action'>
+   {{ action }}
     <div :class='$style.line'>
       <h4>Enter URL of the webpage to open:</h4>
-      <input type='text' placeholder='https://...' />
+      <input type='text' placeholder='https://...' :value='action.url' @input='e => onChange(Object.assign({}, action, {url: e.target.value}))' />
     </div>
     <div :class='$style.line'>
       <h4>Description</h4>
-      <textarea type='text' placeholder='ex: When the temperature gets too high,...'></textarea>
+      <textarea type='text' placeholder='ex: When the temperature gets too high,...' :value='action.instructions' @input='e => onChange(Object.assign({}, action, {instructions: e.target.value}))' ></textarea>
     </div>
   </ChecklistSection>
 </template>
@@ -32,7 +33,7 @@
 <script>
 
 export default {
-  props: [],
+  props: ['action', 'onChange'],
 }
 </script>
 
@@ -49,7 +50,11 @@ export default {
   margin-bottom: 5px
   color: #454545
 
+.line > input
+  padding: 5px
+
 .line > textarea
+  padding: 5px
   width: 100%
   height: 200px
   box-sizing: border-box

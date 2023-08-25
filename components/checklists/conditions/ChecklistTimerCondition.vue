@@ -18,7 +18,7 @@
 
 <template>
   <ChecklistSection :icon='require("~/assets/img/icon_reminder.svg")' title='Checklist timer condition'>
-    <date-picker placeholder="MM/DD/YYYY" format="MM/dd/yyyy" :value='condition.date' @input='onChange(Object.assign({}, condition, {date: $event.target.value}))' />
+    <date-picker placeholder="MM/DD/YYYY" format="MM/dd/yyyy" :value='condition.date' @input='v => onChange(Object.assign({}, condition, {date: v}))' />
   </ChecklistSection>
 </template>
 

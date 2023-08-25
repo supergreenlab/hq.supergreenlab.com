@@ -20,15 +20,15 @@
   <ChecklistSection :icon='require("~/assets/img/icon_buy_product.svg")' title='Checklist buy product action'>
     <div :class='$style.line'>
       <h4>Name of the product</h4>
-      <input type='text' placeholder='Ex: Calmag' />
+      <input type='text' placeholder='Ex: Calmag' :value='action.name' @input='e => onChange(Object.assign({}, action, {name: e.target.value}))' />
     </div>
     <div :class='$style.line'>
       <h4>Enter URL of webpage to open</h4>
-      <input type='text' placeholder='Ex: Calmag' />
+      <input type='text' placeholder='Ex: https://...' :value='action.url' @input='e => onChange(Object.assign({}, action, {url: e.target.value}))' />
     </div>
     <div :class='$style.line'>
       <h4>Description</h4>
-      <textarea type='text' placeholder='Ex: When the temperature get too high, ...'></textarea>
+      <textarea type='text' placeholder='Ex: When the temperature get too high, ...' :value='action.instructions' @input='e => onChange(Object.assign({}, action, {instructions: e.target.value}))' ></textarea>
     </div>
   </ChecklistSection>
 </template>
@@ -36,7 +36,7 @@
 <script>
 
 export default {
-  props: [],
+  props: ['action', 'onChange'],
 }
 </script>
 
@@ -53,7 +53,11 @@ export default {
   margin-bottom: 5px
   color: #454545
 
+.line > input
+  padding: 5px
+
 .line > textarea
+  padding: 5px
   width: 100%
   height: 200px
   box-sizing: border-box

@@ -19,10 +19,10 @@
 <template>
   <ChecklistSection :icon='require("~/assets/img/icon_phase.svg")' title='Checklist phase action'>
     <div :class='$style.line'>
-      When plant is:&nbsp;<ConditionPhase />
+      When plant is:&nbsp;<ConditionPhase :value='condition.phase' :onChange='(v) => onChange(Object.assign({}, condition, {phase: v}))' />
     </div>
     <div :class='$style.line'>
-      <ConditionDuration />
+      <ConditionDuration :duration='condition.duration' :durationUnit='condition.durationUnit' :onChange='(duration, durationUnit) => onChange(Object.assign({}, condition, {duration, durationUnit}))' />
     </div>
   </ChecklistSection>
 </template>

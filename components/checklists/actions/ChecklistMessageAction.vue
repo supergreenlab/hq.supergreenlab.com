@@ -20,11 +20,11 @@
   <ChecklistSection :icon='require("~/assets/img/icon_message.svg")' title='Checklist message action'>
     <div :class='$style.line'>
       <h4>Notification title</h4>
-      <input type='text' placeholder='Ex: Check that ...' />
+      <input type='text' placeholder='Ex: Check that ...'  :value='action.title' @input='e => onChange(Object.assign({}, action, {title: e.target.value}))' />
     </div>
     <div :class='$style.line'>
       <h4>Description</h4>
-      <textarea type='text' placeholder='...'></textarea>
+      <textarea type='text' placeholder='...' :value='action.instructions' @input='e => onChange(Object.assign({}, action, {instructions: e.target.value}))' ></textarea>
     </div>
   </ChecklistSection>
 </template>
@@ -32,7 +32,7 @@
 <script>
 
 export default {
-  props: [],
+  props: ['action', 'onChange'],
 }
 </script>
 
@@ -49,7 +49,11 @@ export default {
   margin-bottom: 5px
   color: #454545
 
+.line > input
+  padding: 5px
+
 .line > textarea
+  padding: 5px
   width: 100%
   height: 200px
   box-sizing: border-box
