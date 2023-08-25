@@ -30,7 +30,7 @@
 <script>
 
 export default {
-  props: [],
+  props: ['condition', 'onChange'],
 }
 </script>
 

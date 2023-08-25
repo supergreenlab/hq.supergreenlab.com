@@ -18,7 +18,7 @@
 
 <template>
   <section :id='$style.container'>
-    <select>
+    <select :value='value' @input='e => onChange(e.target.value)'>
       <option value='SEED'>Seed</option>
       <option value='VEGGING'>Vegging</option>
       <option value='BLOOMING'>Blooming</option>
@@ -31,7 +31,7 @@
 <script>
 
 export default {
-  props: ['duration', 'durationUnit'],
+  props: ['value', 'onChange'],
 }
 </script>
 

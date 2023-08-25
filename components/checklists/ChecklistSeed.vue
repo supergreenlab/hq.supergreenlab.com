@@ -21,17 +21,17 @@
     <ChecklistInfos />
     <div :class='$style.section'>
       <h3>Conditions</h3>
-      <ChecklistCondition v-for='c in conditions' :key='c.id' :condition='c' />
+      <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => $set(conditions, i, value)' />
       <a href='javascript:void(0)' @click='setShowSelector("condition")'>+ Add condition</a>
     </div>
     <div :class='$style.section'>
       <h3>Exit conditions</h3>
-      <ChecklistCondition v-for='c in exitConditions' :key='c.id' :condition='c' />
+      <ChecklistCondition v-for='c in exitConditions' :key='c.id' :condition='c' :onChange='value => $set(exitConditions, i, value)' />
       <a href='javascript:void(0)' @click='setShowSelector("exitCondition")'>+ Add exit condition</a>
     </div>
     <div :class='$style.section'>
       <h3>Actions</h3>
-      <ChecklistAction v-for='a in actions' :key='a.id' :action='a' />
+      <ChecklistAction v-for='a in actions' :key='a.id' :action='a' :onChange='value => $set(actions, i, value)' />
       <a href='javascript:void(0)' @click='setShowSelector("action")'>+ Add action</a>
     </div>
 

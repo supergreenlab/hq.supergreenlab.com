@@ -19,16 +19,16 @@
 <template>
   <ChecklistSection :icon='require("~/assets/img/icon_diary.svg")' title='Checklist card condition'>
     <div :class='$style.line'>
-      After:&nbsp;&nbsp;<ChecklistCardType />
+      After:&nbsp;&nbsp;<ChecklistCardType :value='condition.phase' :onChange='(v) => onChange(Object.assign({}, condition, {entryType: v}))' />
     </div>
-    <ConditionDuration />
+    <ConditionDuration :duration='condition.duration' :durationUnit='condition.durationUnit' :onChange='(duration, durationUnit) => onChange(Object.assign({}, condition, {duration, durationUnit}))' />
   </ChecklistSection>
 </template>
 
 <script>
 
 export default {
-  props: [],
+  props: ['condition', 'onChange'],
 }
 </script>
 

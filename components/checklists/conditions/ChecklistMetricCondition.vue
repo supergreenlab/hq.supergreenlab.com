@@ -20,42 +20,44 @@
   <ChecklistSection :icon='require("~/assets/img/icon_monitoring.svg")' title='Checklist metric condition'>
     <div :class='$style.line'>
       <div :class='$style.row'>
-        <b>Monitored metric: </b>&nbsp;<ChecklistMetric />
+        <b>Monitored metric: </b>&nbsp;<ChecklistMetric :value='condition.key' :onChange='v => onChange(Object.assign({}, condition, {key: v}))' />
       </div>
     </div>
     <div :class='$style.line'>
       <div>
-        <input type='checkbox' />&nbsp;Trigger this condition when the value is OUT of this range.
+        <input type='checkbox' :checked='!condition.inRange' @input='e => onChange(Object.assign({}, condition, {inRange: !condition.inRange}))' />&nbsp;Trigger this condition when the value is OUT of this range.
       </div>
       <div>
-        <input type='checkbox' />&nbsp;Trigger this condition when the value is IN of this range.
+        <input type='checkbox' :checked='condition.inRange' @input='e => onChange(Object.assign({}, condition, {inRange: !condition.inRange}))' />&nbsp;Trigger this condition when the value is IN of this range.
       </div>
     </div>
     <div :class='$style.line'>
       <div :class='$style.row'>
         <div :class='$style.field'>
           Minimum value:
-          <input />
+          <input :value='condition.min' @input='e => onChange(Object.assign({}, condition, {min: e.target.value}))' />
         </div>
         <div :class='$style.field'>
           Maximum value:
-          <input />
+          <input :value='condition.max' @input='e => onChange(Object.assign({}, condition, {max: e.target.value}))' />
         </div>
       </div>
     </div>
     <div :class='$style.line'>
       <div :class='$style.field'>
         For how long?
-        <ConditionDuration />
+        <ConditionDuration :duration='condition.duration' :durationUnit='condition.durationUnit' :onChange='(duration, durationUnit) => onChange(Object.assign({}, condition, {duration, durationUnit}))' />
       </div>
     </div>
     <div :class='$style.line'>
       <div :class='$style.row'>
         <div>
-          <input type='checkbox' />&nbsp;This should repeat multiple days in a row.
-          <ConditionDuration />
+          <input type='checkbox' :checked='condition.daysInRow' @input='e => onChange(Object.assign({}, condition, {daysInRow: !condition.daysInRow}))' />&nbsp;This should repeat multiple days in a row.
         </div>
       </div>
+    </div>
+    <div v-if='condition.daysInRow' :class='$style.line'>
+      <ConditionDuration :duration='condition.nDaysInRow' durationUnit='DAYS' :fixedDuration='true' :onChange='(duration) => onChange(Object.assign({}, condition, {nDaysInRow: duration}))' />
     </div>
   </ChecklistSection>
 </template>
@@ -63,7 +65,7 @@
 <script>
 
 export default {
-  props: [],
+  props: ['condition', 'onChange'],
 }
 </script>
 

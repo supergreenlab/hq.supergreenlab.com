@@ -18,17 +18,17 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistCardCondition v-if='condition.type == "after_card"' />
-    <ChecklistMetricCondition v-if='condition.type == "metric"' />
-    <ChecklistPhaseCondition v-if='condition.type == "after_phase"' />
-    <ChecklistTimerCondition v-if='condition.type == "timer"' />
+    <ChecklistCardCondition v-if='condition.type == "after_card"' :condition='condition' :onChange='onChange' />
+    <ChecklistMetricCondition v-if='condition.type == "metric"' :condition='condition' :onChange='onChange' />
+    <ChecklistPhaseCondition v-if='condition.type == "after_phase"' :condition='condition' :onChange='onChange' />
+    <ChecklistTimerCondition v-if='condition.type == "timer"' :condition='condition' :onChange='onChange' />
   </section>
 </template>
 
 <script>
 
 export default {
-  props: ['condition',],
+  props: ['condition', 'onChange'],
 }
 </script>
 

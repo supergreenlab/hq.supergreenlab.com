@@ -18,8 +18,9 @@
 
 <template>
   <section :id='$style.container'>
-    <input :value='duration' />
-    <select>
+    <input :value='duration' @input='(e) => onChange(e.target.value, durationUnit)' />
+    <div v-if='fixedDuration'>Days</div>
+    <select v-else :value='durationUnit' @input='(e) => onChange(duration, e.target.value)'>
       <option value='MINUTES'>Min</option>
       <option value='HOURS'>Hours</option>
       <option value='DAYS'>Days</option>
@@ -32,7 +33,7 @@
 <script>
 
 export default {
-  props: ['duration', 'durationUnit'],
+  props: ['duration', 'durationUnit', 'onChange', 'fixedDuration'],
 }
 </script>
 
@@ -40,6 +41,7 @@ export default {
 
 #container
   display: flex
+  align-items: center
 
 #container > input
   height: 30px
