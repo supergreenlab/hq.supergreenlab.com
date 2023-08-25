@@ -18,7 +18,7 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistInfos :checklistSeed='checklistSeed' :onChange='() => this.$data.checklistSeed = checklistSeed' />
+    <ChecklistInfos :checklistSeed='checklistSeed' :onChange='(cs) => this.$data.checklistSeed = cs' />
     <div :class='$style.section'>
       <h3>Conditions</h3>
       <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => $set(conditions, i, value)' :onClose='() => onRemoveCondition(i)' />
