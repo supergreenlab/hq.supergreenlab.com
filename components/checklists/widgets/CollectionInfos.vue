@@ -55,7 +55,12 @@ export default {
 .line
   margin: 10px 0
 
+.line h4
+  margin-bottom: 5px
+  color: #454545
+
 .line > input, .line > textarea
+  padding: 10px 10px
   width: 100%
 
 .line > textarea

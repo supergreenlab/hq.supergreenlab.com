@@ -59,6 +59,7 @@ export default {
     return {
       loading: false,
       checklistSeed: {
+        collectionID: '',
         title: '',
         description: '',
         category: '',
@@ -72,7 +73,18 @@ export default {
       showSelector: '',
     }
   },
-  mounted() {
+  async mounted() {
+    const parts = this.$route.params.id.split('_')
+    if (parts.length == 2) {
+      this.$data.checklistSeed.collectionID = parts[0]
+      if (parts[1] != 'new') {
+        const { data: checklistSeed } = await axios.put(`${API_URL}/checklistseed/${parts[1]}`, data, {
+          headers: {'Authorization': `Bearer ${token}`}
+        })
+      }
+    } else {
+      this.$data.checklistSeed.collectionID = parts[0]
+    }
     console.log(this.$route.params.id)
   },
   methods: {
@@ -107,8 +119,7 @@ export default {
         exitConditions: JSON.stringify(this.$data.exitConditions),
         actions: JSON.stringify(this.$data.actions),
       })
-      if (this.$props.checklistSeedID != 'new') {
-        data.ID = this.$props.checklistSeedID
+      if (this.$data.checklistSeed.id) {
         const resp = await axios.put(`${API_URL}/checklistseed`, data, {
           headers: {'Authorization': `Bearer ${token}`}
         })
@@ -156,7 +167,7 @@ export default {
   bottom: 0
   left: 120px
   width: 100%
-  max-width: 800px
+  max-width: 780px
   padding: 10px
 
 #save

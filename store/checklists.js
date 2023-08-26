@@ -70,6 +70,14 @@ export const mutations = {
     state.collections = collections
     storeState(state)
   },
+  setCollection(state, collection) {
+    const index = state.collections.findIndex(c => c.id == collection.id)
+    if (index == -1) {
+      state.collections.push(collection)
+    } else {
+      state.collections[index] = collection
+    }
+  },
   setError(state, error) {
     state.error = error
   },
