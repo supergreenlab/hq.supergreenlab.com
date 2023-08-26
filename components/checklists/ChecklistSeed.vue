@@ -137,7 +137,7 @@ export default {
   display: flex
   flex-direction: column
   background-color: white
-  padding: 10px 25px
+  padding: 10px 15px
   padding-bottom: 40px
 
 .section

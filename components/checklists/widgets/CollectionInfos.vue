@@ -19,8 +19,23 @@
 <template>
   <section :id='$style.container'>
     <div :class='$style.line'>
+      <h4>Title</h4>
+      <input type='text' :value='collection.title' @input='e => onChange(Object.assign({}, collection, {title: e.target.value}))' />
     </div>
-    {{ collection }}
+    <div :class='$style.line'>
+      <h4>Description</h4>
+      <textarea type='text' :value='collection.description' @input='e => onChange(Object.assign({}, collection, {description: e.target.value}))'></textarea>
+    </div>
+    <div :class='$style.line'>
+      <h4>Category</h4>
+      <select :value='collection.category' @input='e => onChange(Object.assign({}, collection, {category: e.target.value}))'>
+        <option></option>
+        <option value='CO_BASICS'>The basics</option>
+        <option value='CO_NUTRIENT'>Nutrient timeline</option>
+        <option value='CO_RECIPE'>Recipe</option>
+        <option value='CO_OTHER'>Other</option>
+      </select>
+    </div>
   </section>
 </template>
 
@@ -39,5 +54,11 @@ export default {
 
 .line
   margin: 10px 0
+
+.line > input, .line > textarea
+  width: 100%
+
+.line > textarea
+  height: 120px
 
 </style>
