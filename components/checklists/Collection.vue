@@ -21,16 +21,27 @@
     <div :id='$style.body'>
       <CollectionInfos :collection='collection' :onChange='c => this.$data.collection = c' />
       <div :id='$style.seeds'>
-        <div v-for='seed in checklistSeeds' :key='seed.id' :class='$style.seed' @click='() => $router.push(`/checklistseed/${seed.id}`)'>
-          <div>
-            <h4>{{ seed.title }}</h4>
-            {{ seed.description }}
+          <div v-for='(seed, i) in checklistSeeds' :key='seed.id' :class='$style.seed' @click='() => $router.push(`/checklistseed/${seed.id}`)'>
+            <div :class='$style.info'>
+              <div>
+                <h4>{{ i+1 }}. {{ seed.title }}</h4>
+                &nbsp;&nbsp;&nbsp;{{ seed.description }}
+              </div>
+              <div>
+                <a href='javascript:void(0)' @click='(e) => onRemove(e, seed.id)'>Remove</a>&nbsp;
+                <a href='javascript:void(0)'>View</a>
+              </div>
+            </div>
+            <div :class='$style.config'>
+              <h4>Conditions</h4>
+              <div v-for='c in conditions(seed)' v-html='Object.keys(c).map((k) => `${k}: ${c[k]}`).join("<br />")'></div>
+              <h4>Exit Conditions</h4>
+              <div v-for='c in exitConditions(seed)' v-html='Object.keys(c).map((k) => `${k}: ${c[k]}`).join("<br />")'></div>
+              <h4>Actions</h4>
+              <div v-for='c in actions(seed)' v-html='Object.keys(c).map((k) => `${k}: ${c[k]}`).join("<br />")'></div>
+            </div>
+            <div :class='$style.separator'></div>
           </div>
-          <div>
-            <a href='javascript:void(0)' @click='(e) => onRemove(e, seed.id)'>Remove</a>&nbsp;
-            <a href='javascript:void(0)'>View</a>
-          </div>
-        </div>
       </div>
       <div :id='$style.button'>
         <nuxt-link :to='`/checklistseed/${collection.id}_new`' :class='!collection.id ? $style.disabled : ""'>+ Add checklist seed</nuxt-link>
@@ -65,6 +76,21 @@ export default {
     }
   },
   computed: {
+    conditions() {
+      return (checklistSeed) => {
+        return JSON.parse(checklistSeed.conditions)
+      }
+    },
+    exitConditions() {
+      return (checklistSeed) => {
+        return JSON.parse(checklistSeed.exitConditions)
+      }
+    },
+    actions() {
+      return (checklistSeed) => {
+        return JSON.parse(checklistSeed.actions)
+      }
+    },
   },
   methods: {
     async loadChecklistSeeds() {
@@ -161,6 +187,10 @@ export default {
 
 .seed
   display: flex
+  flex-direction: column
+
+.info
+  display: flex
   justify-content: space-between
   align-items: center
   padding: 20px 10px
@@ -168,5 +198,14 @@ export default {
 
 .seed:hover
   background-color: #efefef
+
+.config
+  margin: 0 30px 20px 30px
+
+.config > h4
+  margin: 20px 0 5px 0
+
+.separator
+  border: 2px dashed #dedede
 
 </style>

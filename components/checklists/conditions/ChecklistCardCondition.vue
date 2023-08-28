@@ -19,7 +19,7 @@
 <template>
   <ChecklistSection :icon='require("~/assets/img/icon_diary.svg")' title='Checklist card condition' :onClose='onClose'>
     <div :class='$style.line'>
-      After:&nbsp;&nbsp;<ChecklistCardType :value='condition.phase' :onChange='(v) => onChange(Object.assign({}, condition, {entryType: v}))' />
+      After:&nbsp;&nbsp;<ChecklistCardType :value='condition.entryType' :onChange='(v) => onChange(Object.assign({}, condition, {entryType: v}))' />
     </div>
     <ConditionDuration :duration='condition.duration' :durationUnit='condition.durationUnit' :onChange='(duration, durationUnit) => onChange(Object.assign({}, condition, {duration, durationUnit}))' />
   </ChecklistSection>
