@@ -19,29 +19,31 @@
 <template>
   <section :id='$style.container'>
     <div :id='$style.body'>
+      <h2>Collection Info</h2>
       <CollectionInfos :collection='collection' :onChange='c => this.$data.collection = c' />
       <div :id='$style.seeds'>
-          <div v-for='(seed, i) in checklistSeeds' :key='seed.id' :class='$style.seed' @click='() => $router.push(`/checklistseed/${seed.id}`)'>
-            <div :class='$style.info'>
-              <div>
-                <h4>{{ i+1 }}. {{ seed.title }}</h4>
-                &nbsp;&nbsp;&nbsp;{{ seed.description }}
-              </div>
-              <div>
-                <a href='javascript:void(0)' @click='(e) => onRemove(e, seed.id)'>Remove</a>&nbsp;
-                <a href='javascript:void(0)'>View</a>
-              </div>
+        <h2>Seeds</h2>
+        <div v-for='(seed, i) in checklistSeeds' :key='seed.id' :class='$style.seed' @click='() => $router.push(`/checklistseed/${seed.id}`)'>
+          <div :class='$style.info'>
+            <div>
+              <h3>{{ i+1 }}. {{ seed.title }}</h3>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ seed.description }}
             </div>
-            <div :class='$style.config'>
-              <h4>Conditions</h4>
-              <div v-for='c in conditions(seed)' v-html='Object.keys(c).map((k) => `${k}: ${c[k]}`).join("<br />")'></div>
-              <h4>Exit Conditions</h4>
-              <div v-for='c in exitConditions(seed)' v-html='Object.keys(c).map((k) => `${k}: ${c[k]}`).join("<br />")'></div>
-              <h4>Actions</h4>
-              <div v-for='c in actions(seed)' v-html='Object.keys(c).map((k) => `${k}: ${c[k]}`).join("<br />")'></div>
+            <div>
+              <a href='javascript:void(0)' @click='(e) => onRemove(e, seed.id)'>Remove</a>&nbsp;
+              <a href='javascript:void(0)'>View</a>
             </div>
-            <div :class='$style.separator'></div>
           </div>
+          <div :class='$style.config'>
+            <h4>Conditions</h4>
+            <div v-for='c in conditions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
+            <h4>Exit Conditions</h4>
+            <div v-for='c in exitConditions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
+            <h4>Actions</h4>
+            <div v-for='c in actions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
+          </div>
+          <div :class='$style.separator'></div>
+        </div>
       </div>
       <div :id='$style.button'>
         <nuxt-link :to='`/checklistseed/${collection.id}_new`' :class='!collection.id ? $style.disabled : ""'>+ Add checklist seed</nuxt-link>
@@ -146,7 +148,7 @@ export default {
   flex-direction: column
   background-color: white
   padding: 10px 15px
-  padding-bottom: 40px
+  padding-bottom: 60px
 
 #button
   display: flex
@@ -168,7 +170,7 @@ export default {
   bottom: 0
   left: 120px
   width: 100%
-  max-width: 780px
+  max-width: 790px
   padding: 10px
 
 #save
@@ -188,6 +190,8 @@ export default {
 .seed
   display: flex
   flex-direction: column
+  cursor: pointer
+  margin-bottom: 10px
 
 .info
   display: flex
@@ -196,8 +200,12 @@ export default {
   padding: 20px 10px
   cursor: pointer
 
+.info h3
+  color: #3bb30b
+  margin-bottom: 5px
+
 .seed:hover
-  background-color: #efefef
+  background-color: #fafafa
 
 .config
   margin: 0 30px 20px 30px
@@ -207,5 +215,10 @@ export default {
 
 .separator
   border: 2px dashed #dedede
+
+.condaction
+  margin: 5px 0 10px 10px
+  border-bottom: 1px solid #ababab
+  padding-bottom: 5px
 
 </style>

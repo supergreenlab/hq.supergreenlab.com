@@ -76,7 +76,6 @@ export default {
   async mounted() {
     const parts = this.$route.params.id.split('_')
     let seedID
-    console.log(parts)
     if (parts.length == 2) {
       this.$data.checklistSeed.collectionID = parts[0]
       seedID = parts[1]
@@ -101,8 +100,6 @@ export default {
       this.$data.exitConditions = JSON.parse(checklistSeed.exitConditions)
       this.$data.actions = JSON.parse(checklistSeed.actions)
     }
-
-    console.log(this.$route.params.id)
   },
   methods: {
     setShowSelector(selector) {
