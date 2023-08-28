@@ -37,7 +37,7 @@
           <div :class='$style.config'>
             <h4>Conditions</h4>
             <div v-for='c in conditions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
-            <h4>Exit Conditions</h4>
+            <h4 v-if='exitConditions(seed).length'>Exit Conditions</h4>
             <div v-for='c in exitConditions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
             <h4>Actions</h4>
             <div v-for='c in actions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
