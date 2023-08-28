@@ -22,7 +22,7 @@
       <div :id='$style.title'>
         <img :src='icon' />&nbsp;{{ title }}
       </div>
-      <a v-if='onClose' href='javascript:void(0)' @click='onClose'>X</a>
+      <a v-if='onClose' href='javascript:void(0)' @click='handleClose'>X</a>
     </div>
     <slot></slot>
   </section>
@@ -32,6 +32,14 @@
 
 export default {
   props: ['icon', 'title', 'onClose',],
+  methods: {
+    handleClose() {
+      const c = confirm("Are you sure?")
+      if (c) {
+        this.$props.onClose()
+      }
+    },
+  },
 }
 </script>
 

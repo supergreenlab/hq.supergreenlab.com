@@ -75,16 +75,33 @@ export default {
   },
   async mounted() {
     const parts = this.$route.params.id.split('_')
+    let seedID
+    console.log(parts)
     if (parts.length == 2) {
       this.$data.checklistSeed.collectionID = parts[0]
-      if (parts[1] != 'new') {
-        const { data: checklistSeed } = await axios.put(`${API_URL}/checklistseed/${parts[1]}`, data, {
-          headers: {'Authorization': `Bearer ${token}`}
-        })
-      }
+      seedID = parts[1]
     } else {
-      this.$data.checklistSeed.collectionID = parts[0]
+      seedID = parts[0]
     }
+    if (seedID != 'new') {
+      const { token } = this.$store.state.auth
+      const { data: checklistSeed } = await axios.get(`${API_URL}/checklistseed/${seedID}`, {
+        headers: {'Authorization': `Bearer ${token}`}
+      })
+      this.$data.checklistSeed = {
+        id: checklistSeed.id,
+        collectionID: checklistSeed.collectionID,
+        title: checklistSeed.title,
+        description: checklistSeed.description,
+        category: checklistSeed.category,
+        repeat: checklistSeed.repeat,
+        public: checklistSeed.public,
+      }
+      this.$data.conditions = JSON.parse(checklistSeed.conditions)
+      this.$data.exitConditions = JSON.parse(checklistSeed.exitConditions)
+      this.$data.actions = JSON.parse(checklistSeed.actions)
+    }
+
     console.log(this.$route.params.id)
   },
   methods: {
@@ -130,6 +147,7 @@ export default {
         })
         console.log(resp)
       }
+      this.$router.push(`/collection/${this.$data.checklistSeed.collectionID}`)
     },
   },
 }

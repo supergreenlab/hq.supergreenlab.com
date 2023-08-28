@@ -31,13 +31,13 @@
       <textarea placeholder='ex: When the temperature gets too high, some fungus might develop on your leaves...' :value='checklistSeed.description' @input='e => onChange(Object.assign({}, checklistSeed, {description: e.target.value}))' ></textarea>
     </div>
     <div :class='$style.line'>
-      <div :class='$style.field'>
-        <input type='checkbox' :checked='checklistSeed.repeat' @input='e => onChange(Object.assign({}, checklistSeed, {repeat: !checklistSeed.repeat}))' />&nbsp;This checklist entry can repeat. Entries that don’t repeat will be removed from your checklist when checked.
+      <div :class='$style.field' @click='e => onChange(Object.assign({}, checklistSeed, {repeat: !checklistSeed.repeat}))'>
+        <input type='checkbox' :checked='checklistSeed.repeat' />&nbsp;This checklist entry can repeat. Entries that don’t repeat will be removed from your checklist when checked.
       </div>
     </div>
     <div :class='$style.line'>
-      <div :class='$style.field'>
-        <input type='checkbox' :checked='checklistSeed.public' @input='e => onChange(Object.assign({}, checklistSeed, {public: !checklistSeed.public}))' />&nbsp;Make this checklist entry public so others can add it to their checklist too.
+      <div :class='$style.field' @click='e => onChange(Object.assign({}, checklistSeed, {public: !checklistSeed.public}))'>
+        <input type='checkbox' :checked='checklistSeed.public' />&nbsp;Make this checklist entry public so others can add it to their checklist too.
       </div>
     </div>
   </ChecklistSection>
@@ -77,6 +77,7 @@ export default {
 
 .field
   display: flex
+  cursor: pointer
 
 .line > input, .field > input
   padding: 5px

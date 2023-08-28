@@ -45,11 +45,6 @@ export default {
   height: 100vh
   overflow-y: auto
 
-#leftbar
-  display: flex
-  width: 50pt
-  height: 100vh
-
 #body
   flex: 1
   width: 100%
@@ -58,6 +53,5 @@ export default {
   background-color: white
   margin: 0 20px
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
-  padding: 10px 25px
 
 </style>

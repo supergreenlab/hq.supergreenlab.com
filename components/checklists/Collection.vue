@@ -18,10 +18,23 @@
 
 <template>
   <section :id='$style.container'>
-    <CollectionInfos :collection='collection' :onChange='c => this.$data.collection = c' />
-    <ChecklistSeed v-for='seed in checklistSeeds' :key='seed.id' :seed='seed' />
-    <div :id='$style.button'>
-      <nuxt-link :to='`/checklistseed/${collection.id}_new`' :class='!collection.id ? $style.disabled : ""'>+ Add checklist seed</nuxt-link>
+    <div :id='$style.body'>
+      <CollectionInfos :collection='collection' :onChange='c => this.$data.collection = c' />
+      <div :id='$style.seeds'>
+        <div v-for='seed in checklistSeeds' :key='seed.id' :class='$style.seed' @click='() => $router.push(`/checklistseed/${seed.id}`)'>
+          <div>
+            <h4>{{ seed.title }}</h4>
+            {{ seed.description }}
+          </div>
+          <div>
+            <a href='javascript:void(0)' @click='(e) => onRemove(e, seed.id)'>Remove</a>&nbsp;
+            <a href='javascript:void(0)'>View</a>
+          </div>
+        </div>
+      </div>
+      <div :id='$style.button'>
+        <nuxt-link :to='`/checklistseed/${collection.id}_new`' :class='!collection.id ? $style.disabled : ""'>+ Add checklist seed</nuxt-link>
+      </div>
     </div>
 
     <div :id='$style.bottom'>
@@ -47,10 +60,36 @@ export default {
   },
   mounted() {
     this.$data.collection = this.$store.state.checklists.collections.find(c => c.id == this.$props.collectionID) || {}
+    if (this.$props.collectionID != 'new') {
+      this.loadChecklistSeeds()
+    }
   },
   computed: {
   },
   methods: {
+    async loadChecklistSeeds() {
+      const { token } = this.$store.state.auth
+      const { data: { checklistseeds: checklistSeeds } } = await axios.get(`${API_URL}/checklistcollection/${this.$props.collectionID}/seeds`, {
+        headers: {'Authorization': `Bearer ${token}`}
+      })
+      this.$data.checklistSeeds = checklistSeeds
+    },
+    async onRemove(e, checklistSeedID) {
+      e.stopPropagation()
+      e.preventDefault()
+
+      const c = confirm("Are you sure?")
+      if (!c) {
+        return
+      }
+
+      const { token } = this.$store.state.auth
+      await axios.delete(`${API_URL}/checklistseed/${checklistSeedID}`, {
+        headers: {'Authorization': `Bearer ${token}`}
+      })
+
+      this.loadChecklistSeeds()
+    },
     async onSave() {
       const { token } = this.$store.state.auth
       if (this.$data.collection.id) {
@@ -75,6 +114,13 @@ export default {
 #container
   display: flex
   flex-direction: column
+
+#body
+  display: flex
+  flex-direction: column
+  background-color: white
+  padding: 10px 15px
+  padding-bottom: 40px
 
 #button
   display: flex
@@ -109,5 +155,18 @@ export default {
 .disabled
   background-color: #ababab !important
   pointer-events: none
+
+#seeds
+  margin: 10px 0
+
+.seed
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 20px 10px
+  cursor: pointer
+
+.seed:hover
+  background-color: #efefef
 
 </style>
