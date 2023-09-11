@@ -61,6 +61,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/markdownit',
     'nuxt-client-init-module',
     'portal-vue/nuxt',
     ['@nuxtjs/recaptcha', {

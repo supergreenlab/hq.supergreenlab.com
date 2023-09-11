@@ -18,10 +18,10 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistBuyProductAction v-if='action.type == "buy_product"' :action='action' :onChange='onChange' :onClose='onClose' />
-    <ChecklistDiaryAction v-if='action.type == "card"' :action='action' :onChange='onChange' :onClose='onClose' />
-    <ChecklistMessageAction v-if='action.type == "message"' :action='action' :onChange='onChange' :onClose='onClose' />
-    <ChecklistWebpageAction v-if='action.type == "webpage"' :action='action' :onChange='onChange' :onClose='onClose' />
+    <ChecklistBuyProductAction v-if='action.type == "buy_product"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
+    <ChecklistDiaryAction v-if='action.type == "card"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
+    <ChecklistMessageAction v-if='action.type == "message"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
+    <ChecklistWebpageAction v-if='action.type == "webpage"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
   </section>
 </template>
 

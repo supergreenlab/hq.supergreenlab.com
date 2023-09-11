@@ -27,7 +27,8 @@
           <div :class='$style.info'>
             <div>
               <h3>{{ i+1 }}. {{ seed.title }}</h3>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ seed.description }}
+              <div>&nbsp;&nbsp;&nbsp;<b>Repeat:</b> {{ seed.repeat }}</div>
+              <div v-html='$md.render(seed.description)'></div>
             </div>
             <div>
               <a href='javascript:void(0)' @click='(e) => onRemove(e, seed.id)'>Remove</a>&nbsp;
@@ -36,11 +37,11 @@
           </div>
           <div :class='$style.config'>
             <h4>Conditions</h4>
-            <div v-for='c in conditions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
+            <div v-for='c in conditions(seed)' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
             <h4 v-if='exitConditions(seed).length'>Exit Conditions</h4>
-            <div v-for='c in exitConditions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
+            <div v-for='c in exitConditions(seed)' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
             <h4>Actions</h4>
-            <div v-for='c in actions(seed)' :class='$style.condaction' v-html='Object.keys(c).map((k) => `<b>${k}</b>: ${c[k]}`).join("<br />")'></div>
+            <div v-for='c in actions(seed)' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
           </div>
           <div :class='$style.separator'></div>
         </div>

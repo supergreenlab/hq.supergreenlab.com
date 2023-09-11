@@ -18,7 +18,17 @@
 
 <template>
   <ChecklistSection :icon='require("~/assets/img/icon_reminder.svg")' title='Checklist timer condition' :onClose='onClose'>
-    <date-picker placeholder="MM/DD/YYYY" format="MM/dd/yyyy" :value='condition.date' @input='v => onChange(Object.assign({}, condition, {date: v}))' />
+    <div :class='$style.line'>
+      <date-picker placeholder="MM/DD/YYYY" format="MM/dd/yyyy" :value='condition.date' @input='v => onChange(Object.assign({}, condition, {date: v}))' />
+    </div>
+    <div :class='$style.line'>
+      <div :class='$style.row'>
+        <input type='checkbox' :checked='condition.repeat' @input='e => onChange(Object.assign({}, condition, {repeat: !condition.repeat}))' />&nbsp;This checklist seed should repeat
+      </div>
+    </div>
+    <div :class='$style.line' v-if='condition.repeat'>
+      <ConditionDuration :duration='condition.repeatDuration' :durationUnit='condition.durationUnit' :onChange='(duration, durationUnit) => onChange(Object.assign({}, condition, {repeatDuration: duration, durationUnit}))' />
+    </div>
   </ChecklistSection>
 </template>
 
@@ -34,5 +44,23 @@ export default {
 #container
   display: flex
   flex-direction: column
+
+.line
+  margin: 10px 0
+
+.field
+  display: flex
+  flex-direction: column
+  margin-right: 10px
+
+.field > input
+  height: 35px
+
+.row
+  display: flex
+  align-items: center
+
+.row > b
+  font-weight: bold
 
 </style>

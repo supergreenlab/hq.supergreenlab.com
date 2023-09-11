@@ -31,6 +31,7 @@
       <option value='FE_FIMMING'>Fimming</option>
       <option value='FE_TOPPING'>Topping</option>
       <option value='FE_DEFOLIATION'>Defolation</option>
+      <option value='FE_LIFE_EVENT'>Life event</option>
       <option value='FE_TIMELAPSE'>Timelapse</option>
       <option value='FE_SCHEDULE'>Schedule</option>
       <option value='FE_SCHEDULE_VEG'>Schedule Veg</option>

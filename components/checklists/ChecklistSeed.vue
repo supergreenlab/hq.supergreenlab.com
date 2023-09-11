@@ -22,17 +22,17 @@
       <ChecklistInfos :checklistSeed='checklistSeed' :onChange='(cs) => this.$data.checklistSeed = cs' />
       <div :class='$style.section'>
         <h3>Conditions</h3>
-        <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => $set(conditions, i, value)' :onClose='() => onRemoveCondition(i)' />
+        <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => onChange(conditions, i, value)' :onClose='() => onRemoveCondition(i)' />
         <a href='javascript:void(0)' @click='setShowSelector("condition")'>+ Add condition</a>
       </div>
       <div :class='$style.section'>
         <h3>Exit conditions</h3>
-        <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => $set(exitConditions, i, value)' :onClose='() => onRemoveExitCondition(i)' />
+        <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => onChange(exitConditions, i, value)' :onClose='() => onRemoveExitCondition(i)' />
         <a href='javascript:void(0)' @click='setShowSelector("exitCondition")'>+ Add exit condition</a>
       </div>
       <div :class='$style.section'>
         <h3>Actions</h3>
-        <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => $set(actions, i, value)' :onClose='() => onRemoveAction(i)' />
+        <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => onChange(actions, i, value)' :onClose='() => onRemoveAction(i)' />
         <a href='javascript:void(0)' @click='setShowSelector("action")'>+ Add action</a>
       </div>
     </div>
@@ -102,6 +102,21 @@ export default {
     }
   },
   methods: {
+    onChange(array, i, params) {
+      let value = array[i]
+      if (!value.params) {
+        const p = Object.assign({}, value, params)
+        delete p.type
+        value = {
+          type: value.type,
+          params: p,
+        }
+        console.log(value)
+      } else {
+        value.params = Object.assign(value.params, params)
+      }
+      this.$set(array, i, value)
+    },
     setShowSelector(selector) {
       this.$data.showSelector=selector
     },

@@ -18,10 +18,10 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistCardCondition v-if='condition.type == "after_card"' :condition='condition' :onChange='onChange' :onClose='onClose' />
-    <ChecklistMetricCondition v-if='condition.type == "metric"' :condition='condition' :onChange='onChange' :onClose='onClose' />
-    <ChecklistPhaseCondition v-if='condition.type == "after_phase"' :condition='condition' :onChange='onChange' :onClose='onClose' />
-    <ChecklistTimerCondition v-if='condition.type == "timer"' :condition='condition' :onChange='onChange' :onClose='onClose' />
+    <ChecklistCardCondition v-if='condition.type == "after_card"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
+    <ChecklistMetricCondition v-if='condition.type == "metric"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
+    <ChecklistPhaseCondition v-if='condition.type == "after_phase"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
+    <ChecklistTimerCondition v-if='condition.type == "timer"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
   </section>
 </template>
 
