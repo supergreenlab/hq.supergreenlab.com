@@ -37,11 +37,11 @@
           </div>
           <div :class='$style.config'>
             <h4>Conditions</h4>
-            <div v-for='c in conditions(seed)' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
-            <h4 v-if='exitConditions(seed).length'>Exit Conditions</h4>
-            <div v-for='c in exitConditions(seed)' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            <div v-for='c in seed.conditions' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            <h4 v-if='seed.exitConditions.length'>Exit Conditions</h4>
+            <div v-for='c in seed.exitConditions' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
             <h4>Actions</h4>
-            <div v-for='c in actions(seed)' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            <div v-for='c in seed.actions' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
           </div>
           <div :class='$style.separator'></div>
         </div>
@@ -79,27 +79,45 @@ export default {
     }
   },
   computed: {
-    conditions() {
-      return (checklistSeed) => {
-        return JSON.parse(checklistSeed.conditions)
-      }
-    },
-    exitConditions() {
-      return (checklistSeed) => {
-        return JSON.parse(checklistSeed.exitConditions)
-      }
-    },
-    actions() {
-      return (checklistSeed) => {
-        return JSON.parse(checklistSeed.actions)
-      }
-    },
   },
   methods: {
     async loadChecklistSeeds() {
       const { token } = this.$store.state.auth
-      const { data: { checklistseeds: checklistSeeds } } = await axios.get(`${API_URL}/checklistcollection/${this.$props.collectionID}/seeds`, {
+      let { data: { checklistseeds: checklistSeeds } } = await axios.get(`${API_URL}/checklistcollection/${this.$props.collectionID}/seeds`, {
         headers: {'Authorization': `Bearer ${token}`}
+      })
+      /*checklistSeeds = checklistSeeds.filter(cs => {
+        console.log(cs.conditions, cs.conditions.indexOf('\\"duration\\":\\"'))
+        return cs.conditions.indexOf('\\"duration\\":\\"') != -1
+      })*/
+      /*checklistSeeds = checklistSeeds.filter(cs => {
+        console.log(cs.conditions, cs.conditions.indexOf('\\"duration\\":\\"'))
+        return cs.category
+      })*/
+      checklistSeeds = checklistSeeds.map(cs => {
+        console.log(cs.conditions)
+        cs.conditions = JSON.parse(cs.conditions)
+        cs.conditions = cs.conditions.map(c => {
+          if (typeof c.params != 'string') {
+            return c
+          }
+          return Object.assign(c, {params: JSON.parse(c.params)})
+        })
+        cs.exitConditions = JSON.parse(cs.exitConditions)
+        cs.exitConditions = cs.exitConditions.map(c => {
+          if (typeof c.params != 'string') {
+            return c
+          }
+          return Object.assign(c, {params: JSON.parse(c.params)})
+        })
+        cs.actions = JSON.parse(cs.actions)
+        cs.actions = cs.actions.map(c => {
+          if (typeof c.params != 'string') {
+            return c
+          }
+          return Object.assign(c, {params: JSON.parse(c.params)})
+        })
+        return cs
       })
       this.$data.checklistSeeds = checklistSeeds
     },

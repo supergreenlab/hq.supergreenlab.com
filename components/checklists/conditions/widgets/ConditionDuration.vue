@@ -18,7 +18,7 @@
 
 <template>
   <section :id='$style.container'>
-    <input :value='duration' @input='(e) => onChange(e.target.value, durationUnit)' />
+    <input :value='duration' @input='(e) => onChange(parseInt(e.target.value), durationUnit)' />
     <div v-if='fixedDuration'>Days</div>
     <select v-else :value='durationUnit' @input='(e) => onChange(duration, e.target.value)'>
       <option value='MINUTES'>Min</option>

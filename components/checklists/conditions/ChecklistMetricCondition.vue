@@ -35,11 +35,11 @@
       <div :class='$style.row'>
         <div :class='$style.field'>
           Minimum value:
-          <input :value='condition.min' @input='e => onChange(Object.assign({}, condition, {min: e.target.value}))' />
+          <input :value='condition.min' @input='e => onChange(Object.assign({}, condition, {min: parseFloat(e.target.value)}))' />
         </div>
         <div :class='$style.field'>
           Maximum value:
-          <input :value='condition.max' @input='e => onChange(Object.assign({}, condition, {max: e.target.value}))' />
+          <input :value='condition.max' @input='e => onChange(Object.assign({}, condition, {max: parseFloat(e.target.value)}))' />
         </div>
       </div>
     </div>

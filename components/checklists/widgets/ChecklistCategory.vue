@@ -20,12 +20,12 @@
   <section :id='$style.container'>
     <select :value='value' @input='e => onChange(e.target.value)'>
       <option disabled selected hidden>Choose card type</option>
-      <option value='CH_FEEDING'>Feeding</option>
-      <option value='CH_PESTS'>Pest/fungus/parasits control</option>
-      <option value='CH_TRAINING'>Plant care and training</option>
-      <option value='CH_ENVIRONMENT'>Environment</option>
-      <option value='CH_SUPPLY'>Supply</option>
-      <option value='CH_OTHER'>Other</option>
+      <option value='FEEDING'>Feeding</option>
+      <option value='PESTS'>Pest/fungus/parasits control</option>
+      <option value='TRAINING'>Plant care and training</option>
+      <option value='ENVIRONMENT'>Environment</option>
+      <option value='SUPPLY'>Supply</option>
+      <option value='OTHER'>Other</option>
     </select>
   </section>
 </template>

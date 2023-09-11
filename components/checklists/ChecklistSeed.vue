@@ -96,9 +96,24 @@ export default {
         repeat: checklistSeed.repeat,
         public: checklistSeed.public,
       }
-      this.$data.conditions = JSON.parse(checklistSeed.conditions)
-      this.$data.exitConditions = JSON.parse(checklistSeed.exitConditions)
-      this.$data.actions = JSON.parse(checklistSeed.actions)
+      this.$data.conditions = JSON.parse(checklistSeed.conditions).map(c => {
+        if (typeof c.params != 'string') {
+          return c
+        }
+        return Object.assign({}, c, {params: JSON.parse(c.params)})
+      })
+      this.$data.exitConditions = JSON.parse(checklistSeed.exitConditions).map(c => {
+        if (typeof c.params != 'string') {
+          return c
+        }
+        return Object.assign({}, c, {params: JSON.parse(c.params)})
+      })
+      this.$data.actions = JSON.parse(checklistSeed.actions).map(c => {
+        if (typeof c.params != 'string') {
+          return c
+        }
+        return Object.assign({}, c, {params: JSON.parse(c.params)})
+      })
     }
   },
   methods: {
@@ -144,9 +159,9 @@ export default {
     async onSave() {
       const { token } = this.$store.state.auth
       const data = Object.assign({}, this.$data.checklistSeed, {
-        conditions: JSON.stringify(this.$data.conditions),
-        exitConditions: JSON.stringify(this.$data.exitConditions),
-        actions: JSON.stringify(this.$data.actions),
+        conditions: JSON.stringify(this.$data.conditions.map(c => Object.assign({}, c, {params: JSON.stringify(c.params)}))),
+        exitConditions: JSON.stringify(this.$data.exitConditions.map(c => Object.assign({}, c, {params: JSON.stringify(c.params)}))),
+        actions: JSON.stringify(this.$data.actions.map(a => Object.assign({}, a, {params: JSON.stringify(a.params)}))),
       })
       if (this.$data.checklistSeed.id) {
         const resp = await axios.put(`${API_URL}/checklistseed`, data, {
