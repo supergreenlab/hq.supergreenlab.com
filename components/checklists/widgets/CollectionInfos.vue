@@ -30,11 +30,15 @@
       <h4>Category</h4>
       <select :value='collection.category' @input='e => onChange(Object.assign({}, collection, {category: e.target.value}))'>
         <option></option>
-        <option value='CO_BASICS'>The basics</option>
-        <option value='CO_NUTRIENT'>Nutrient timeline</option>
-        <option value='CO_RECIPE'>Recipe</option>
-        <option value='CO_OTHER'>Other</option>
+        <option value='BASICS'>The basics</option>
+        <option value='NUTRIENT'>Nutrient timeline</option>
+        <option value='RECIPE'>Recipe</option>
       </select>
+    </div>
+    <div :class='$style.line'>
+      <div :class='$style.field' @click='e => onChange(Object.assign({}, collection, {ready: !collection.ready}))'>
+        <input type='checkbox' :checked='collection.ready' />&nbsp;Collection is ready to be listed on the collection page
+      </div>
     </div>
   </section>
 </template>
@@ -65,5 +69,13 @@ export default {
 
 .line > textarea
   height: 120px
+
+.field
+  display: flex
+  cursor: pointer
+
+.line > input, .field > input
+  padding: 5px
+  margin-right: 10px
 
 </style>

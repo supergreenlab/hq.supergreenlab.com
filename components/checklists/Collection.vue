@@ -86,16 +86,7 @@ export default {
       let { data: { checklistseeds: checklistSeeds } } = await axios.get(`${API_URL}/checklistcollection/${this.$props.collectionID}/seeds`, {
         headers: {'Authorization': `Bearer ${token}`}
       })
-      /*checklistSeeds = checklistSeeds.filter(cs => {
-        console.log(cs.conditions, cs.conditions.indexOf('\\"duration\\":\\"'))
-        return cs.conditions.indexOf('\\"duration\\":\\"') != -1
-      })*/
-      /*checklistSeeds = checklistSeeds.filter(cs => {
-        console.log(cs.conditions, cs.conditions.indexOf('\\"duration\\":\\"'))
-        return cs.category
-      })*/
       checklistSeeds = checklistSeeds.map(cs => {
-        console.log(cs.conditions)
         cs.conditions = JSON.parse(cs.conditions)
         cs.conditions = cs.conditions.map(c => {
           if (typeof c.params != 'string') {

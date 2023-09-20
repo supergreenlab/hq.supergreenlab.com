@@ -18,8 +18,9 @@
 
 <template>
   <section :id='$style.container'>
-    <div v-for="collection in collections">
-      {{ collection }}
+    <div v-for="collection in collections" :class='$style.collection'>
+      <h2>{{ collection.title }}</h2>
+      <p>{{ collection.description }}</p>
       <nuxt-link :to='`/collection/${collection.id}`'>View</nuxt-link>
     </div>
     <nuxt-link :to='`/collection/new`'>Add new collection</nuxt-link>
@@ -50,5 +51,8 @@ export default {
   display: flex
   flex-direction: column
   user-select: none
+
+.collection
+  margin: 10px 20px
 
 </style>
