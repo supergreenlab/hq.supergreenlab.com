@@ -21,7 +21,7 @@ import axios from 'axios'
 
 import { loadFromStorage, saveToStorage } from '~/lib/client-side.js'
 
-const STORAGE_ITEM='lab2'
+const STORAGE_ITEM='checklists'
 const API_URL=process.env.API_URL
 
 export const state = () => {
