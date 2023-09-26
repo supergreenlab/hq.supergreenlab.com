@@ -214,6 +214,10 @@ export default {
   color: #3bb30b
   margin-bottom: 5px
 
+.info p
+  padding: 10px 15px;
+  text-align: left;
+
 .seed:hover
   background-color: #fafafa
 
