@@ -20,8 +20,8 @@
   <section :id='$style.container'>
     <select :value='value' @input='e => onChange(e.target.value)'>
       <option disabled selected hidden>Choose phase</option>
-      <option value='SEED'>Seed</option>
-      <option value='SEEDLING'>Seedling</option>
+      <option value='CLONING'>Cloning</option>
+      <option value='SEED'>Seedling</option>
       <option value='VEGGING'>Vegging</option>
       <option value='BLOOMING'>Blooming</option>
       <option value='DRYING'>Drying</option>
