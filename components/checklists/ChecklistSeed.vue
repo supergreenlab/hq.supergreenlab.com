@@ -126,7 +126,6 @@ export default {
           type: value.type,
           params: p,
         }
-        console.log(value)
       } else {
         value.params = Object.assign(value.params, params)
       }

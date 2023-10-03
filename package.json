@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/recaptcha": "^1.1.2",
     "@nuxtjs/markdownit": "^2.0.0",
+    "@nuxtjs/recaptcha": "^1.1.2",
     "byte-base64": "^1.1.0",
     "chart.js": "3.9.1",
     "chartjs-adapter-date-fns": "^2.0.1",
@@ -24,6 +24,7 @@
     "portal-vue": "^2.1.7",
     "stylus": "^0.55.0",
     "stylus-loader": "^4.3.3",
+    "uuid": "^9.0.1",
     "vue-chartjs": "4.1.2",
     "vue-infinite-loading": "^2.4.5",
     "vue-select": "^3.16.0",

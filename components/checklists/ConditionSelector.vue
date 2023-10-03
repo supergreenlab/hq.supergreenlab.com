@@ -30,6 +30,8 @@
 
 <script>
 
+import { v4 as uuidv4 } from 'uuid';
+
 export default {
   props: ['onConditionCreated', 'onClose',],
   data() {
@@ -40,21 +42,33 @@ export default {
     onCreateAfterCard() {
       this.$props.onConditionCreated({
         type: 'after_card',
+        params: {
+          id: uuidv4(),
+        },
       })
     },
     onCreateMetric() {
       this.$props.onConditionCreated({
         type: 'metric',
+        params: {
+          id: uuidv4(),
+        },
       })
     },
     onCreateAfterPhase() {
       this.$props.onConditionCreated({
         type: 'after_phase',
+        params: {
+          id: uuidv4(),
+        },
       })
     },
     onCreateTimer() {
       this.$props.onConditionCreated({
         type: 'timer',
+        params: {
+          id: uuidv4(),
+        },
       })
     },
   },

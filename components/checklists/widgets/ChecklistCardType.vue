@@ -32,11 +32,14 @@
       <option value='FE_TOPPING'>Topping</option>
       <option value='FE_DEFOLIATION'>Defolation</option>
       <option value='FE_LIFE_EVENT'>Life event</option>
-      <option value='FE_TIMELAPSE'>Timelapse</option>
+      <option v-if='creatableCards' value='FE_LIFE_EVENT_CLONING'>Life event cloning</option>
+      <option v-if='creatableCards' value='FE_LIFE_EVENT_GERMINATING'>Life event germination</option>
+      <option v-if='creatableCards' value='FE_LIFE_EVENT_VEGGING'>Life event vegging</option>
+      <option v-if='creatableCards' value='FE_LIFE_EVENT_BLOOMING'>Life event blooming</option>
+      <option v-if='creatableCards' value='FE_LIFE_EVENT_DRYING'>Life event drying</option>
+      <option v-if='creatableCards' value='FE_LIFE_EVENT_CURING'>Life event curing</option>
+      <option v-if='creatableCards' value='FE_TIMELAPSE'>Timelapse</option>
       <option value='FE_SCHEDULE'>Schedule</option>
-      <option value='FE_SCHEDULE_VEG'>Schedule Veg</option>
-      <option value='FE_SCHEDULE_BLOOM'>Schedule Bloom</option>
-      <option value='FE_SCHEDULE_AUTO'>Schedule Auto</option>
     </select>
   </section>
 </template>
@@ -44,7 +47,7 @@
 <script>
 
 export default {
-  props: ['value', 'onChange'],
+  props: ['value', 'onChange', 'creatableCards'],
 }
 </script>
 
