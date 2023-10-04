@@ -22,7 +22,11 @@
       <div :id='$style.title'>
         <img :src='icon' />&nbsp;{{ title }}
       </div>
-      <a v-if='onClose' href='javascript:void(0)' @click='handleClose'>X</a>
+      <div>
+        <a v-if='onMoveUp' href='javascript:void(0)' @click='onMoveUp'><img src='~/assets/img/icon_up_arrow.svg' />&nbsp;</a>
+        <a v-if='onMoveDown' href='javascript:void(0)' @click='onMoveDown'><img src='~/assets/img/icon_down_arrow.svg' />&nbsp;</a>
+        <a v-if='onClose' href='javascript:void(0)' @click='handleClose'>X</a>
+      </div>
     </div>
     <slot></slot>
   </section>
@@ -31,7 +35,7 @@
 <script>
 
 export default {
-  props: ['icon', 'title', 'onClose',],
+  props: ['icon', 'title', 'onClose', 'onMoveUp', 'onMoveDown'],
   methods: {
     handleClose() {
       const c = confirm("Are you sure?")
@@ -58,10 +62,13 @@ export default {
   display: flex
   justify-content: space-between
 
-#header > a
+#header a
   text-decoration: none
   font-weight: bold
   color: #454545
+
+#header img
+  height: 11px
 
 #title
   display: flex

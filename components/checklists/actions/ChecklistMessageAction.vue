@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_message.svg")' title='Checklist message action' :onClose='onClose'>
+  <ChecklistSection :icon='require("~/assets/img/icon_message.svg")' title='Checklist message action' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose'>
     <div :class='$style.line'>
       <h4>Notification title</h4>
       <input type='text' placeholder='Ex: Check that ...'  :value='action.title' @input='e => onChange(Object.assign({}, action, {title: e.target.value}))' />

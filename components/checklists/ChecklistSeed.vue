@@ -22,17 +22,17 @@
       <ChecklistInfos :checklistSeed='checklistSeed' :onChange='(cs) => this.$data.checklistSeed = cs' />
       <div :class='$style.section'>
         <h3>Conditions</h3>
-        <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => onChange(conditions, i, value)' :onClose='() => onRemoveCondition(i)' />
+        <ChecklistCondition v-for='(c, i) in conditions' :key='c.id' :condition='c' :onChange='value => onChange(conditions, i, value)' :onMoveUp='i == 0 ? null : () => onMoveUp(conditions, i)' :onMoveDown='conditions.length == 1 || i == conditions.length-1 ? null : () => onMoveDown(conditions, i)' :onClose='() => onRemoveCondition(i)' />
         <a href='javascript:void(0)' @click='setShowSelector("condition")'>+ Add condition</a>
       </div>
       <div :class='$style.section'>
         <h3>Exit conditions</h3>
-        <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => onChange(exitConditions, i, value)' :onClose='() => onRemoveExitCondition(i)' />
+        <ChecklistCondition v-for='(c, i) in exitConditions' :key='c.id' :condition='c' :onChange='value => onChange(exitConditions, i, value)' :onMoveUp='i == 0 ? null : () => onMoveUp(exitConditions, i)' :onMoveDown='exitConditions.length == 1 || i == exitConditions.length-1 ? null : () => onMoveDown(exitConditions, i)' :onClose='() => onRemoveExitCondition(i)' />
         <a href='javascript:void(0)' @click='setShowSelector("exitCondition")'>+ Add exit condition</a>
       </div>
       <div :class='$style.section'>
         <h3>Actions</h3>
-        <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => onChange(actions, i, value)' :onClose='() => onRemoveAction(i)' />
+        <ChecklistAction v-for='(a, i) in actions' :key='a.id' :action='a' :onChange='value => onChange(actions, i, value)' :onMoveUp='i == 0 ? null : () => onMoveUp(actions, i)' :onMoveDown='actions.length == 1 || i == actions.length-1 ? null : () => onMoveDown(actions, i)' :onClose='() => onRemoveAction(i)' />
         <a href='javascript:void(0)' @click='setShowSelector("action")'>+ Add action</a>
       </div>
     </div>
@@ -129,6 +129,16 @@ export default {
       } else {
         value.params = Object.assign(value.params, params)
       }
+      this.$set(array, i, value)
+    },
+    onMoveUp(array, i) {
+      let value = array[i-1]
+      this.$set(array, i-1, array[i])
+      this.$set(array, i, value)
+    },
+    onMoveDown(array, i) {
+      let value = array[i+1]
+      this.$set(array, i+1, array[i])
       this.$set(array, i, value)
     },
     setShowSelector(selector) {

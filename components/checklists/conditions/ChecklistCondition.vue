@@ -18,17 +18,17 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistCardCondition v-if='condition.type == "after_card"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
-    <ChecklistMetricCondition v-if='condition.type == "metric"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
-    <ChecklistPhaseCondition v-if='condition.type == "after_phase"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
-    <ChecklistTimerCondition v-if='condition.type == "timer"' :condition='condition.params || condition' :onChange='onChange' :onClose='onClose' />
+    <ChecklistCardCondition v-if='condition.type == "after_card"' :condition='condition.params || condition' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
+    <ChecklistMetricCondition v-if='condition.type == "metric"' :condition='condition.params || condition' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
+    <ChecklistPhaseCondition v-if='condition.type == "after_phase"' :condition='condition.params || condition' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
+    <ChecklistTimerCondition v-if='condition.type == "timer"' :condition='condition.params || condition' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
   </section>
 </template>
 
 <script>
 
 export default {
-  props: ['condition', 'onChange', 'onClose'],
+  props: ['condition', 'onChange', 'onMoveDown', 'onMoveUp', 'onClose'],
 }
 </script>
 

@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_reminder.svg")' title='Checklist timer condition' :onClose='onClose'>
+  <ChecklistSection :icon='require("~/assets/img/icon_reminder.svg")' title='Checklist timer condition' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose'>
     <div :class='$style.line'>
       <date-picker placeholder="MM/DD/YYYY" format="MM/dd/yyyy" :value='condition.date' @input='v => onChange(Object.assign({}, condition, {date: v}))' />
     </div>
@@ -35,7 +35,7 @@
 <script>
 
 export default {
-  props: ['condition', 'onChange', 'onClose',],
+  props: ['condition', 'onChange', 'onMoveUp', 'onMoveDown', 'onClose',],
 }
 </script>
 

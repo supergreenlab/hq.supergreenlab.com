@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_webpage.svg")' title='Checklist webpage action' :onClose='onClose'>
+  <ChecklistSection :icon='require("~/assets/img/icon_webpage.svg")' title='Checklist webpage action' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose'>
     <div :class='$style.line'>
       <h4>Enter URL of the webpage to open:</h4>
       <input type='text' placeholder='https://...' :value='action.url' @input='e => onChange(Object.assign({}, action, {url: e.target.value}))' />

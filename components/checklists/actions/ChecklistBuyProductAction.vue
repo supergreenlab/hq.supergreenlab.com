@@ -17,7 +17,7 @@
  -->
 
 <template>
-  <ChecklistSection :icon='require("~/assets/img/icon_buy_product.svg")' title='Checklist buy product action' :onClose='onClose'>
+  <ChecklistSection :icon='require("~/assets/img/icon_buy_product.svg")' title='Checklist buy product action' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose'>
     <div :class='$style.line'>
       <h4>Name of the product</h4>
       <input type='text' placeholder='Ex: Calmag' :value='action.name' @input='e => onChange(Object.assign({}, action, {name: e.target.value}))' />
@@ -36,7 +36,7 @@
 <script>
 
 export default {
-  props: ['action', 'onChange', 'onClose'],
+  props: ['action', 'onChange', 'onMoveUp', 'onMoveDown', 'onClose'],
 }
 </script>
 

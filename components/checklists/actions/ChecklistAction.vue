@@ -18,17 +18,17 @@
 
 <template>
   <section :id='$style.container'>
-    <ChecklistBuyProductAction v-if='action.type == "buy_product"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
-    <ChecklistDiaryAction v-if='action.type == "card"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
-    <ChecklistMessageAction v-if='action.type == "message"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
-    <ChecklistWebpageAction v-if='action.type == "webpage"' :action='action.params || action' :onChange='onChange' :onClose='onClose' />
+    <ChecklistBuyProductAction v-if='action.type == "buy_product"' :action='action.params || action' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
+    <ChecklistDiaryAction v-if='action.type == "card"' :action='action.params || action' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
+    <ChecklistMessageAction v-if='action.type == "message"' :action='action.params || action' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
+    <ChecklistWebpageAction v-if='action.type == "webpage"' :action='action.params || action' :onChange='onChange' :onMoveUp='onMoveUp' :onMoveDown='onMoveDown' :onClose='onClose' />
   </section>
 </template>
 
 <script>
 
 export default {
-  props: ['action', 'onChange', 'onClose'],
+  props: ['action', 'onChange', 'onMoveUp', 'onMoveDown', 'onClose'],
 }
 </script>
 
