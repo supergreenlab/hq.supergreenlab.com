@@ -42,7 +42,7 @@
               <div :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
             </div>
             <h4 v-if='seed.exitConditions.length'>Exit Conditions</h4>
-            <div v-for='c in seed.conditions'>
+            <div v-for='c in seed.exitConditions'>
               <div :class='$style.condactiontitle'>type: <b>{{ c.type }}</b></div>
               <div :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
             </div>
