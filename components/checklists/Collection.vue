@@ -37,11 +37,20 @@
           </div>
           <div :class='$style.config'>
             <h4>Conditions</h4>
-            <div v-for='c in seed.conditions' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            <div v-for='c in seed.conditions'>
+              <div :class='$style.condactiontitle'>type: <b>{{ c.type }}</b></div>
+              <div :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            </div>
             <h4 v-if='seed.exitConditions.length'>Exit Conditions</h4>
-            <div v-for='c in seed.exitConditions' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            <div v-for='c in seed.conditions'>
+              <div :class='$style.condactiontitle'>type: <b>{{ c.type }}</b></div>
+              <div :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            </div>
             <h4>Actions</h4>
-            <div v-for='c in seed.actions' :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            <div v-for='c in seed.actions'>
+              <div :class='$style.condactiontitle'>type: <b>{{ c.type }}</b></div>
+              <div :class='$style.condaction' v-html='Object.keys(c.params).map((k) => `<b>${k}</b>: ${c.params[k]}`).join("<br />")'></div>
+            </div>
           </div>
           <div :class='$style.separator'></div>
         </div>
@@ -234,5 +243,10 @@ export default {
   margin: 5px 0 10px 10px
   border-bottom: 1px solid #ababab
   padding-bottom: 5px
+
+.condactiontitle
+  font-size: 1.3em
+  margin: 15px 0 5px 10px
+
 
 </style>
